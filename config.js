@@ -94,9 +94,9 @@ const config = {
             },
             { 
                 q_es: "⚔️ Hệ thống Thách Đấu (Duel)", 
-                a_es: "Muốn so trình PvP với bạn bè mà không sợ mất đồ? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether.",
+                a_es: "Muốn so trình PvP có kits sẵn (Sword, Axe, Mace, SMP, UHC, ...)? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether.",
                 q_en: "⚔️ Hệ thống Thách Đấu (Duel)", 
-                a_en: "Muốn so trình PvP với bạn bè mà không sợ mất đồ? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether."
+                a_en: "Muốn so trình PvP có kits sẵn (Sword, Axe, Mace, SMP, UHC, ...)? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether."
             },
             { 
                 q_es: "🛡️ Cách bảo vệ đất (Claim Land)", 

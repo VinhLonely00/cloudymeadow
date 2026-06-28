@@ -78,7 +78,33 @@ const config = {
             }
         ],
 
-        faq: [],
+        // --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
+        faq: [
+            { 
+                q_es: "📌 Cách chơi cơ bản cho người mới?", 
+                a_es: "Server thuộc thể loại sinh tồn. Khi mới vào game, bạn hãy đi xa khu vực spawn, tìm một vùng đất trống và gõ lệnh <code>/claim</code> để bảo vệ tài sản của mình khỏi bị phá hoại hoặc trộm cắp nhé!",
+                q_en: "📌 Cách chơi cơ bản cho người mới?", 
+                a_en: "Server thuộc thể loại sinh tồn. Khi mới vào game, bạn hãy đi xa khu vực spawn, tìm một vùng đất trống và gõ lệnh <code>/claim</code> để bảo vệ tài sản của mình khỏi bị phá hoại hoặc trộm cắp nhé!"
+            },
+            { 
+                q_es: "📜 Các lệnh Di Chuyển & Cơ Bản", 
+                a_es: "• <code>/spawn</code>: Trở về điểm xuất phát của server.<br>• <code>/sethome [tên]</code>: Đặt điểm nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển về nhà đã đặt.<br>• <code>/tpa [tên_người_chơi]</code>: Gửi yêu cầu dịch chuyển đến ai đó.",
+                q_en: "📜 Các lệnh Di Chuyển & Cơ Bản", 
+                a_en: "• <code>/spawn</code>: Trở về điểm xuất phát của server.<br>• <code>/sethome [tên]</code>: Đặt điểm nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển về nhà đã đặt.<br>• <code>/tpa [tên_người_chơi]</code>: Gửi yêu cầu dịch chuyển đến ai đó."
+            },
+            { 
+                q_es: "⚔️ Hệ thống Thách Đấu (Duel)", 
+                a_es: "Muốn so trình PvP với bạn bè mà không sợ mất đồ? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether.",
+                q_en: "⚔️ Hệ thống Thách Đấu (Duel)", 
+                a_en: "Muốn so trình PvP với bạn bè mà không sợ mất đồ? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether."
+            },
+            { 
+                q_es: "🛡️ Cách bảo vệ đất (Claim Land)", 
+                a_es: "Sử dụng một chiếc xẻng vàng để gõ vào 2 góc đối diện của khu đất để tạo vùng bảo vệ. Bạn có thể dùng lệnh <code>/trust [tên_bạn]</code> để cho phép bạn bè cùng xây dựng chung.",
+                q_en: "🛡️ Cách bảo vệ đất (Claim Land)", 
+                a_en: "Sử dụng một chiếc xẻng vàng để gõ vào 2 góc đối diện của khu đất để tạo vùng bảo vệ. Bạn có thể dùng lệnh <code>/trust [tên_bạn]</code> để cho phép bạn bè cùng xây dựng chung."
+            }
+        ],
 
         // --- VĂN BẢN PHÁP LÝ ---
         legal: {
@@ -147,16 +173,16 @@ const config = {
     interface: {
         es: {
             flag: "vn", name: "Tiếng Việt",
-            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật" },
+            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật", faq: "Cách Chơi" },
             hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
-            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", legal: "CHÍNH SÁCH" },
+            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", faq: "LỆNH & CÁCH CHƠI", legal: "CHÍNH SÁCH" },
             legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }
         },
         en: {
             flag: "vn", name: "Tiếng Việt",
-            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật" },
+            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật", faq: "Cách Chơi" },
             hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
-            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", legal: "CHÍNH SÁCH" },
+            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", faq: "LỆNH & CÁCH CHƠI", legal: "CHÍNH SÁCH" },
             legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }
         }
     }

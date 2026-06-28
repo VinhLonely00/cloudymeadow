@@ -1,9 +1,9 @@
 :root {
     --bg-dark: #050505;
     --bg-card: #0c0c0c;
-    --gold: #d4af37;
-    --gold-hover: #f1c40f;
-    --border: rgba(212, 175, 55, 0.2);
+    --gold: #7ec2eb;        /* Màu xanh sáng lấy từ thân logo chú cừu */
+    --gold-hover: #a3d5f3;  /* Màu xanh nhạt hơn khi di chuột vào nút */
+    --border: rgba(126, 194, 235, 0.15); /* Viền xanh trong suốt nhẹ nhàng */
     --font-main: 'Inter', sans-serif;
     --font-title: 'Oswald', sans-serif;
 }
@@ -28,8 +28,9 @@ body {
     z-index: -2; background: #080808; overflow: hidden;
 }
 .particle {
-    position: absolute; background: rgba(212, 175, 55, 0.1);
-    border: 1px solid rgba(212, 175, 55, 0.15);
+    position: absolute; 
+    background: rgba(126, 194, 235, 0.05); /* ĐỒNG BỘ: Đổi sang hạt bay màu xanh nhẹ */
+    border: 1px solid rgba(126, 194, 235, 0.1); /* ĐỒNG BỘ: Viền hạt bay màu xanh */
     bottom: -50px; animation: riseUp linear infinite;
 }
 @keyframes riseUp {
@@ -58,7 +59,7 @@ body {
     border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px;
     background: rgba(255,255,255,0.05); transition: 0.3s;
 }
-.selected-lang:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.1); }
+.selected-lang:hover { border-color: var(--gold); background: rgba(126, 194, 235, 0.08); }
 .lang-dropdown {
     position: absolute; top: 120%; right: 0; width: 140px;
     background: #0f0f0f; border: 1px solid var(--border); border-radius: 10px;
@@ -71,7 +72,12 @@ body {
 
 /* Hero */
 #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 80px; }
-.hero-logo { max-width: 320px; margin-bottom: 2rem; filter: drop-shadow(0 0 40px rgba(212,175,55,0.2)); animation: float 6s infinite ease-in-out; }
+.hero-logo { 
+    max-width: 320px; 
+    margin-bottom: 2rem; 
+    filter: drop-shadow(0 0 40px rgba(126, 194, 235, 0.25)); /* ĐỒNG BỘ: Đổi bóng mờ hào quang sang xanh */
+    animation: float 6s infinite ease-in-out; 
+}
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 .hero-subtitle { color: #ccc; margin-bottom: 2rem; font-size: 1.1rem; }
 
@@ -80,7 +86,7 @@ body {
     border-radius: 50px; display: flex; overflow: hidden; cursor: pointer;
     transition: 0.3s; margin-bottom: 20px;
 }
-.ip-wrapper:hover { border-color: var(--gold); box-shadow: 0 0 25px rgba(212,175,55,0.2); transform: scale(1.02); }
+.ip-wrapper:hover { border-color: var(--gold); box-shadow: 0 0 25px rgba(126, 194, 235, 0.15); transform: scale(1.02); }
 .ip-content { padding: 12px 25px; display: flex; align-items: center; gap: 10px; color: var(--gold); font-family: monospace; font-size: 1.1rem; }
 .ip-action { background: var(--gold); color: #000; padding: 12px 25px; font-weight: 800; font-family: var(--font-title); transition: 0.3s; }
 .ip-wrapper.copied { border-color: #2ecc71; }
@@ -117,7 +123,7 @@ section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
     border: 1px solid var(--border); border-left-width: 3px;
     padding: 25px; border-radius: 5px; transition: all 0.3s ease;
 }
-.rule-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.1); background: #111; }
+.rule-card:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 5px 20px rgba(126, 194, 235, 0.1); background: #111; }
 .rule-card h3 { color: var(--gold); font-family: var(--font-title); margin-bottom: 10px; font-size: 1.3rem; }
 .rule-card p { color: #aaa; font-size: 0.95rem; }
 
@@ -127,7 +133,7 @@ section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
     background: var(--bg-card); border: 1px solid var(--border);
     border-radius: 8px; overflow: hidden; transition: 0.3s;
 }
-.faq-item:hover { border-color: rgba(212, 175, 55, 0.5); }
+.faq-item:hover { border-color: var(--gold); } /* ĐỒNG BỘ: Đổi viền hover FAQ sang xanh */
 .faq-item.active { border-color: var(--gold); background: #0e0e0e; }
 
 .faq-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
@@ -152,7 +158,7 @@ section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
 .l-tab { flex: 1; padding: 18px; background: transparent; color: #888; border: none; cursor: pointer; font-weight: 700; transition: 0.3s; font-size: 0.95rem; border-right: 1px solid rgba(255,255,255,0.05); }
 .l-tab:last-child { border-right: none; }
 .l-tab:hover { color: #fff; background: rgba(255,255,255,0.02); }
-.l-tab.active { background: rgba(212, 175, 55, 0.1); color: var(--gold); border-bottom: 2px solid var(--gold); }
+.l-tab.active { background: rgba(126, 194, 235, 0.08); color: var(--gold); border-bottom: 2px solid var(--gold); }
 .legal-content { padding: 40px; color: #ccc; line-height: 1.8; }
 .l-content { display: none; animation: fadeIn 0.4s; }
 .l-content.active { display: block; }

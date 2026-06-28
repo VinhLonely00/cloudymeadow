@@ -35,11 +35,13 @@ function changeLanguage(key) {
     setText('nav-home', ui.nav.home);
     setText('nav-staff', ui.nav.staff);
     setText('nav-rules', ui.nav.rules);
+    setText('nav-faq', ui.nav.faq); // Hồi sinh nút menu FAQ
     setText('hero-subtitle', ui.hero.subtitle);
     setText('hero-btn-copy', ui.hero.btn_copy);
     setText('hero-online', ui.hero.online);
     setText('title-staff', ui.titles.staff);
     setText('title-rules', ui.titles.rules);
+    setText('title-faq', ui.titles.faq); // Hồi sinh tiêu đề FAQ
     setText('title-legal', ui.titles.legal);
 
     setText('tab-tos', ui.legal_tabs.tos);
@@ -63,13 +65,27 @@ function changeLanguage(key) {
         </div>
     `);
 
+    // Hồi sinh hệ thống render danh sách FAQ (Lệnh & Cách chơi)
+    renderGrid('faq-container', config.content.faq, (f) => `
+        <div class="faq-item" onclick="toggleFaq(this)">
+            <div class="faq-header">
+                <span class="faq-q">${f['q' + suffix]}</span>
+                <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-body">
+                <div class="faq-inner">
+                    <p class="faq-a">${f['a' + suffix]}</p>
+                </div>
+            </div>
+        </div>
+    `);
+
     // Legal (HTML)
     document.getElementById('legal-tos').innerHTML = config.content.legal['tos' + suffix];
     document.getElementById('legal-notice').innerHTML = config.content.legal['notice' + suffix];
     document.getElementById('legal-priv').innerHTML = config.content.legal['priv' + suffix];
 
     // Info General
-    // Đã thay đổi cách gán logo chữ động dựa vào config
     const logoText = document.getElementById('nav-logo-text');
     if (logoText) logoText.innerHTML = `${config.serverName.substring(0, 6)}<span>${config.serverName.substring(6)}</span>`;
     
@@ -124,9 +140,14 @@ function openLegal(id) {
     document.getElementById('tab-'+id).classList.add('active');
 }
 
+// Hàm xử lý đóng/mở mượt mà cho bảng lệnh & cách chơi
+function toggleFaq(el) {
+    el.classList.toggle('active');
+}
+
 function renderGrid(id, arr, fn) {
-    const el = document.getElementById(id); el.innerHTML = '';
-    arr.forEach(i => el.innerHTML += fn(i));
+    const el = document.getElementById(id); if(el) el.innerHTML = '';
+    if(el && arr) arr.forEach(i => el.innerHTML += fn(i));
 }
 function setText(id, txt) { if(document.getElementById(id)) document.getElementById(id).innerText = txt; }
 function fetchStatus() {

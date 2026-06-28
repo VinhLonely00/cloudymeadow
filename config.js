@@ -18,15 +18,8 @@ const config = {
         youtube: "https://www.youtube.com/@servermc_00"
     },
 
-    // 3. THÔNG TIN SERVER (Chuyển đổi từ mục voteLinks cũ sang hiển thị thông tin)
-    voteLinks: [
-        { name: "IP Máy Chủ: cloudymeadow.sytes.net", url: "#" },
-        { name: "Phiên Bản: 1.16 - 1.21+", url: "#" },
-        { name: "Cửa Hàng: Nhắn Admin vynduskwinter", url: "https://discord.gg/2uzK8EryBG" },
-        { name: "Cộng Đồng Discord chính thức", url: "https://discord.gg/2uzK8EryBG" },
-        { name: "Kênh TikTok: @cloudy.meadow_mc", url: "https://www.tiktok.com/@cloudy.meadow_mc" },
-        { name: "Kênh YouTube: @servermc_00", url: "https://www.youtube.com/@servermc_00" }
-    ],
+    // 3. ĐÃ BỎ TRANG VOTE LINK (Xóa trắng danh sách)
+    voteLinks: [],
 
     // 4. CONTENIDO (Việt Nam)
     content: {
@@ -53,7 +46,7 @@ const config = {
         rules: [
             { 
                 title_es: "1. Tôn Trọng Lẫn Nhau", desc_es: "Không văng tục, xúc phạm, phân biệt chủng tộc hoặc toxic với người chơi khác và Staff.",
-                title_en: "1. Tôn Trọng Lẫn Nhau", desc_en: "Không văng tục, xúc phạm, phân biệt chủng tộc hoặc toxic với người chơi khác và Staff."
+                title_en: "1. Tôn Trọng Lẫn Nhau", desc_en: "Không văng tục, xúc phạm, phân biệt chủng tộc hoặc toxic với người chơi khác and Staff."
             },
             { 
                 title_es: "2. Không Hack / Cheats", desc_es: "Nghiêm cấm dùng client hack (Xray, Fly, KillAura...). Vi phạm là ăn BAN vĩnh viễn không giải thích.",
@@ -85,7 +78,6 @@ const config = {
             }
         ],
 
-        // --- ĐÃ XÓA FAQ TRỐNG ĐỂ TRÁNH LỖI GIAO DIỆN ---
         faq: [],
 
         // --- VĂN BẢN PHÁP LÝ ---
@@ -155,16 +147,16 @@ const config = {
     interface: {
         es: {
             flag: "vn", name: "Tiếng Việt",
-            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật", vote: "Thông Tin" },
+            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật" },
             hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
-            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", vote: "THÔNG TIN SERVER", legal: "CHÍNH SÁCH" },
+            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", legal: "CHÍNH SÁCH" },
             legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }
         },
         en: {
             flag: "vn", name: "Tiếng Việt",
-            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật", vote: "Thông Tin" },
+            nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật" },
             hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
-            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", vote: "THÔNG TIN SERVER", legal: "CHÍNH SÁCH" },
+            titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", legal: "CHÍNH SÁCH" },
             legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }
         }
     }

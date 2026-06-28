@@ -1,12 +1,11 @@
 /* ================================================================
-   VANGUARD THEME - ENGINE v8.0
+   VANGUARD THEME - ENGINE v8.0 (CLOUDYMEADOW OPTIMIZED)
    ================================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
     initParticles();
     initCustomLanguage();
     initSocials();
-    initVoteCards();
     
     // AUTO DETECTAR IDIOMA
     const userLang = navigator.language || navigator.userLanguage;
@@ -36,15 +35,11 @@ function changeLanguage(key) {
     setText('nav-home', ui.nav.home);
     setText('nav-staff', ui.nav.staff);
     setText('nav-rules', ui.nav.rules);
-    setText('nav-faq', ui.nav.faq);
-    setText('nav-vote', ui.nav.vote);
     setText('hero-subtitle', ui.hero.subtitle);
     setText('hero-btn-copy', ui.hero.btn_copy);
     setText('hero-online', ui.hero.online);
     setText('title-staff', ui.titles.staff);
     setText('title-rules', ui.titles.rules);
-    setText('title-faq', ui.titles.faq);
-    setText('title-vote', ui.titles.vote);
     setText('title-legal', ui.titles.legal);
 
     setText('tab-tos', ui.legal_tabs.tos);
@@ -68,40 +63,20 @@ function changeLanguage(key) {
         </div>
     `);
 
-    // FAQ con Grid Animation Support
-    const faqCont = document.getElementById('faq-container');
-    faqCont.innerHTML = '';
-    config.content.faq.forEach(f => {
-        faqCont.innerHTML += `
-            <div class="faq-item" onclick="toggleFaq(this)">
-                <div class="faq-header">
-                    <span class="faq-q">${f['q' + suffix]}</span>
-                    <i class="fas fa-chevron-down faq-icon"></i>
-                </div>
-                <div class="faq-body">
-                    <div class="faq-inner">
-                        <div class="faq-a">${f['a' + suffix]}</div>
-                    </div>
-                </div>
-            </div>
-        `;
-    });
-
     // Legal (HTML)
     document.getElementById('legal-tos').innerHTML = config.content.legal['tos' + suffix];
     document.getElementById('legal-notice').innerHTML = config.content.legal['notice' + suffix];
     document.getElementById('legal-priv').innerHTML = config.content.legal['priv' + suffix];
 
     // Info General
-    setText('nav-logo-text', config.serverName);
+    // Đã thay đổi cách gán logo chữ động dựa vào config
+    const logoText = document.getElementById('nav-logo-text');
+    if (logoText) logoText.innerHTML = `${config.serverName.substring(0, 6)}<span>${config.serverName.substring(6)}</span>`;
+    
     setText('footer-name', config.serverName);
     setText('ip-display', config.serverIp);
     const logo = document.getElementById('hero-logo-img');
     if(config.serverLogo) logo.src = config.serverLogo;
-}
-
-function toggleFaq(el) {
-    el.classList.toggle('active');
 }
 
 function initCustomLanguage() {
@@ -122,18 +97,11 @@ function copyIp() {
     const actionText = document.getElementById('hero-btn-copy');
     navigator.clipboard.writeText(config.serverIp).then(() => {
         wrapper.classList.add('copied');
-        actionText.innerText = "¡COPIADO!";
+        actionText.innerText = "ĐÃ COPIED!";
         setTimeout(() => {
             wrapper.classList.remove('copied');
             actionText.innerText = config.interface[currentLangCode].hero.btn_copy;
         }, 2000);
-    });
-}
-
-function initVoteCards() {
-    const c = document.getElementById('vote-container');
-    config.voteLinks.forEach(v => {
-        c.innerHTML += `<a href="${v.url}" target="_blank" class="vote-card"><h3>${v.name}</h3><span>CLICK PARA VOTAR</span></a>`;
     });
 }
 

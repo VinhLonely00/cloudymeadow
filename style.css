@@ -121,6 +121,31 @@ section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
 .rule-card h3 { color: var(--gold); font-family: var(--font-title); margin-bottom: 10px; font-size: 1.3rem; }
 .rule-card p { color: #aaa; font-size: 0.95rem; }
 
+/* FAQ (Smooth Accordion Grid Trick) */
+.faq-grid { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 15px; }
+.faq-item {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden; transition: 0.3s;
+}
+.faq-item:hover { border-color: rgba(212, 175, 55, 0.5); }
+.faq-item.active { border-color: var(--gold); background: #0e0e0e; }
+
+.faq-header { padding: 20px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.faq-q { color: #fff; font-weight: 600; font-size: 1.05rem; }
+.faq-icon { color: var(--gold); transition: 0.3s; }
+.faq-item.active .faq-icon { transform: rotate(180deg); }
+
+.faq-body {
+    display: grid; 
+    grid-template-rows: 0fr; 
+    transition: grid-template-rows 0.4s ease-out; /* Animación Suave */
+    background: rgba(0,0,0,0.2);
+}
+.faq-item.active .faq-body { grid-template-rows: 1fr; }
+.faq-inner { overflow: hidden; }
+.faq-a { padding: 20px; padding-top: 0; color: #aaa; font-size: 0.95rem; line-height: 1.6; }
+.faq-item.active .faq-a { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
+
 /* Legal Tabs */
 .legal-box-wrapper { max-width: 900px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; }
 .legal-tabs { display: flex; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.3); }

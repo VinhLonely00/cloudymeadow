@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard - Minecraft Server</title>
+    <link rel="icon" href="favicon.ico" type="image/ico">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/6.6.6/css/flag-icons.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="particles-container" id="particles"></div>
+    <div class="bg-vignette"></div>
+
+    <nav class="navbar">
+        <a href="#" class="nav-logo" id="nav-logo-text">VAN<span>GUARD</span></a>
+        
+        <ul class="nav-menu">
+            <li><a href="#hero" id="nav-home">Inicio</a></li>
+            <li><a href="#staff" id="nav-staff">Equipo</a></li>
+            <li><a href="#rules" id="nav-rules">Reglas</a></li>
+            <li><a href="#faq" id="nav-faq">FAQ</a></li>
+            <li><a href="#vote" id="nav-vote">Votar</a></li>
+        </ul>
+
+        <div class="custom-lang-selector" id="lang-dropdown-trigger">
+            <div class="selected-lang">
+                <span id="current-flag" class="fi fi-us"></span>
+                <span id="current-lang-name">English</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="lang-dropdown" id="lang-list"></div>
+        </div>
+    </nav>
+
+    <header id="hero">
+        <img src="" alt="Logo" class="hero-logo" id="hero-logo-img">
+        <p class="hero-subtitle" id="hero-subtitle">Loading...</p>
+
+        <div class="ip-wrapper" onclick="copyIp()">
+            <div class="ip-content">
+                <i class="fas fa-wifi"></i>
+                <span class="ip-text" id="ip-display">play.server.com</span>
+            </div>
+            <div class="ip-action">
+                <span id="hero-btn-copy">COPY</span>
+            </div>
+        </div>
+        
+        <div class="online-status">
+            <span class="dot"></span> <span id="player-count">0</span> <span id="hero-online">online</span>
+        </div>
+
+        <div class="social-bar" id="social-container"></div>
+    </header>
+
+    <section id="staff">
+        <div class="section-header"><h2 id="title-staff">EQUIPO</h2><div class="gold-line"></div></div>
+        <div class="grid-container" id="staff-container"></div>
+    </section>
+
+    <section id="rules">
+        <div class="section-header"><h2 id="title-rules">REGLAS</h2><div class="gold-line"></div></div>
+        <div class="grid-container" id="rules-container"></div>
+    </section>
+
+    <section id="faq">
+        <div class="section-header"><h2 id="title-faq">FAQ</h2><div class="gold-line"></div></div>
+        <div class="faq-grid" id="faq-container"></div>
+    </section>
+
+    <section id="vote">
+        <div class="section-header"><h2 id="title-vote">VOTAR</h2><div class="gold-line"></div></div>
+        <div class="vote-grid" id="vote-container"></div>
+    </section>
+
+    <section id="legal">
+        <div class="section-header"><h2 id="title-legal">LEGAL</h2></div>
+        <div class="legal-box-wrapper">
+            <div class="legal-tabs">
+                <button class="l-tab active" onclick="openLegal('tos')" id="tab-tos">Términos</button>
+                <button class="l-tab" onclick="openLegal('notice')" id="tab-notice">Aviso</button>
+                <button class="l-tab" onclick="openLegal('priv')" id="tab-priv">Privacidad</button>
+            </div>
+            <div class="legal-content">
+                <div id="legal-tos" class="l-content active"></div>
+                <div id="legal-notice" class="l-content"></div>
+                <div id="legal-priv" class="l-content"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p class="copyright">&copy; 2025 <span id="footer-name">Server</span>. All Rights Reserved.</p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

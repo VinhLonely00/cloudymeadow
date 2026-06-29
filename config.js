@@ -80,29 +80,142 @@ const config = {
 
         // --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
         faq: [
+            // --- HƯỚNG DẪN QUAN TRỌNG CHO NGƯỜI MỚI ---
             { 
-                q_es: "📌 Cách chơi cơ bản cho người mới?", 
-                a_es: "Server thuộc thể loại sinh tồn. Khi mới vào game, bạn hãy đi xa khu vực spawn, tìm một vùng đất trống và gõ lệnh <code>/claim</code> để bảo vệ tài sản của mình khỏi bị phá hoại hoặc trộm cắp nhé!",
-                q_en: "📌 Cách chơi cơ bản cho người mới?", 
-                a_en: "Server thuộc thể loại sinh tồn. Khi mới vào game, bạn hãy đi xa khu vực spawn, tìm một vùng đất trống và gõ lệnh <code>/claim</code> để bảo vệ tài sản của mình khỏi bị phá hoại hoặc trộm cắp nhé!"
+                q_es: "📌 Cách Đăng Ký / Đăng Nhập (Register/Login)", 
+                a_es: "• Mới vào server lần đầu, bạn cần gõ lệnh: <code>/register [mật_khẩu] [mật_khẩu]</code> để đăng ký tài khoản.<br>• Ở những lần chơi sau, hệ thống hỏi thì gõ: <code>/login [mật_khẩu]</code>.",
+                q_en: "📌 Cách Đăng Ký / Đăng Nhập (Register/Login)", 
+                a_en: "• Mới vào server lần đầu, bạn cần gõ lệnh: <code>/register [mật_khẩu] [mật_khẩu]</code> để đăng ký tài khoản.<br>• Ở những lần chơi sau, hệ thống hỏi thì gõ: <code>/login [mật_khẩu]</code>."
             },
             { 
-                q_es: "📜 Các lệnh Di Chuyển & Cơ Bản", 
-                a_es: "• <code>/spawn</code>: Trở về điểm xuất phát của server.<br>• <code>/sethome [tên]</code>: Đặt điểm nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển về nhà đã đặt.<br>• <code>/tpa [tên_người_chơi]</code>: Gửi yêu cầu dịch chuyển đến ai đó.",
-                q_en: "📜 Các lệnh Di Chuyển & Cơ Bản", 
-                a_en: "• <code>/spawn</code>: Trở về điểm xuất phát của server.<br>• <code>/sethome [tên]</code>: Đặt điểm nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển về nhà đã đặt.<br>• <code>/tpa [tên_người_chơi]</code>: Gửi yêu cầu dịch chuyển đến ai đó."
+                q_es: "🛡️ Cách Bảo Vệ Đất (Claim Land)", 
+                a_es: "Sử dụng một chiếc <b>Xẻng Vàng</b>:<br>1. Click chuột phải vào 1 block ở góc đất cần bảo vệ.<br>2. Đi chéo đến góc đối diện bên kia, tiếp tục click chuột phải vào block đó để hoàn thành.<br>• Xem thêm các lệnh bổ trợ claim ở các mục bên dưới.",
+                q_en: "🛡️ Cách Bảo Vệ Đất (Claim Land)", 
+                a_en: "Sử dụng một chiếc <b>Xẻng Vàng</b>:<br>1. Click chuột phải vào 1 block ở góc đất cần bảo vệ.<br>2. Đi chéo đến góc đối diện bên kia, tiếp tục click chuột phải vào block đó để hoàn thành.<br>• Xem thêm các lệnh bổ trợ claim ở các mục bên dưới."
             },
             { 
-                q_es: "⚔️ Hệ thống Thách Đấu (Duel)", 
-                a_es: "Muốn so trình PvP có kits sẵn (Sword, Axe, Mace, SMP, UHC, ...)? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether.",
-                q_en: "⚔️ Hệ thống Thách Đấu (Duel)", 
-                a_en: "Muốn so trình PvP có kits sẵn (Sword, Axe, Mace, SMP, UHC, ...)? Hãy sử dụng lệnh <code>/duel [tên_người_chơi]</code> để mời họ vào đấu trường an toàn được phát triển bởi Admin BadNether."
+                q_es: "⚔️ Hướng Dẫn Thách Đấu (Duel PvP)", 
+                a_es: "• Gõ lệnh <code>/duelhelp</code> để nhận ngay cuốn sách hướng dẫn chi tiết.<br>• Hệ thống hỗ trợ đa dạng thể thức: Đấu giao hữu hoặc cá cược ăn Tiền, đấu 1v1, 2v2 hoặc thậm chí cân team lệch (1v5).<br>• Đa dạng với hơn 15+ bộ Kits khác nhau.",
+                q_en: "⚔️ Hướng Dẫn Thách Đấu (Duel PvP)", 
+                a_en: "• Gõ lệnh <code>/duelhelp</code> để nhận ngay cuốn sách hướng dẫn chi tiết.<br>• Hệ thống hỗ trợ đa dạng thể thức: Đấu giao hữu hoặc cá cược ăn Tiền, đấu 1v1, 2v2 hoặc thậm chí cân team lệch (1v5).<br>• Đa dạng với hơn 15+ bộ Kits khác nhau."
             },
             { 
-                q_es: "🛡️ Cách bảo vệ đất (Claim Land)", 
-                a_es: "Sử dụng một chiếc xẻng vàng để gõ vào 2 góc đối diện của khu đất để tạo vùng bảo vệ. Bạn có thể dùng lệnh <code>/trust [tên_bạn]</code> để cho phép bạn bè cùng xây dựng chung.",
-                q_en: "🛡️ Cách bảo vệ đất (Claim Land)", 
-                a_en: "Sử dụng một chiếc xẻng vàng để gõ vào 2 góc đối diện của khu đất để tạo vùng bảo vệ. Bạn có thể dùng lệnh <code>/trust [tên_bạn]</code> để cho phép bạn bè cùng xây dựng chung."
+                q_es: "🔮 Hệ Thống Custom Enchant", 
+                a_es: "• Server sở hữu hơn 60+ bùa chú (Enchant) được custom độc lạ, thú vị và cân bằng, không sợ bị quá OP.<br>• Cách lấy duy nhất là sử dụng lệnh <code>/phuphep</code> để random bằng tiền server, hoặc săn các bùa độc quyền thông qua các sự kiện (Event) do BQT tổ chức.",
+                q_en: "🔮 Hệ Thống Custom Enchant", 
+                a_en: "• Server sở hữu hơn 60+ bùa chú (Enchant) được custom độc lạ, thú vị và cân bằng, không sợ bị quá OP.<br>• Cách lấy duy nhất là sử dụng lệnh <code>/phuphep</code> để random bằng tiền server, hoặc săn các bùa độc quyền thông qua các sự kiện (Event) do BQT tổ chức."
+            },
+
+            // --- CHI TIẾT TỪNG CÂU LỆNH ---
+            { 
+                q_es: "💬 Lệnh /help", 
+                a_es: "Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game.",
+                q_en: "💬 Lệnh /help", 
+                a_en: "Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game."
+            },
+            { 
+                q_es: "🎛️ Lệnh /menu", 
+                a_es: "Mở bảng giao diện quản lý nhanh, tích hợp phím tắt cho gần như tất cả các lệnh trong server.",
+                q_en: "🎛️ Lệnh /menu", 
+                a_en: "Mở bảng giao diện quản lý nhanh, tích hợp phím tắt cho gần như tất cả các lệnh trong server."
+            },
+            { 
+                q_es: "👥 Lệnh /tpa [tên_người_chơi]", 
+                a_es: "Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của bạn bè hoặc người chơi khác.",
+                q_en: "👥 Lệnh /tpa [tên_người_chơi]", 
+                a_en: "Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của bạn bè hoặc người chơi khác."
+            },
+            { 
+                q_es: "✨ Lệnh /phuphep", 
+                a_es: "Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền bằng tiền server.",
+                q_en: "✨ Lệnh /phuphep", 
+                a_en: "Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền bằng tiền server."
+            },
+            { 
+                q_es: "⚖️ Lệnh /buonban", 
+                a_es: "Truy cập trung tâm giao dịch, chợ thương mại giữa các người chơi để mua bán vật phẩm.",
+                q_en: "⚖️ Lệnh /buonban", 
+                a_en: "Truy cập trung tâm giao dịch, chợ thương mại giữa các người chơi để mua bán vật phẩm."
+            },
+            { 
+                q_es: "🎯 Lệnh /quest", 
+                a_es: "Hệ thống nhiệm vụ hằng ngày/thử thách giúp bạn cày cuốc và kiếm thêm thu nhập.",
+                q_en: "🎯 Lệnh /quest", 
+                a_en: "Hệ thống nhiệm vụ hằng ngày/thử thách giúp bạn cày cuốc và kiếm thêm thu nhập."
+            },
+            { 
+                q_es: "🛡️ Lệnh /team", 
+                a_es: "Lệnh dùng để khởi tạo, quản lý, mời thành viên hoặc thiết lập tổ đội/bang hội của bạn.",
+                q_en: "🛡️ Lệnh /team", 
+                a_en: "Lệnh dùng để khởi tạo, quản lý, mời thành viên hoặc thiết lập tổ đội/bang hội của bạn."
+            },
+            { 
+                q_es: "🎮 Lệnh /game", 
+                a_es: "Trung tâm giải trí tổng hợp của server, nơi bạn truy cập nhanh các minigame, duel hoặc các khu vực kiếm tiền.",
+                q_en: "🎮 Lệnh /game", 
+                a_en: "Trung tâm giải trí tổng hợp của server, nơi bạn truy cập nhanh các minigame, duel hoặc các khu vực kiếm tiền."
+            },
+            { 
+                q_es: "🗺️ Nhóm lệnh /claim", 
+                a_es: "• <code>/claim</code>: Mở giao diện (GUI) quản lý khu đất đã bảo vệ.<br>• <code>/trust [tên]</code>: Cho phép bạn bè cùng xây dựng chung trong đất của bạn.<br>• <code>/untrust [tên]</code>: Thu hồi lại quyền xây dựng của người đó.<br>• <code>/abandonclaim</code>: Xóa bỏ hoàn toàn khu đất đang claim hiện tại.",
+                q_en: "🗺️ Nhóm lệnh /claim", 
+                a_en: "• <code>/claim</code>: Mở giao diện (GUI) quản lý khu đất đã bảo vệ.<br>• <code>/trust [tên]</code>: Cho phép bạn bè cùng xây dựng chung trong đất của bạn.<br>• <code>/untrust [tên]</code>: Thu hồi lại quyền xây dựng của người đó.<br>• <code>/abandonclaim</code>: Xóa bỏ hoàn toàn khu đất đang claim hiện tại."
+            },
+            { 
+                q_es: "⚙️ Lệnh /setting", 
+                a_es: "Cài đặt giao diện cá nhân, tùy chỉnh bật/tắt các chức năng hiển thị để thể hiện cá tính riêng.",
+                q_en: "⚙️ Lệnh /setting", 
+                a_en: "Cài đặt giao diện cá nhân, tùy chỉnh bật/tắt các chức năng hiển thị để thể hiện cá tính riêng."
+            },
+            { 
+                q_es: "🎲 Lệnh /taixiu", 
+                a_es: "Minigame giải trí may rủi bằng tiền trong server. Một bước ra đê, hai bước lên nhà lầu!",
+                q_en: "🎲 Lệnh /taixiu", 
+                a_en: "Minigame giải trí may rủi bằng tiền trong server. Một bước ra đê, hai bước lên nhà lầu!"
+            },
+            { 
+                q_es: "🎁 Lệnh /daily", 
+                a_es: "Nơi điểm danh để nhận các phần quà miễn phí định kỳ theo Ngày, theo Tuần và theo Tháng.",
+                q_en: "🎁 Lệnh /daily", 
+                a_en: "Nơi điểm danh để nhận các phần quà miễn phí định kỳ theo Ngày, theo Tuần và theo Tháng."
+            },
+            { 
+                q_es: "🏆 Lệnh /bxh", 
+                a_es: "Mở bảng xếp hạng vinh danh những người chơi xuất sắc và giàu có nhất tại CloudyMeadow.",
+                q_en: "🏆 Lệnh /bxh", 
+                a_en: "Mở bảng xếp hạng vinh danh những người chơi xuất sắc và giàu có nhất tại CloudyMeadow."
+            },
+            { 
+                q_es: "🏠 Lệnh /sethome và /home [tên]", 
+                a_es: "• <code>/sethome [tên]</code>: Đánh dấu vị trí căn nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển tức thời về lại ngôi nhà đã đặt.",
+                q_en: "🏠 Lệnh /sethome và /home [tên]", 
+                a_en: "• <code>/sethome [tên]</code>: Đánh dấu vị trí căn nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển tức thời về lại ngôi nhà đã đặt."
+            },
+            { 
+                q_es: "🎭 Các lệnh hành động vui vẻ (/spin, /crawl, /lay, /sit)", 
+                a_es: "Sử dụng để thực hiện các biểu cảm cơ thể hài hước: <code>/spin</code> (xoay người), <code>/crawl</code> (bò), <code>/lay</code> (nằm), và <code>/sit</code> (ngồi) cùng bạn bè.",
+                q_en: "🎭 Các lệnh hành động vui vẻ (/spin, /crawl, /lay, /sit)", 
+                a_en: "Sử dụng để thực hiện các biểu cảm cơ thể hài hước: <code>/spin</code> (xoay người), <code>/crawl</code> (bò), <code>/lay</code> (nằm), và <code>/sit</code> (ngồi) cùng bạn bè."
+            },
+
+            // --- CÁC CHỨC NĂNG NỔI BẬT KHÁC ---
+            { 
+                q_es: "🎮 Các MiniGames giải trí & Kiếm Tiền/Point", 
+                a_es: "• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>TntTag:</b> Trò chơi ôm bom tử thần nhận cả Tiền và Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền.",
+                q_en: "🎮 Các MiniGames giải trí & Kiếm Tiền/Point", 
+                a_en: "• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>TntTag:</b> Trò chơi ôm bom tử thần nhận cả Tiền và Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền."
+            },
+            { 
+                q_es: "📦 Lồng Spawner Tiện Ích", 
+                a_es: "Hệ thống lồng quái thông minh được tối ưu hóa: <b>Không sinh quái ra ngoài</b> gây lag server. Thay vào đó, bạn có thể tương tác trực tiếp với menu GUI của lồng để tự động Bán hoặc Nhận Items vô cùng tiện lợi.",
+                q_en: "📦 Lồng Spawner Tiện Ích", 
+                a_en: "Hệ thống lồng quái thông minh được tối ưu hóa: <b>Không sinh quái ra ngoài</b> gây lag server. Thay vào đó, bạn có thể tương tác trực tiếp với menu GUI của lồng để tự động Bán hoặc Nhận Items vô cùng tiện lợi."
+            },
+            { 
+                q_es: "🚀 Các Tiện Ích Độc Đáo Khác", 
+                a_es: "• <b>Thang Máy Sắt:</b> Chỉ cần đặt các khối sắt song song thẳng đứng để làm thang máy di chuyển siêu tốc giữa các tầng.<br>• <b>VoiceChat:</b> Hệ thống đàm thoại giọng nói trực tiếp cực tiện ích.<br>• <b>Lệnh /vote(...):</b> Người chơi được quyền bầu chọn thay đổi thời gian (Ngày/Đêm) hoặc thời tiết (Mưa/Nắng).<br>• <b>Đa phiên bản:</b> Hỗ trợ chơi mượt mà trên nhiều phiên bản máy tính và tương thích hoàn toàn với hệ máy PE (Điện thoại).<br>• <b>Thế giới & Quái vật:</b> Khám phá thế giới rộng lớn với các công trình đặc biệt. Quái vật tự nhiên được tăng cường sức mạnh để tăng tính thử thách và cân bằng với Player.",
+                q_en: "🚀 Các Tiện Ích Độc Đáo Khác", 
+                a_en: "• <b>Thang Máy Sắt:</b> Chỉ cần đặt các khối sắt song song thẳng đứng để làm thang máy di chuyển siêu tốc giữa các tầng.<br>• <b>VoiceChat:</b> Hệ thống đàm thoại giọng nói trực tiếp cực tiện ích.<br>• <b>Lệnh /vote(...):</b> Người chơi được quyền bầu chọn thay đổi thời gian (Ngày/Đêm) hoặc thời tiết (Mưa/Nắng).<br>• <b>Đa phiên bản:</b> Hỗ trợ chơi mượt mà trên nhiều phiên bản máy tính và tương thích hoàn toàn với hệ máy PE (Điện thoại).<br>• <b>Thế giới & Quái vật:</b> Khám phá thế giới rộng lớn với các công trình đặc biệt. Quái vật tự nhiên được tăng cường sức mạnh để tăng tính thử thách và cân bằng với Player."
             }
         ],
 

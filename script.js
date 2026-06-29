@@ -29,15 +29,7 @@ function applyTexts() {
     setText('tab-notice', ui.legal_tabs.notice);
     setText('tab-priv', ui.legal_tabs.priv);
 
-    // --- TỰ ĐỘNG THÊM NÚT CUSTOM ENCHANT VÀO CUỐI MENU ---
-    const navMenu = document.querySelector('.nav-menu');
-    if (navMenu && !document.getElementById('nav-custom-enchant')) {
-        const enchantLi = document.createElement('li');
-        enchantLi.innerHTML = `<a href="enchant.html" id="nav-custom-enchant" target="_blank" style="color: #7ec2eb; font-weight: 700;">CUSTOM ENCHANT</a>`;
-        navMenu.appendChild(enchantLi);
-    }
-
-    // Render danh sách Đội ngũ (Staff) - Không dùng suffix_
+    // Render danh sách Đội ngũ (Staff)
     renderGrid('staff-container', config.content.staff, (m) => `
         <div class="staff-card">
             <img src="https://minotar.net/helm/${m.name}/100.png" class="staff-head">
@@ -45,17 +37,17 @@ function applyTexts() {
             <div class="staff-role">${m.role}</div>
             <div class="staff-bio">${m.bio}</div>
         </div>
-     `);
+    `);
 
-    // Render danh sách Luật (Rules) - Không dùng suffix_
+    // Render danh sách Luật (Rules)
     renderGrid('rules-container', config.content.rules, (r) => `
         <div class="rule-card">
             <h3>${r.title}</h3>
             <p>${r.desc}</p>
         </div>
-     `);
+    `);
 
-    // Render danh sách FAQ (Lệnh & Cách chơi) - Không dùng suffix_
+    // Render danh sách FAQ (Lệnh & Cách chơi)
     renderGrid('faq-container', config.content.faq, (f) => `
         <div class="faq-item" onclick="toggleFaq(this)">
             <div class="faq-header">
@@ -68,7 +60,7 @@ function applyTexts() {
                 </div>
             </div>
         </div>
-     `);
+    `);
 
     // Gán nội dung HTML cho các tab Chính sách (Legal)
     if(document.getElementById('legal-tos')) document.getElementById('legal-tos').innerHTML = config.content.legal.tos;

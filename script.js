@@ -1,111 +1,80 @@
 /* ================================================================
-   VANGUARD THEME - ENGINE v8.0 (CLOUDYMEADOW OPTIMIZED)
+   VANGUARD THEME - ENGINE v8.0 (CLOUDYMEADOW OPTIMIZED - PURE VN)
    ================================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
     initParticles();
-    initCustomLanguage();
     initSocials();
-    
-    // AUTO DETECTAR IDIOMA
-    const userLang = navigator.language || navigator.userLanguage;
-    const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
-    
-    changeLanguage(defaultLang);
+    applyTexts();
     fetchStatus();
-
-    document.addEventListener('click', (e) => {
-        const drop = document.getElementById('lang-list');
-        const trigger = document.getElementById('lang-dropdown-trigger');
-        if(!trigger.contains(e.target)) drop.classList.remove('show');
-    });
 });
 
-let currentLangCode = 'es';
+function applyTexts() {
+    const ui = config.interface;
 
-function changeLanguage(key) {
-    currentLangCode = key;
-    const ui = config.interface[key];
-    const suffix = '_' + key; // _es o _en
-
-    // UI Updates
-    document.getElementById('current-flag').className = `fi fi-${ui.flag}`;
-    document.getElementById('current-lang-name').innerText = ui.name;
-
+    // Cập nhật text giao diện từ config.interface
     setText('nav-home', ui.nav.home);
     setText('nav-staff', ui.nav.staff);
     setText('nav-rules', ui.nav.rules);
-    setText('nav-faq', ui.nav.faq); // Hồi sinh nút menu FAQ
+    setText('nav-faq', ui.nav.faq); 
     setText('hero-subtitle', ui.hero.subtitle);
     setText('hero-btn-copy', ui.hero.btn_copy);
     setText('hero-online', ui.hero.online);
     setText('title-staff', ui.titles.staff);
     setText('title-rules', ui.titles.rules);
-    setText('title-faq', ui.titles.faq); // Hồi sinh tiêu đề FAQ
+    setText('title-faq', ui.titles.faq); 
     setText('title-legal', ui.titles.legal);
 
     setText('tab-tos', ui.legal_tabs.tos);
     setText('tab-notice', ui.legal_tabs.notice);
     setText('tab-priv', ui.legal_tabs.priv);
 
-    // Contenido Dinámico Unificado
+    // Render danh sách Đội ngũ (Staff) - Không dùng suffix_
     renderGrid('staff-container', config.content.staff, (m) => `
         <div class="staff-card">
             <img src="https://minotar.net/helm/${m.name}/100.png" class="staff-head">
             <div class="staff-name">${m.name}</div>
             <div class="staff-role">${m.role}</div>
-            <div class="staff-bio">${m['bio' + suffix]}</div>
+            <div class="staff-bio">${m.bio}</div>
         </div>
     `);
 
+    // Render danh sách Luật (Rules) - Không dùng suffix_
     renderGrid('rules-container', config.content.rules, (r) => `
         <div class="rule-card">
-            <h3>${r['title' + suffix]}</h3>
-            <p>${r['desc' + suffix]}</p>
+            <h3>${r.title}</h3>
+            <p>${r.desc}</p>
         </div>
     `);
 
-    // Hồi sinh hệ thống render danh sách FAQ (Lệnh & Cách chơi)
+    // Render danh sách FAQ (Lệnh & Cách chơi) - Không dùng suffix_
     renderGrid('faq-container', config.content.faq, (f) => `
         <div class="faq-item" onclick="toggleFaq(this)">
             <div class="faq-header">
-                <span class="faq-q">${f['q' + suffix]}</span>
+                <span class="faq-q">${f.q}</span>
                 <i class="fas fa-chevron-down faq-icon"></i>
             </div>
             <div class="faq-body">
                 <div class="faq-inner">
-                    <p class="faq-a">${f['a' + suffix]}</p>
+                    <p class="faq-a">${f.a}</p>
                 </div>
             </div>
         </div>
     `);
 
-    // Legal (HTML)
-    document.getElementById('legal-tos').innerHTML = config.content.legal['tos' + suffix];
-    document.getElementById('legal-notice').innerHTML = config.content.legal['notice' + suffix];
-    document.getElementById('legal-priv').innerHTML = config.content.legal['priv' + suffix];
+    // Gán nội dung HTML cho các tab Chính sách (Legal)
+    if(document.getElementById('legal-tos')) document.getElementById('legal-tos').innerHTML = config.content.legal.tos;
+    if(document.getElementById('legal-notice')) document.getElementById('legal-notice').innerHTML = config.content.legal.notice;
+    if(document.getElementById('legal-priv')) document.getElementById('legal-priv').innerHTML = config.content.legal.priv;
 
-    // Info General
+    // Đồng bộ hóa Tên Server chia khối màu cho Logo dạng text
     const logoText = document.getElementById('nav-logo-text');
     if (logoText) logoText.innerHTML = `${config.serverName.substring(0, 6)}<span>${config.serverName.substring(6)}</span>`;
     
     setText('footer-name', config.serverName);
     setText('ip-display', config.serverIp);
     const logo = document.getElementById('hero-logo-img');
-    if(config.serverLogo) logo.src = config.serverLogo;
-}
-
-function initCustomLanguage() {
-    const list = document.getElementById('lang-list');
-    const trigger = document.getElementById('lang-dropdown-trigger');
-    ['es', 'en'].forEach(key => {
-        const div = document.createElement('div');
-        div.className = 'lang-option';
-        div.innerHTML = `<span class="fi fi-${config.interface[key].flag}"></span> ${config.interface[key].name}`;
-        div.onclick = () => { changeLanguage(key); list.classList.remove('show'); };
-        list.appendChild(div);
-    });
-    trigger.onclick = () => list.classList.toggle('show');
+    if(config.serverLogo && logo) logo.src = config.serverLogo;
 }
 
 function copyIp() {
@@ -116,13 +85,14 @@ function copyIp() {
         actionText.innerText = "ĐÃ COPIED!";
         setTimeout(() => {
             wrapper.classList.remove('copied');
-            actionText.innerText = config.interface[currentLangCode].hero.btn_copy;
+            actionText.innerText = config.interface.hero.btn_copy;
         }, 2000);
     });
 }
 
 function initSocials() {
     const c = document.getElementById('social-container');
+    if(!c) return;
     const s = config.social;
     const add = (i, l) => c.innerHTML += `<a href="${l}" target="_blank" class="social-icon"><i class="${i}"></i></a>`;
     if(s.discord) add('fab fa-discord', s.discord);
@@ -136,11 +106,10 @@ function initSocials() {
 function openLegal(id) {
     document.querySelectorAll('.l-content').forEach(d=>d.classList.remove('active'));
     document.querySelectorAll('.l-tab').forEach(b=>b.classList.remove('active'));
-    document.getElementById('legal-'+id).classList.add('active');
-    document.getElementById('tab-'+id).classList.add('active');
+    if(document.getElementById('legal-'+id)) document.getElementById('legal-'+id).classList.add('active');
+    if(document.getElementById('tab-'+id)) document.getElementById('tab-'+id).classList.add('active');
 }
 
-// Hàm xử lý đóng/mở mượt mà cho bảng lệnh & cách chơi
 function toggleFaq(el) {
     el.classList.toggle('active');
 }
@@ -149,13 +118,25 @@ function renderGrid(id, arr, fn) {
     const el = document.getElementById(id); if(el) el.innerHTML = '';
     if(el && arr) arr.forEach(i => el.innerHTML += fn(i));
 }
+
 function setText(id, txt) { if(document.getElementById(id)) document.getElementById(id).innerText = txt; }
+
 function fetchStatus() {
     fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
-        .then(r=>r.json()).then(d => document.getElementById('player-count').innerText = d.online ? d.players.online : '-');
+        .then(r=>r.json())
+        .then(d => {
+            const el = document.getElementById('player-count');
+            if(el) el.innerText = d.online ? d.players.online : '-';
+        })
+        .catch(() => {
+            const el = document.getElementById('player-count');
+            if(el) el.innerText = '-';
+        });
 }
+
 function initParticles() {
     const c = document.getElementById('particles');
+    if(!c) return;
     for(let i=0; i<25; i++) {
         let p = document.createElement('div');
         p.className = 'particle';

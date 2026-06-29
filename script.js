@@ -29,6 +29,14 @@ function applyTexts() {
     setText('tab-notice', ui.legal_tabs.notice);
     setText('tab-priv', ui.legal_tabs.priv);
 
+    // --- TỰ ĐỘNG THÊM NÚT CUSTOM ENCHANT VÀO CUỐI MENU ---
+    const navMenu = document.querySelector('.nav-menu');
+    if (navMenu && !document.getElementById('nav-custom-enchant')) {
+        const enchantLi = document.createElement('li');
+        enchantLi.innerHTML = `<a href="enchant.html" id="nav-custom-enchant" target="_blank" style="color: #7ec2eb; font-weight: 700;">CUSTOM ENCHANT</a>`;
+        navMenu.appendChild(enchantLi);
+    }
+
     // Render danh sách Đội ngũ (Staff) - Không dùng suffix_
     renderGrid('staff-container', config.content.staff, (m) => `
         <div class="staff-card">
@@ -37,7 +45,7 @@ function applyTexts() {
             <div class="staff-role">${m.role}</div>
             <div class="staff-bio">${m.bio}</div>
         </div>
-    `);
+     `);
 
     // Render danh sách Luật (Rules) - Không dùng suffix_
     renderGrid('rules-container', config.content.rules, (r) => `
@@ -45,7 +53,7 @@ function applyTexts() {
             <h3>${r.title}</h3>
             <p>${r.desc}</p>
         </div>
-    `);
+     `);
 
     // Render danh sách FAQ (Lệnh & Cách chơi) - Không dùng suffix_
     renderGrid('faq-container', config.content.faq, (f) => `
@@ -60,7 +68,7 @@ function applyTexts() {
                 </div>
             </div>
         </div>
-    `);
+     `);
 
     // Gán nội dung HTML cho các tab Chính sách (Legal)
     if(document.getElementById('legal-tos')) document.getElementById('legal-tos').innerHTML = config.content.legal.tos;

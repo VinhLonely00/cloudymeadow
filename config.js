@@ -67,7 +67,7 @@ const config = {
             }
         ],
 
-// --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
+        // --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
         faq: [
             // --- HƯỚNG DẪN QUAN TRỌNG CHO NGƯỜI MỚI ---
             { 

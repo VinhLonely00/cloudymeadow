@@ -67,7 +67,7 @@ const config = {
             }
         ],
 
-        // --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
+// --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
         faq: [
             // --- HƯỚNG DẪN QUAN TRỌNG CHO NGƯỜI MỚI ---
             { 
@@ -87,66 +87,33 @@ const config = {
                 a: "• Server sở hữu hơn 60+ bùa chú (Enchant) được custom độc lạ, thú vị và cân bằng, không sợ bị quá OP.<br>• Cách lấy duy nhất là sử dụng lệnh <code>/phuphep</code> để random bằng tiền server, hoặc săn các bùa độc quyền thông qua các sự kiện (Event) do BQT tổ chức."
             },
 
-            // --- CHI TIẾT TỪNG CÂU LỆNH ---
+            // --- ĐÃ GỘP: TẤT CẢ LỆNH SERVER VÀO MỘT MỤC DUY NHẤT ---
             { 
-                q: "💬 Lệnh /help", 
-                a: "Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game."
-            },
-            { 
-                q: "🎛️ Lệnh /menu", 
-                a: "Mở bảng giao diện quản lý nhanh, tích hợp phím tắt cho gần như tất cả các lệnh trong server."
-            },
-            { 
-                q: "👥 Lệnh /tpa [tên_người_chơi]", 
-                a: "Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của bạn bè hoặc người chơi khác."
-            },
-            { 
-                q: "✨ Lệnh /phuphep", 
-                a: "Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền bằng tiền server."
-            },
-            { 
-                q: "⚖️ Lệnh /buonban", 
-                a: "Truy cập trung tâm giao dịch, chợ thương mại giữa các người chơi để mua bán vật phẩm."
-            },
-            { 
-                q: "🎯 Lệnh /quest", 
-                a: "Hệ thống nhiệm vụ hằng ngày/thử thách giúp bạn cày cuốc và kiếm thêm thu nhập."
-            },
-            { 
-                q: "🛡️ Lệnh /team", 
-                a: "Lệnh dùng để khởi tạo, quản lý, mời thành viên hoặc thiết lập tổ đội/bang hội của bạn."
-            },
-            { 
-                q: "🎮 Lệnh /game", 
-                a: "Trung tâm giải trí tổng hợp của server, nơi bạn truy cập nhanh các minigame, duel hoặc các khu vực kiếm tiền."
-            },
-            { 
-                q: "🗺️ Nhóm lệnh /claim", 
-                a: "• <code>/claim</code>: Mở giao diện (GUI) quản lý khu đất đã bảo vệ.<br>• <code>/trust [tên]</code>: Cho phép bạn bè cùng xây dựng chung trong đất của bạn.<br>• <code>/untrust [tên]</code>: Thu hồi lại quyền xây dựng của người đó.<br>• <code>/abandonclaim</code>: Xóa bỏ hoàn toàn khu đất đang claim hiện tại."
-            },
-            { 
-                q: "⚙️ Lệnh /setting", 
-                a: "Cài đặt giao diện cá nhân, tùy chỉnh bật/tắt các chức năng hiển thị để thể hiện cá tính riêng."
-            },
-            { 
-                q: "🎲 Lệnh /taixiu", 
-                a: "Minigame giải trí may rủi bằng tiền trong server. Một bước ra đê, hai bước lên nhà lầu!"
-            },
-            { 
-                q: "🎁 Lệnh /daily", 
-                a: "Nơi điểm danh để nhận các phần quà miễn phí định kỳ theo Ngày, theo Tuần và theo Tháng."
-            },
-            { 
-                q: "🏆 Lệnh /bxh", 
-                a: "Mở bảng xếp hạng vinh danh những người chơi xuất sắc và giàu có nhất tại CloudyMeadow."
-            },
-            { 
-                q: "🏠 Lệnh /sethome và /home [tên]", 
-                a: "• <code>/sethome [tên]</code>: Đánh dấu vị trí căn nhà của bạn.<br>• <code>/home [tên]</code>: Dịch chuyển tức thời về lại ngôi nhà đã đặt."
-            },
-            { 
-                q: "🎭 Các lệnh hành động vui vẻ (/spin, /crawl, /lay, /sit)", 
-                a: "Sử dụng để thực hiện các biểu cảm cơ thể hài hước: <code>/spin</code> (xoay người), <code>/crawl</code> (bò), <code>/lay</code> (nằm), và <code>/sit</code> (ngồi) cùng bạn bè."
+                q: "⌨️ Danh Sách Toàn Bộ Lệnh Server (Nên Xem)", 
+                a: `<ul style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px;">
+                        <li><code>/help</code> • Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game.</li>
+                        <li><code>/menu</code> • Mở bảng giao diện quản lý nhanh, tích hợp phím tắt cho tất cả các lệnh.</li>
+                        <li><code>/tpa [tên]</code> • Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của người chơi khác.</li>
+                        <li><code>/phuphep</code> • Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền.</li>
+                        <li><code>/buonban</code> • Truy cập trung tâm giao dịch, chợ thương mại để mua bán vật phẩm.</li>
+                        <li><code>/quest</code> • Hệ thống nhiệm vụ hằng ngày/thử thách giúp cày cuốc kiếm thêm thu nhập.</li>
+                        <li><code>/team</code> • Khởi tạo, quản lý, mời thành viên hoặc thiết lập tổ đội/bang hội của bạn.</li>
+                        <li><code>/game</code> • Trung tâm giải trí, truy cập nhanh các minigame, duel hoặc khu vực kiếm tiền.</li>
+                        <li><code>/claim</code> • Quản lý đất đai bảo vệ:
+                            <ul style="padding-left: 15px; margin-top: 4px; display: flex; flex-direction: column; gap: 4px; list-style-type: square; color: #888;">
+                                <li><code>/claim</code>: Mở giao diện (GUI) quản lý khu đất.</li>
+                                <li><code>/trust [tên]</code>: Cho phép bạn bè cùng xây dựng chung trong đất.</li>
+                                <li><code>/untrust [tên]</code>: Thu hồi lại quyền xây dựng của người đó.</li>
+                                <li><code>/abandonclaim</code>: Xóa bỏ hoàn toàn khu đất đang claim hiện tại.</li>
+                            </ul>
+                        </li>
+                        <li><code>/setting</code> • Cài đặt giao diện cá nhân, tùy chỉnh bật/tắt các chức năng hiển thị.</li>
+                        <li><code>/taixiu</code> • Minigame giải trí may rủi bằng tiền trong server.</li>
+                        <li><code>/daily</code> • Điểm danh nhận quà miễn phí định kỳ theo Ngày, Tuần và Tháng.</li>
+                        <li><code>/bxh</code> • Mở bảng xếp hạng vinh danh những người chơi xuất sắc nhất tại server.</li>
+                        <li><code>/sethome</code> và <code>/home [tên]</code> • Đánh dấu vị trí và dịch chuyển tức thời về lại nhà.</li>
+                        <li><b>Hành động vui vẻ:</b> <code>/spin</code> (xoay người), <code>/crawl</code> (bò), <code>/lay</code> (nằm), <code>/sit</code> (ngồi).</li>
+                    </ul>`
             },
 
             // --- CÁC CHỨC NĂNG NỔI BẬT KHÁC ---
@@ -163,7 +130,6 @@ const config = {
                 a: "• <b>Thang Máy Sắt:</b> Chỉ cần đặt các khối sắt song song thẳng đứng để làm thang máy di chuyển siêu tốc giữa các tầng.<br>• <b>VoiceChat:</b> Hệ thống đàm thoại giọng nói trực tiếp cực tiện ích.<br>• <b>Lệnh /vote(...):</b> Người chơi được quyền bầu chọn thay đổi thời gian (Ngày/Đêm) hoặc thời tiết (Mưa/Nắng).<br>• <b>Đa phiên bản:</b> Hỗ trợ chơi mượt mà trên nhiều phiên bản máy tính và tương thích hoàn toàn với hệ máy PE (Điện thoại).<br>• <b>Thế giới & Quái vật:</b> Khám phá thế giới rộng lớn với các công trình đặc biệt. Quái vật tự nhiên được tăng cường sức mạnh để tăng tính thử thách và cân bằng với Player."
             }
         ],
-
         // --- VĂN BẢN PHÁP LÝ ---
         legal: {
             tos: `

@@ -1,3 +1,7 @@
+/* ================================================================
+   VANGUARD THEME - CONFIGURATION (CLOUDYMEADOW VERSION)
+   ================================================================ */
+
 :root {
     --bg-dark: #050505;
     --bg-card: #0c0c0c;
@@ -51,24 +55,6 @@ body {
 .nav-menu { display: flex; list-style: none; gap: 25px; }
 .nav-menu a { color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; text-transform: uppercase; }
 .nav-menu a:hover { color: var(--gold); }
-
-/* Language Selector */
-.custom-lang-selector { position: relative; cursor: pointer; font-size: 0.9rem; }
-.selected-lang {
-    display: flex; align-items: center; gap: 8px;
-    border: 1px solid var(--border); padding: 8px 15px; border-radius: 20px;
-    background: rgba(255,255,255,0.05); transition: 0.3s;
-}
-.selected-lang:hover { border-color: var(--gold); background: rgba(126, 194, 235, 0.08); }
-.lang-dropdown {
-    position: absolute; top: 120%; right: 0; width: 140px;
-    background: #0f0f0f; border: 1px solid var(--border); border-radius: 10px;
-    display: none; flex-direction: column; overflow: hidden;
-}
-.lang-dropdown.show { display: flex; }
-.lang-option { padding: 10px 15px; display: flex; align-items: center; gap: 10px; color: #ccc; transition: 0.2s; }
-.lang-option:hover { background: var(--gold); color: #000; }
-.fi { font-size: 1.2em; border-radius: 2px; }
 
 /* Hero */
 #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 80px; }

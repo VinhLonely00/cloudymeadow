@@ -12,31 +12,42 @@ document.addEventListener("DOMContentLoaded", () => {
 function applyTexts() {
     const ui = config.interface;
 
-    // Cập nhật text giao diện từ config.interface (Chỉ chạy nếu tìm thấy ID trên trang)
-    setText('nav-home', ui.nav.home);
-    setText('nav-staff', ui.nav.staff);
-    setText('nav-rules', ui.nav.rules);
-    setText('nav-faq', ui.nav.faq); 
-    setText('nav-fish', ui.nav.fish);       // Tự động dịch nút Cá
-    setText('nav-enchant', ui.nav.enchant); // Tự động dịch nút Phù Phép
+    // Cập nhật text giao diện từ config.interface (An toàn cho multi-page)
+    if(ui) {
+        if(ui.nav) {
+            setText('nav-home', ui.nav.home);
+            setText('nav-staff', ui.nav.staff);
+            setText('nav-rules', ui.nav.rules);
+            setText('nav-faq', ui.nav.faq); 
+            setText('nav-fish', ui.nav.fish);       
+            setText('nav-enchant', ui.nav.enchant);
+        }
 
-    setText('hero-subtitle', ui.hero.subtitle);
-    setText('hero-btn-copy', ui.hero.btn_copy);
-    setText('hero-online', ui.hero.online);
-    setText('title-staff', ui.titles.staff);
-    setText('title-rules', ui.titles.rules);
-    setText('title-faq', ui.titles.faq); 
-    setText('title-legal', ui.titles.legal);
+        if(ui.hero) {
+            setText('hero-subtitle', ui.hero.subtitle);
+            setText('hero-btn-copy', ui.hero.btn_copy);
+            setText('hero-online', ui.hero.online);
+        }
 
-    setText('tab-tos', ui.legal_tabs.tos);
-    setText('tab-notice', ui.legal_tabs.notice);
-    setText('tab-priv', ui.legal_tabs.priv);
+        if(ui.titles) {
+            setText('title-staff', ui.titles.staff);
+            setText('title-rules', ui.titles.rules);
+            setText('title-faq', ui.titles.faq); 
+            setText('title-legal', ui.titles.legal);
+        }
 
-    // Render danh sách Đội ngũ (Chỉ chạy ở trang chủ index.html)
-    if (document.getElementById('staff-container')) {
+        if(ui.legal_tabs) {
+            setText('tab-tos', ui.legal_tabs.tos);
+            setText('tab-notice', ui.legal_tabs.notice);
+            setText('tab-priv', ui.legal_tabs.priv);
+        }
+    }
+
+    // Render danh sách Đội ngũ (Chỉ chạy nếu có vùng chứa)
+    if (document.getElementById('staff-container') && config.content?.staff) {
         renderGrid('staff-container', config.content.staff, (m) => `
             <div class="staff-card">
-                <img src="https://minotar.net/helm/${m.name}/100.png" class="staff-head">
+                <img src="https://minotar.net/helm/${m.name}/100.png" class="staff-head" alt="${m.name}">
                 <div class="staff-name">${m.name}</div>
                 <div class="staff-role">${m.role}</div>
                 <div class="staff-bio">${m.bio}</div>
@@ -44,8 +55,8 @@ function applyTexts() {
         `);
     }
 
-    // Render danh sách Luật (Chỉ chạy ở trang chủ index.html)
-    if (document.getElementById('rules-container')) {
+    // Render danh sách Luật (Chỉ chạy nếu có vùng chứa)
+    if (document.getElementById('rules-container') && config.content?.rules) {
         renderGrid('rules-container', config.content.rules, (r) => `
             <div class="rule-card">
                 <h3>${r.title}</h3>
@@ -54,8 +65,8 @@ function applyTexts() {
         `);
     }
 
-    // Render danh sách FAQ (Chỉ chạy ở trang chủ index.html)
-    if (document.getElementById('faq-container')) {
+    // Render danh sách FAQ (Chỉ chạy nếu có vùng chứa)
+    if (document.getElementById('faq-container') && config.content?.faq) {
         renderGrid('faq-container', config.content.faq, (f) => `
             <div class="faq-item" onclick="toggleFaq(this)">
                 <div class="faq-header">
@@ -72,18 +83,25 @@ function applyTexts() {
     }
 
     // Gán nội dung HTML cho các tab Chính sách (Chỉ chạy ở trang chủ index.html)
-    if(document.getElementById('legal-tos')) document.getElementById('legal-tos').innerHTML = config.content.legal.tos;
-    if(document.getElementById('legal-notice')) document.getElementById('legal-notice').innerHTML = config.content.legal.notice;
-    if(document.getElementById('legal-priv')) document.getElementById('legal-priv').innerHTML = config.content.legal.priv;
+    if(config.content?.legal) {
+        if(document.getElementById('legal-tos')) document.getElementById('legal-tos').innerHTML = config.content.legal.tos;
+        if(document.getElementById('legal-notice')) document.getElementById('legal-notice').innerHTML = config.content.legal.notice;
+        if(document.getElementById('legal-priv')) document.getElementById('legal-priv').innerHTML = config.content.legal.priv;
+    }
 
     // Đồng bộ hóa Tên Server chia khối màu cho Logo dạng text
     const logoText = document.getElementById('nav-logo-text');
     if (logoText && config.serverName) {
-        logoText.innerHTML = `${config.serverName.substring(0, 6)}<span>${config.serverName.substring(6)}</span>`;
+        if(config.serverName.length > 6) {
+            logoText.innerHTML = `${config.serverName.substring(0, 6)}<span>${config.serverName.substring(6)}</span>`;
+        } else {
+            logoText.innerHTML = `<span>${config.serverName}</span>`;
+        }
     }
     
     setText('footer-name', config.serverName);
     setText('ip-display', config.serverIp);
+    
     const logo = document.getElementById('hero-logo-img');
     if(config.serverLogo && logo) logo.src = config.serverLogo;
 }
@@ -108,6 +126,8 @@ function initSocials() {
     if(!c) return;
     c.innerHTML = '';
     const s = config.social;
+    if(!s) return;
+    
     const add = (i, l) => c.innerHTML += `<a href="${l}" target="_blank" class="social-icon"><i class="${i}"></i></a>`;
     if(s.discord) add('fab fa-discord', s.discord);
     if(s.twitter) add('fab fa-twitter', s.twitter);
@@ -129,8 +149,11 @@ function toggleFaq(el) {
 }
 
 function renderGrid(id, arr, fn) {
-    const el = document.getElementById(id); if(el) el.innerHTML = '';
-    if(el && arr) arr.forEach(i => el.innerHTML += fn(i));
+    const el = document.getElementById(id); 
+    if(el) {
+        el.innerHTML = '';
+        if(arr) arr.forEach(i => el.innerHTML += fn(i));
+    }
 }
 
 function setText(id, txt) { 
@@ -145,7 +168,7 @@ function fetchStatus() {
     fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
         .then(r=>r.json())
         .then(d => {
-            el.innerText = d.online ? d.players.online : '-';
+            el.innerText = (d && d.online) ? d.players.online : '-';
         })
         .catch(() => {
             el.innerText = '-';

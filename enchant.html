@@ -135,12 +135,12 @@
             text-align: center;
             min-width: 95px;
         }
-        .tier-thuong { background: rgba(142, 142, 147, 0.2); color: #aeaeae; }
-        .tier-hiem { background: rgba(22, 160, 133, 0.2); color: #1abc9c; }
-        .tier-sieuhiem { background: rgba(52, 152, 219, 0.2); color: #3498db; }
-        .tier-suthi { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
-        .tier-huyenthoai { background: rgba(230, 126, 34, 0.2); color: #e67e22; border: 1px solid #e67e22; }
-        .tier-thanthoai { background: rgba(241, 196, 15, 0.2); color: #f1c40f; border: 1px solid #f1c40f; box-shadow: 0 0 8px rgba(241, 196, 15, 0.3); }
+        .tier-thuong { background: rgba(85, 255, 85, 0.15); color: #55ff55; border: 1px solid rgba(85, 255, 85, 0.3); }
+        .tier-hiem { background: rgba(85, 255, 255, 0.15); color: #55ffff; border: 1px solid rgba(85, 255, 255, 0.3); }
+        .tier-sieuhiem { background: rgba(30, 210, 255, 0.15); color: #1ed2ff; border: 1px solid rgba(30, 210, 255, 0.3); }
+        .tier-suthi { background: rgba(255, 85, 255, 0.15); color: #ff55ff; border: 1px solid rgba(255, 85, 255, 0.3); }
+        .tier-huyenthoai { background: rgba(255, 170, 0, 0.15); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.5); }
+        .tier-thanthoai { background: rgba(255, 85, 85, 0.2); color: #ff5555; border: 1px solid #ff5555; box-shadow: 0 0 8px rgba(255, 85, 85, 0.3); }
 
         .enchant-desc {
             color: #e0e0e0;
@@ -161,6 +161,7 @@
     <div class="particles-container" id="particles"></div>
     <div class="bg-vignette"></div>
 
+    <!-- Thanh Điều Hướng Đồng Bộ Từ fish.html -->
     <nav class="navbar">
         <a href="index.html" class="nav-logo" id="nav-logo-text">Cloudy<span>Meadow</span></a>
         <ul class="nav-menu">
@@ -181,6 +182,7 @@
             <div class="gold-line"></div>
         </div>
 
+        <!-- ================= VŨ KHÍ CẬN CHIẾN & ĐA NĂNG ================= -->
         <div class="category-title"><i class="fas fa-swords"></i> Vũ Khí Cận Chiến & Đa Năng (Swords, Axes, Weapons)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -358,14 +360,9 @@
                 </div>
                 <p class="enchant-desc">Có tỉ lệ biến mũ của đối thủ thành bí ngô trong thời gian ngắn.</p>
             </div>
-            <div class="enchant-card">
-                <div class="enchant-title">
-                    <span class="enchant-name">Wither Coated <span class="enchant-item-target">(Vũ Khí)</span></span>
-                </div>
-                <p class="enchant-desc">Mỗi đòn đánh gây hiệu ứng thối rữa (Wither) lên mục tiêu, nhưng sẽ tiêu hao nhiều độ bền của vũ khí hơn.</p>
-            </div>
         </div>
 
+        <!-- ================= ĐINH BA & VŨ KHÍ TẦM XA ================= -->
         <div class="category-title"><i class="fas fa-crosshairs"></i> Đinh Ba & Vũ Khí Tầm Xa (Bow, Crossbow, Trident)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -377,27 +374,369 @@
             </div>
             <div class="enchant-card">
                 <div class="enchant-title">
-                    <span class="enchant-name">Tri-Shot <span class="enchant-item-target">(Cung)</span></span>
+                    <span class="enchant-name">Xạ Thủ <span class="enchant-item-target">(Bow, Crossbow, Trident)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
                 </div>
-                <p class="enchant-desc">Cung thường khi giương lên sẽ bắn ra cùng lúc 3 mũi tên tỏa ra thay vì chỉ 1 mũi tên.</p>
+                <p class="enchant-desc">Mũi tên với sát thương khủng sẽ bắn vào đối thủ đang chém.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Xạ Thủ Nỏ <span class="enchant-item-target">(Crossbow)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
+                </div>
+                <p class="enchant-desc">Tăng sát thường gây ra với đối thủ cầm nỏ.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Sát Thương Trident <span class="enchant-item-target">(Trident)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
+                </div>
+                <p class="enchant-desc">Tăng sát thường gây ra với đối thủ cầm đinh ba.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Nam Châm Biển Cả <span class="enchant-item-target">(Trident)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
+                </div>
+                <p class="enchant-desc">Ném đinh ba kéo thẳng đối thủ đến trước mặt bạn.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Lao Nhân <span class="enchant-item-target">(Trident)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Có tỉ lệ x2 sát thương khi phóng.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Tên Thần <span class="enchant-item-target">(Bow, Crossbow)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Tăng sát thương đáng kể gây ra cho đối thủ có 1 cây cung trong tay của họ.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Mưa Tên <span class="enchant-item-target">(Bow)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Triệu hồi mưa tên lên đối thủ.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Bắn Tỉa <span class="enchant-item-target">(Bow)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Bắn trúng vào đầu đối thủ sẽ có tỉ lệ gây sát thương cực mạnh.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Dứt Điểm <span class="enchant-item-target">(Trident)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Ném đinh ba trúng đầu đối thủ sẽ có tỉ lệ gây sát thương cực lớn.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Cuồng Kích <span class="enchant-item-target">(Trident)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Tăng sát thương cận chiến cho đinh ba của bạn.</p>
             </div>
         </div>
 
-        <div class="category-title"><i class="fas fa-flask"></i> Khu Vực Thử Nghiệm & Khác</div>
+        <!-- ================= GIÁP & TRANG BỊ BẢO HỘ ================= -->
+        <div class="category-title"><i class="fas fa-shield-alt"></i> Giáp & Trang Bị Bảo Hộ (Armor, Helmets, Boots, Elytra)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
                 <div class="enchant-title">
-                    <span class="enchant-name">Bug Enchant <span class="enchant-item-target">(Thử Nghiệm)</span></span>
+                    <span class="enchant-name">Lò Xo <span class="enchant-item-target">(Boots)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
                 </div>
-                <p class="enchant-desc">Bùa chú thử nghiệm đặc biệt, khi đem vào chế độ Sinh Tồn (Survival) sẽ tự động biến chuyển thành Sát Thương Của Côn Trùng.</p>
+                <p class="enchant-desc">Giúp bạn nhảy cao hơn.</p>
             </div>
             <div class="enchant-card">
                 <div class="enchant-title">
-                    <span class="enchant-name">Curse of Conductivity <span class="enchant-item-target">(Trang Bị)</span></span>
+                    <span class="enchant-name">Mềm Dẻo <span class="enchant-item-target">(Boots)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
                 </div>
-                <p class="enchant-desc">Lời nguyền đặc biệt tăng tính dẫn lôi hoặc tác động liên quan trên trang bị.</p>
+                <p class="enchant-desc">Có tỉ lệ chặn sát thương rơi.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Né Đòn <span class="enchant-item-target">(Armor)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Có cơ hội né đòn đánh của đối thủ, cơ hội tăng lên khi đi rón rén.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Gia Cố <span class="enchant-item-target">(Elytra)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Giảm sát thương gây ra cho bạn.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Dinh Dưỡng <span class="enchant-item-target">(Helmets)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Có tỉ lệ phục hồi thức ăn cứ sau vài giây.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Nham Hành <span class="enchant-item-target">(Boots)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Đi trên dung nham.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thủy Hành <span class="enchant-item-target">(Boots)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Đi trên mặt nước.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thủy Chiến <span class="enchant-item-target">(Boots)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">x2 sát thương khi ở dưới nước.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Quá Tải <span class="enchant-item-target">(Armor)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Tăng thêm máu cho bạn.</p>
             </div>
         </div>
+
+        <!-- ================= CÔNG CỤ & KHAI THÁC ================= -->
+        <div class="category-title"><i class="fas fa-pickaxe"></i> Công Cụ Khai Thác & Nông Nghiệp (Tools, Pickaxes, Hoes)</div>
+        <div class="enchant-grid">
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Nung Nóng <span class="enchant-item-target">(Pickaxes)</span></span> 
+                    <span class="tier-tag tier-thuong">Thường</span>
+                </div>
+                <p class="enchant-desc">Có cơ hội nung chảy khoáng sản.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Kinh Nghiệm <span class="enchant-item-target">(Tools)</span></span> 
+                    <span class="tier-tag tier-thuong">Thường</span>
+                </div>
+                <p class="enchant-desc">Cho tỉ lệ nhận nhiều kinh nghiệm hơn khi khai thác khoáng sản.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thần Tốc Khai Phá <span class="enchant-item-target">(Tools)</span></span> 
+                    <span class="tier-tag tier-thuong">Thường</span>
+                </div>
+                <p class="enchant-desc">có tỉ lệ nhận hiệu ứng đào nhanh khi phá vỡ các khối.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thủy Sinh <span class="enchant-item-target">(Pickaxe)</span></span> 
+                    <span class="tier-tag tier-thuong">Thường</span>
+                </div>
+                <p class="enchant-desc">Có cơ hội nhận thêm không khí khi khai thác dưới nước.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Tái Canh Tác <span class="enchant-item-target">(Hoes)</span></span> 
+                    <span class="tier-tag tier-hiem">Hiếm</span>
+                </div>
+                <p class="enchant-desc">Tự trồng lại sau khi đập nông sản.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thu Gom <span class="enchant-item-target">(Tools)</span></span> 
+                    <span class="tier-tag tier-hiem">Hiếm</span>
+                </div>
+                <p class="enchant-desc">Tự nhặt các khối bị phá.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Ăn Tạp <span class="enchant-item-target">(Pickaxes)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
+                </div>
+                <p class="enchant-desc">Có cơ hội hồi phục thức ăn khi khai thác.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thần Nông <span class="enchant-item-target">(Hoes)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Có tỉ lệ thu hoạch trong khu 3x3.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Chuyên Gia Lúa Mì <span class="enchant-item-target">(Hoes)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Trồng hạt lúa mì trong khu 3x3 (shift + chuột phải để thực hiện).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Chuyên Gia Khoai Tây <span class="enchant-item-target">(Hoes)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Trồng khoai tây trong khu 3x3 (shift + chuột phải để thực hiện).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Chuyên Gia Cà Rốt <span class="enchant-item-target">(Hoes)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Trồng khoai tây trong khu 3x3 (shift + chuột phải để thực hiện).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">3x3 <span class="enchant-item-target">(Pickaxes, Shovels)</span></span> 
+                    <span class="tier-tag tier-thanthoai">Thần Thoại</span>
+                </div>
+                <p class="enchant-desc">Phá hủy các khối trong phạm vi 3x3.</p>
+            </div>
+        </div>
+
+        <!-- ================= NGƯ NGHIỆP & CẦN CÂU ================= -->
+        <div class="category-title"><i class="fas fa-fish"></i> Ngư Nghiệp & Cần Câu (Fishing Rod)</div>
+        <div class="enchant-grid">
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Thủy Thủ <span class="enchant-item-target">(Fishing Rod)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
+                </div>
+                <p class="enchant-desc">Nhận thêm kinh nghiệm khi câu cá.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Tay Quỷ <span class="enchant-item-target">(Fishing Rod)</span></span> 
+                    <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
+                </div>
+                <p class="enchant-desc">Kéo đối phương lại gần.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Đánh Cá <span class="enchant-item-target">(Fishing Rod)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Tự động thu cần khi cá cắn câu.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Phúc Lộc <span class="enchant-item-target">(Fishing Rod)</span></span> 
+                    <span class="tier-tag tier-suthi">Sử Thi</span>
+                </div>
+                <p class="enchant-desc">Nhận hiệu ứng may mắn khi câu cá.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Lưỡi Câu Sắc Bén <span class="enchant-item-target">(Fishing Rod)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Gây sát thương bằng cần cầu.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">Ngư Dân May Mắn <span class="enchant-item-target">(Fishing Rod)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Có tỉ lệ nhận thêm vật phẩm khi câu cá.</p>
+            </div>
+        </div>
+
+        <!-- ================= VŨ KHÍ MACE ================= -->
+        <div class="category-title"><i class="fas fa-thunderstorm"></i> Vũ Khí Cổ Đại Đặc Biệt (Mace)</div>
+        <div class="enchant-grid">
+            <div class="enchant-card">
+                <div class="enchant-title">
+                    <span class="enchant-name">⚡ Thiên Phạt <span class="enchant-item-target">(Mace)</span></span> 
+                    <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
+                </div>
+                <p class="enchant-desc">Đập từ trên cao gọi thiên lôi.</p>
+            </div>
+        </div>
+
+        <!-- ================= CỔ NGỮ PHƯƠNG TÂY (BẢN TIẾNG ANH - KHÔNG ĐỘ HIẾM) ================= -->
+        <div class="category-title"><i class="fas fa-scroll"></i> Cổ Ngữ Phương Tây (Bùa Chú Bản Tiếng Anh)</div>
+        <div class="enchant-grid">
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Aerial's Bane <span class="enchant-item-target">(Kiếm, Rìu)</span></span></div>
+                <p class="enchant-desc">Sát thương tăng lên vượt trội đối với các sinh vật đang ở trên không.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Illager's Bane <span class="enchant-item-target">(Kiếm, Rìu)</span></span></div>
+                <p class="enchant-desc">Tăng mạnh lượng sát thương lên các sinh vật thuộc nhóm Illager và Phù thủy (Witch).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Might <span class="enchant-item-target">(Nỏ)</span></span></div>
+                <p class="enchant-desc">Gia tăng mạnh mẽ các chỉ số sát thương thuần của mũi tên bắn ra từ Nỏ (Crossbow).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Traveler <span class="enchant-item-target">(Giày)</span></span></div>
+                <p class="enchant-desc">Gia tăng tốc độ di chuyển chạy bộ, đồng thời hỗ trợ tự động bước lên các khối block cao 1 bậc.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Wax Wings <span class="enchant-item-target">(Elytra)</span></span></div>
+                <p class="enchant-desc">Khi sử dụng cánh Elytra để lượn chậm, trang bị sẽ gần như không bị tiêu hao độ bền.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Antidote <span class="enchant-item-target">(Giáp Ngực)</span></span></div>
+                <p class="enchant-desc">Khi dính trạng thái Trúng Độc (Poison), độc tố sẽ cấu trừ vào độ bền của giáp ngực thay vì trừ thẳng vào máu.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Blowthrough <span class="enchant-item-target">(Cung)</span></span></div>
+                <p class="enchant-desc">Mũi tên phóng ra từ Cung có khả năng xuyên thấu qua nhiều mục tiêu thẳng hàng.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Ghasted <span class="enchant-item-target">(Cung)</span></span></div>
+                <p class="enchant-desc">Mũi tên bắn ra biến thành một quả cầu lửa của Ghast với sức công phá vô cùng mạnh mẽ.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Gravity <span class="enchant-item-target">(Cung)</span></span></div>
+                <p class="enchant-desc">Mũi tên tạo ra một trường lực hút mạnh, kéo mọi thực thể xung quanh về vị trí trúng đích.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Hydro Veil <span class="enchant-item-target">(Happy Ghast)</span></span></div>
+                <p class="enchant-desc">Thú cưỡi Happy Ghast đồng hành nhận thêm khả năng kháng lửa, kháng nổ và hồi phục máu mạnh mẽ.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Outreach <span class="enchant-item-target">(Công Cụ)</span></span></div>
+                <p class="enchant-desc">Gia tăng đáng kể khoảng cách tầm với tương tác và đặt phá các khối block.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Photosynthesis <span class="enchant-item-target">(Vật Phẩm)</span></span></div>
+                <p class="enchant-desc">Vật phẩm sẽ tự động sửa chữa, hồi phục lại độ bền khi bạn đứng dưới ánh nắng mặt trời.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Spiteful <span class="enchant-item-target">(Vũ Khí)</span></span></div>
+                <p class="enchant-desc">Máu của bạn càng thấp sẽ gây ra càng nhiều sát thương, đôi lúc tự động nhận thêm hiệu ứng Sức mạnh (Strength).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Swift Soar <span class="enchant-item-target">(Happy Ghast)</span></span></div>
+                <p class="enchant-desc">Thú cưỡi Happy Ghast di chuyển và bay với tốc độ nhanh hơn hẳn khi người cưỡi đang chạy nước rút (Sprint).</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Wither Coated <span class="enchant-item-target">(Vũ Khí)</span></span></div>
+                <p class="enchant-desc">Mỗi đòn đánh gây hiệu ứng thối rữa (Wither) lên mục tiêu, nhưng sẽ tiêu hao nhiều độ bền của vũ khí hơn.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Tri-Shot <span class="enchant-item-target">(Cung)</span></span></div>
+                <p class="enchant-desc">Cung thường khi giương lên sẽ bắn ra cùng lúc 3 mũi tên tỏa ra thay vì chỉ 1 mũi tên.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Bug Enchant <span class="enchant-item-target">(Thử Nghiệm)</span></span></div>
+                <p class="enchant-desc">Bùa chú thử nghiệm đặc biệt, khi đem vào chế độ Sinh Tồn (Survival) sẽ tự động biến chuyển thành Sát Thương Của Côn Trùng.</p>
+            </div>
+            <div class="enchant-card">
+                <div class="enchant-title"><span class="enchant-name">Curse of Conductivity <span class="enchant-item-target">(Trang Bị)</span></span></div>
+                <p class="enchant-desc">Trang bị khiến bạn dễ trở thành mục tiêu bị thiên lôi dòm ngó và sét đánh trúng hơn khi trời có giông bão.</p>
+            </div>
+        </div>
+
     </section>
 
 </body>

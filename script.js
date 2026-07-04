@@ -17,6 +17,13 @@ function applyTexts() {
     setText('nav-staff', ui.nav.staff);
     setText('nav-rules', ui.nav.rules);
     setText('nav-faq', ui.nav.faq); 
+
+    // Đồng bộ nhãn nút Bách Khoa Cá từ file cấu hình config.js (nếu có thẻ này)
+    const fishNavBtn = document.querySelector('.nav-menu a[href="fish.html"]');
+    if (fishNavBtn && ui.nav.fish) {
+        fishNavBtn.innerText = ui.nav.fish;
+    }
+
     setText('hero-subtitle', ui.hero.subtitle);
     setText('hero-btn-copy', ui.hero.btn_copy);
     setText('hero-online', ui.hero.online);

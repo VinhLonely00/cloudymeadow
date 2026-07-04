@@ -29,24 +29,25 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding-top: 100px; /* Thêm padding để không bị thanh điều hướng che khuất nội dung */
-            padding-bottom: 40px;
+            padding-top: 110px; /* Đồng bộ độ cao với trang chủ và trang cá */
+            padding-bottom: 60px;
         }
 
-        /* --- THANH ĐIỀU HƯỚNG ĐỒNG BỘ --- */
+        /* ================= THANH ĐIỀU HƯỚNG ĐỒNG BỘ TRANG CHỦ / FISH ================= */
         .navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(10, 12, 16, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px 40px;
+            padding: 20px 8%;
+            background: rgba(10, 12, 16, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .nav-logo {
@@ -55,6 +56,7 @@
             color: #fff;
             text-decoration: none;
             font-weight: 700;
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
@@ -65,23 +67,66 @@
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 30px;
-            align-items: center;
+            gap: 35px;
         }
 
         .nav-menu a {
-            color: var(--text-muted);
+            color: #fff;
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            position: relative;
+            padding: 5px 0;
             transition: color 0.3s ease;
         }
 
-        .nav-menu a:hover {
-            color: #fff;
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
         }
 
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* ================= NÚT QUAY VỀ ĐỒNG BỘ THU GỌN ================= */
+        .btn-back-container {
+            margin-bottom: 25px;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(126, 194, 235, 0.1);
+            border: 1px solid rgba(126, 194, 235, 0.2);
+            color: var(--accent-color);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(126, 194, 235, 0.2);
+        }
+
+        /* ================= CẤU TRÚC NỘI DUNG ================= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -110,20 +155,6 @@
             color: var(--text-muted);
             font-size: 1.1rem;
         }
-
-        .btn-back {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .btn-back i { margin-right: 8px; }
-        .btn-back:hover { color: #fff; transform: translateX(-5px); }
 
         .category-title {
             font-family: 'Oswald', sans-serif;
@@ -221,32 +252,40 @@
             font-size: 0.9rem;
         }
 
+        @media (max-width: 992px) {
+            .navbar { padding: 20px 4%; }
+            .nav-menu { gap: 20px; }
+        }
+
         @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; }
-            .nav-menu { gap: 15px; }
+            .navbar { padding: 15px 20px; flex-direction: column; gap: 10px; text-align: center; }
+            .nav-menu { gap: 15px; flex-wrap: wrap; justify-content: center; }
             .nav-menu a { font-size: 0.8rem; }
             .header h1 { font-size: 2.2rem; }
-            body { padding-top: 80px; padding-left: 10px; padding-right: 10px; }
+            body { padding-top: 140px; padding-left: 10px; padding-right: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- THANH ĐIỀU HƯỚNG HỆ THỐNG -->
+    <!-- THANH ĐIỀU HƯỚNG ĐỒNG BỘ HỆ THỐNG -->
     <nav class="navbar">
-        <a href="index.html" class="nav-logo" id="nav-logo-text">Cloudy<span>Meadow</span></a>
+        <a href="index.html" class="nav-logo">Cloudy<span>Meadow</span></a>
         <ul class="nav-menu">
             <li><a href="index.html#hero">TRANG CHỦ</a></li>
             <li><a href="index.html#staff">ĐỘI NGŨ</a></li>
             <li><a href="index.html#rules">LUẬT</a></li>
             <li><a href="index.html#faq">CÁCH CHƠI</a></li>
             <li><a href="fish.html">BÁCH KHOA CÁ</a></li>
-            <li><a href="#" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">KHO PHÙ PHÉP</a></li>
+            <li><a href="#" style="color: #7ec2eb; font-weight: 700;">KHO PHÙ PHÉP</a></li>
         </ul>
     </nav>
 
     <div class="container">
-        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay về Trang Chủ</a>
+        <!-- NÚT QUAY VỀ ĐÃ THU GỌN THEO PHONG CÁCH CHUNG -->
+        <div class="btn-back-container">
+            <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Trang Chủ</a>
+        </div>
 
         <div class="header">
             <h1>Hệ Thống <span>Phù Phép Đặc Biệt</span></h1>
@@ -285,7 +324,7 @@
                 <p class="enchant-desc">Tăng sát thương gây ra cho EnderMan và EnderDragon.</p>
             </div>
             <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Ma Cà Ròng <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
+                <div class="enchant-title"><span class="enchant-name">Ma Cà Rồng <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
                 <p class="enchant-desc">Có cơ hội hồi tới 3 máu sau khi bị đánh vài giây.</p>
             </div>
             <div class="enchant-card">

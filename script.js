@@ -12,17 +12,13 @@ document.addEventListener("DOMContentLoaded", () => {
 function applyTexts() {
     const ui = config.interface;
 
-    // Cập nhật text giao diện từ config.interface (chỉ chạy nếu tìm thấy ID trên trang)
+    // Cập nhật text giao diện từ config.interface (Chỉ chạy nếu tìm thấy ID trên trang)
     setText('nav-home', ui.nav.home);
     setText('nav-staff', ui.nav.staff);
     setText('nav-rules', ui.nav.rules);
     setText('nav-faq', ui.nav.faq); 
-
-    // Tự động đồng bộ nút Bách Khoa Cá trên thanh nav (Dù ở index hay trang fish đều nhận diện được)
-    const fishNavBtn = document.querySelector('.nav-menu a[href="fish.html"]') || document.querySelector('.nav-menu a[href="#"]');
-    if (fishNavBtn && ui.nav.fish) {
-        fishNavBtn.innerText = ui.nav.fish;
-    }
+    setText('nav-fish', ui.nav.fish);       // Tự động dịch nút Cá
+    setText('nav-enchant', ui.nav.enchant); // Tự động dịch nút Phù Phép
 
     setText('hero-subtitle', ui.hero.subtitle);
     setText('hero-btn-copy', ui.hero.btn_copy);
@@ -110,7 +106,7 @@ function copyIp() {
 function initSocials() {
     const c = document.getElementById('social-container');
     if(!c) return;
-    c.innerHTML = ''; // Clear nội dung cũ nếu có
+    c.innerHTML = '';
     const s = config.social;
     const add = (i, l) => c.innerHTML += `<a href="${l}" target="_blank" class="social-icon"><i class="${i}"></i></a>`;
     if(s.discord) add('fab fa-discord', s.discord);
@@ -144,7 +140,7 @@ function setText(id, txt) {
 
 function fetchStatus() {
     const el = document.getElementById('player-count');
-    if(!el) return; // Nếu không có thẻ đếm người chơi thì dừng luôn
+    if(!el) return;
     
     fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
         .then(r=>r.json())
@@ -159,7 +155,7 @@ function fetchStatus() {
 function initParticles() {
     const c = document.getElementById('particles');
     if(!c) return;
-    c.innerHTML = ''; // Clear trước khi tạo
+    c.innerHTML = '';
     for(let i=0; i<25; i++) {
         let p = document.createElement('div');
         p.className = 'particle';

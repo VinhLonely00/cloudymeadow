@@ -23,18 +23,23 @@ const config = {
 
     // 4. CONTENIDO (Việt Nam)
     content: {
-        // --- STAFF ---
+    // --- STAFF ---
         staff: [
             { 
-                name: "VinhLonely00", role: "OWNER", 
+                name: "VinhLonely00", 
+                skinName: "Drewusalem", // Đã cập nhật tên Premium để lấy skin
+                role: "OWNER", 
                 bio: "Quản lý & Phát triển toàn bộ hệ thống server."
             },
             { 
-                name: "BadNether", role: "ADMIN", 
+                name: "BadNether", 
+                role: "ADMIN", 
                 bio: "Phụ trách mảng Duel & Phát triển tính năng game."
             },
             { 
-                name: "Hellaoo", role: "HELPER", 
+                name: "Hellaoo", 
+                skinName: "Lucasmorelli09", // Đã cập nhật tên Premium để lấy skin
+                role: "HELPER", 
                 bio: "Hỗ trợ người chơi, giải đáp thắc mắc & Săn lùng bug game."
             }
         ],

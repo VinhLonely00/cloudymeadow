@@ -177,8 +177,8 @@ const config = {
             staff: "Đội Ngũ", 
             rules: "Luật", 
             faq: "Cách Chơi", 
-            fish: "Bách Khoa Cá",     // Tên hiển thị nút Cá
-            enchant: "Kho Phù Phép"   // Tên hiển thị nút Phù Phép
+            fish: "Câu Cá",     // Tên hiển thị nút Cá
+            enchant: "Phù Phép"   // Tên hiển thị nút Phù Phép
         },
         hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
         titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", faq: "LỆNH & CÁCH CHƠI", legal: "CHÍNH SÁCH" },

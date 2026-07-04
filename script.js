@@ -43,16 +43,21 @@ function applyTexts() {
         }
     }
 
-    // Render danh sách Đội ngũ (Chỉ chạy nếu có vùng chứa)
+    // Render danh sách Đội ngũ (Đã tối ưu hóa hỗ trợ acc crack mượn skinName)
     if (document.getElementById('staff-container') && config.content?.staff) {
-        renderGrid('staff-container', config.content.staff, (m) => `
-            <div class="staff-card">
-                <img src="https://minotar.net/helm/${m.name}/100.png" class="staff-head" alt="${m.name}">
-                <div class="staff-name">${m.name}</div>
-                <div class="staff-role">${m.role}</div>
-                <div class="staff-bio">${m.bio}</div>
-            </div>
-        `);
+        renderGrid('staff-container', config.content.staff, (m) => {
+            // Kiểm tra: Nếu có thuộc tính skinName thì fetch theo skinName, ngược lại fetch theo name gốc
+            const skinToFetch = m.skinName ? m.skinName : m.name;
+
+            return `
+                <div class="staff-card">
+                    <img src="https://minotar.net/helm/${skinToFetch}/100.png" class="staff-head" alt="${m.name}">
+                    <div class="staff-name">${m.name}</div>
+                    <div class="staff-role">${m.role}</div>
+                    <div class="staff-bio">${m.bio}</div>
+                </div>
+            `;
+        });
     }
 
     // Render danh sách Luật (Chỉ chạy nếu có vùng chứa)

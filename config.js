@@ -167,8 +167,14 @@ const config = {
     interface: {
         flag: "vn", 
         name: "Tiếng Việt",
-        // Đã tích hợp thêm key fish để script.js tự đồng bộ hóa navbar
-        nav: { home: "Trang Chủ", staff: "Đội Ngũ", rules: "Luật", faq: "Cách Chơi", fish: "Bách Khoa Cá" },
+        nav: { 
+            home: "Trang Chủ", 
+            staff: "Đội Ngũ", 
+            rules: "Luật", 
+            faq: "Cách Chơi", 
+            fish: "Bách Khoa Cá",     // Tên hiển thị nút Cá
+            enchant: "Kho Phù Phép"   // Tên hiển thị nút Phù Phép
+        },
         hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
         titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", faq: "LỆNH & CÁCH CHƠI", legal: "CHÍNH SÁCH" },
         legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }

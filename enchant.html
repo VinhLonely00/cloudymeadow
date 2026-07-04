@@ -3,579 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kho Phù Phép - CloudyMeadow</title>
+    <title>CloudyMeadow - Kho Phù Phép</title>
     
     <link rel="icon" href="favicon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script src="config.js"></script>
-    
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-            /* Các màu sắc chủ đạo được tối ưu đồng bộ với Vanguard Theme */
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --accent-color: #58a6ff; /* Sẽ bị ghi đè tự động bằng JS nếu trang chủ có màu khác */
-            --text-color: #c9d1d9;
-            --text-muted: #8b949e;
-            --primary-font: 'Montserrat', sans-serif;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
+        .enchant-section {
+            padding: 120px 20px 60px;
+            max-width: 1300px;
             margin: 0 auto;
+            min-height: 80vh;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .header h1 {
-            font-family: var(--primary-font);
-            font-size: 2.8rem;
+        /* Tiêu đề nhóm phân loại */
+        .category-header {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
             color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .header h1 span {
-            color: var(--accent-color);
-            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
-        }
-
-        .header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-
-        .btn-back {
-            display: inline-block;
-            margin-bottom: 30px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            font-family: var(--primary-font);
-        }
-
-        .btn-back i { margin-right: 8px; }
-        .btn-back:hover { color: var(--accent-color); transform: translateX(-5px); }
-
-        .category-title {
-            font-family: var(--primary-font);
-            font-size: 1.5rem;
-            color: #fff;
-            margin: 40px 0 20px 0;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 50px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            font-weight: 600;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+        
+        .category-header i {
+            color: #7ec2eb;
         }
 
-        .category-title i {
-            color: var(--accent-color);
-        }
-
+        /* Grid hệ thống Card - Lấy cảm hứng từ layout cá */
         .enchant-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
+            margin-bottom: 40px;
         }
 
+        /* Giao diện Card bọc kính mờ đồng bộ 100% từ fish.html */
         .enchant-card {
-            background-color: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
             padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             position: relative;
             overflow: hidden;
-            transition: all 0.25s ease;
-        }
-
-        .enchant-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: var(--accent-color);
-            opacity: 0;
-            transition: opacity 0.25s ease;
         }
 
         .enchant-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(255, 255, 255, 0.1);
-            background-color: #1f242c;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(-5px);
+            border-color: rgba(126, 194, 235, 0.4);
+            box-shadow: 0 12px 40px 0 rgba(126, 194, 235, 0.15);
         }
 
-        .enchant-card:hover::before { opacity: 1; }
+        .enchant-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 14px;
+            gap: 10px;
+        }
 
         .enchant-title {
-            font-family: var(--primary-font);
-            font-size: 1.1rem;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
             color: #fff;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin: 0;
         }
 
-        .enchant-name {
-            line-height: 1.3;
-        }
-
-        .enchant-item-target {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 400;
-            display: block;
-            margin-top: 2px;
-        }
-
-        .tier-tag {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.65rem;
-            font-weight: 700;
-            padding: 3px 8px;
+        /* Badge độ hiếm đồng bộ từ fish.html */
+        .rarity {
+            display: inline-block;
+            padding: 4px 8px;
             border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
             text-transform: uppercase;
+            text-align: center;
             white-space: nowrap;
         }
-
-        /* Định dạng màu Tier chuẩn màu Chatcolor Minecraft hệ tối */
-        .tier-thuong { background-color: rgba(85, 255, 85, 0.15); color: #55ff55; border: 1px solid rgba(85, 255, 85, 0.3); }
-        .tier-hiem { background-color: rgba(55, 255, 255, 0.15); color: #55ffff; border: 1px solid rgba(55, 255, 255, 0.3); }
-        .tier-sieuhiem { background-color: rgba(30, 210, 255, 0.15); color: #1ed2ff; border: 1px solid rgba(30, 210, 255, 0.3); }
-        .tier-suthi { background-color: rgba(255, 85, 255, 0.15); color: #ff55ff; border: 1px solid rgba(255, 85, 255, 0.3); }
-        .tier-huyenthoai { background-color: rgba(255, 170, 0, 0.15); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.3); }
-        .tier-thanthoai { background-color: rgba(255, 85, 85, 0.15); color: #ff5555; border: 1px solid rgba(255, 85, 85, 0.3); }
+        .rarity.common { background: rgba(142, 142, 147, 0.2); color: #aeaeae; }
+        .rarity.popular { background: rgba(46, 204, 113, 0.2); color: #2ecc71; }
+        .rarity.uncommon { background: rgba(22, 160, 133, 0.2); color: #1abc9c; }
+        .rarity.rare { background: rgba(52, 152, 219, 0.2); color: #3498db; }
+        .rarity.epic { background: rgba(155, 89, 182, 0.2); color: #9b59b6; }
+        .rarity.legendary { background: rgba(230, 126, 34, 0.2); color: #e67e22; border: 1px solid rgba(230, 126, 34, 0.4); }
+        .rarity.mythic { background: rgba(241, 196, 15, 0.2); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.4); box-shadow: 0 0 8px rgba(241, 196, 15, 0.2); }
 
         .enchant-desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            font-family: 'Inter', sans-serif;
+            color: #b0b0b0;
+            font-size: 0.92rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            flex-grow: 1;
         }
 
-        @media (max-width: 768px) {
-            .header h1 { font-size: 2.2rem; }
-            body { padding: 20px 10px; }
+        .enchant-applicable {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            color: #7ec2eb;
+            background: rgba(126, 194, 235, 0.08);
+            padding: 6px 12px;
+            border-radius: 6px;
+            border-left: 3px solid #7ec2eb;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            transition: color 0.2s;
+        }
+        .btn-back:hover { color: #7ec2eb; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <a href="index.html" class="btn-back" id="btn-back-text"><i class="fas fa-arrow-left"></i> Quay về Trang Chủ</a>
+    <div class="particles-container" id="particles"></div>
+    <div class="bg-vignette"></div>
 
-        <div class="header">
-            <h1>Hệ Thống <span id="enchant-title-hook">Phù Phép Đặc Biệt</span></h1>
-            <p>Danh sách bùa chú độc quyền được phân loại trực quan theo nhóm chức năng trang bị</p>
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo" id="nav-logo-text">Cloudy<span>Meadow</span></a>
+        <ul class="nav-menu">
+            <li><a href="index.html#hero">TRANG CHỦ</a></li>
+            <li><a href="index.html#staff">ĐỘI NGŨ</a></li>
+            <li><a href="index.html#rules">LUẬT</a></li>
+            <li><a href="index.html#faq">CÁCH CHƠI</a></li>
+            <li><a href="fish.html">BÁCH KHOA CÁ</a></li>
+            <li><a href="#" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">KHO PHÙ PHÉP</a></li>
+        </ul>
+    </nav>
+
+    <section class="enchant-section">
+        <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại trang chủ</a>
+        
+        <div class="section-header">
+            <h2>HỆ THỐNG PHÙ PHÉP ĐẶC BIỆT</h2>
+            <div class="gold-line"></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-swords"></i> Vũ Khí Cận Chiến & Đa Năng (Swords, Axes, Weapons)</div>
+        <!-- ================= NHÓM 1: VŨ KHÍ CẬN CHIẾN ================= -->
+        <div class="category-header"><i class="fas fa-swords"></i> VŨ KHÍ CẬN CHIẾN & ĐA NĂNG</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Diệt Xác Sống <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">Tăng sát thương gây ra cho zombie.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Nghiền Sọ <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">Tăng sát thương gây ra cho skeleton.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Đao Phủ <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">Có tỉ lệ nhận đầu người chơi khi giết đối phương.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Gặm Nhấm <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-hiem">Hiếm</span></div>
-                <p class="enchant-desc">Có tỉ lệ hồi thức ăn khi tấn công đối thủ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Nuốt Chửng <span class="enchant-item-target">(Weapons)</span></span> <span class="tier-tag tier-hiem">Hiếm</span></div>
-                <p class="enchant-desc">Có cơ hội hồi phục thức ăn khi giết mob.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thiêu Tế <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Tăng sát thương gây ra cho spider.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thợ Săn Ender <span class="enchant-item-target">(Weapons)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Tăng sát thương gây ra cho EnderMan và EnderDragon.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Ma Cà Ròng <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Có cơ hội hồi tới 3 máu sau khi bị đánh vài giây.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Đại Kiếm <span class="enchant-item-target">(Sword)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Đòn đánh cực mạnh vào những đối thủ đang giương cung.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Cuồng Kiếm <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Tăng sát thương đòn đánh chí mạng.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Bất Thân <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Có tỉ lệ không nhận bật lùi khi bị mobs đánh.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Nam Châm <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Đòn đánh của bạn kéo người chơi về phía bạn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Chặt Chẽ <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Gầy sát thương cho mob trong bán kính, tăng theo từng cấp độ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thanh Tẩy <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có cơ hội xóa bỏ mọi hiệu ứng xấu khi đánh.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Bối Rối <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có khả năng gây ra hiệu ứng buồn nôn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thiêu Sống <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Đốt cháy tất cả mob trong bán kính.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Sát Phạt <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Tăng sát thương gây ra cho mob thù địch.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Man Rợ <span class="enchant-item-target">(Axes)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Tăng sát thương khi dùng rìu.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tò Mò <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Tăng kinh nghiệm rơi ra từ mob.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Hút Máu <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Có tỉ lệ hút máu khi tấn công kẻ địch.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thợ Gia Công <span class="enchant-item-target">(Axe)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Sửa chũa vũ khí của bạn nhưng đổi lại sát thương bị giảm.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tên Lửa <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Phóng bạn bằng cách nhấp chuột phải.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Táp vô mỏ <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Đánh trúng liên tiếp tăng sát thương. Bắt đầu từ đòn đầu tiên.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Lướt Kiếm Xuyên Thấu <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Nhấp chuột phải để lướt tới trước và gây sát thương diện rộng.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Hù Dọa <span class="enchant-item-target">(Weapons)</span></span> <span class="tier-tag tier-thanthoai">Thần Thoại</span></div>
-                <p class="enchant-desc">Có tỉ lệ biến mũ của đối thủ thành bí ngô trong thời gian ngắn.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Diệt Xác Sống</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Tăng sát thương gây ra cho zombie.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Nghiền Sọ</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Tăng sát thương gây ra cho skeleton.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Đao Phủ</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Có tỉ lệ nhận đầu người chơi khi giết đối phương.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Gặm Nhấm</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Có tỉ lệ hồi thức ăn khi tấn công đối thủ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Nuốt Chửng</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Có cơ hội hồi phục thức ăn khi giết mob.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Weapons</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thiêu Tế</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Tăng sát thương gây ra cho spider.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thợ Săn Ender</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Tăng sát thương gây ra cho EnderMan và EnderDragon.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Weapons</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Ma Cà Ròng</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Có cơ hội hồi tới 3 máu sau khi bị đánh vài giây.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Đại Kiếm</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Đòn đánh cực mạnh vào những đối thủ đang giương cung.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Sword</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Cuồng Kiếm</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Tăng sát thương đòn đánh chí mạng.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Bất Thân</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Có tỉ lệ không nhận bật lùi khi bị mobs đánh.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Nam Châm</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Đòn đánh của bạn kéo người chơi về phía bạn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Chặt Chẽ</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Gây sát thương cho mob trong bán kính, tăng theo từng cấp độ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thanh Tẩy</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có cơ hội xóa bỏ mọi hiệu ứng xấu khi đánh.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Bối Rối</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có khả năng gây ra hiệu ứng buồn nôn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thiêu Sống</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Đốt cháy tất cả mob trong bán kính.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Sát Phạt</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Tăng sát thương gây ra cho mob thù địch.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords, Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Man Rợ</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Tăng sát thương khi dùng rìu.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Axes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Tò Mò</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Tăng kinh nghiệm rơi ra từ mob.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Hút Máu</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Có tỉ lệ hút máu khi tấn công kẻ địch.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thợ Gia Công</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Sửa chữa vũ khí của bạn nhưng đổi lại sát thương bị giảm.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Axe</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Tên Lửa</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Phóng bạn bằng cách nhấp chuột phải.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Táp vô mỏ</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Đánh trúng liên tiếp tăng sát thương. Bắt đầu từ đòn đầu tiên.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Lướt Kiếm Xuyên Thấu</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Nhấp chuột phải để lướt tới trước và gây sát thương diện rộng.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Swords</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Hù Dọa</h3><span class="rarity mythic">Thần thoại</span></div><p class="enchant-desc">Có tỉ lệ biến mũ của đối thủ thành bí ngô trong thời gian ngắn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Weapons</div></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-crosshairs"></i> Đinh Ba & Vũ Khí Tầm Xa (Bow, Crossbow, Trident)</div>
+        <!-- ================= NHÓM 2: VŨ KHÍ TẦM XA ================= -->
+        <div class="category-header"><i class="fas fa-crosshairs"></i> ĐINH BA & VŨ KHÍ TẦM XA</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Vô Hồn <span class="enchant-item-target">(Bow, Crossbow, Trident)</span></span> <span class="tier-tag tier-hiem">Hiếm</span></div>
-                <p class="enchant-desc">Tăng sát thương gây ra cho Mob thù địch.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Xạ Thủ <span class="enchant-item-target">(Bow, Crossbow, Trident)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Mũi tên với sát thương khủng sẽ bắn vào đối thủ đang chém.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Xạ Thủ Nỏ <span class="enchant-item-target">(Crossbow)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Tăng sát thường gây ra với đối thủ cầm nỏ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tăng sát thương khi đối thủ cầm đinh ba <span class="enchant-item-target">(Trident)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Tăng sát thường gây ra với đối thủ cầm đinh ba.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Nam Châm Biển Cả <span class="enchant-item-target">(Trident)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Ném đinh ba kéo thẳng đối thủ đến trước mặt bạn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Lao Nhân <span class="enchant-item-target">(Trident)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có tỉ lệ x2 sát thương khi phóng.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tên Thần <span class="enchant-item-target">(Bow, Crossbow)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Tăng sát thương đáng kể gây ra cho đối thủ có 1 cây cung trong tay của họ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Mưa Tên <span class="enchant-item-target">(Bow)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Triệu hồi mưa tên lên đối thủ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Bắn Tỉa <span class="enchant-item-target">(Bow)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Bắn trúng vào đầu đối thủ sẽ có tỉ lệ gây sát thương cực mạnh.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Dứt Điểm <span class="enchant-item-target">(Trident)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Ném đinh ba trúng đầu đối thủ sẽ có tỉ lệ gây sát thương cực lớn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Cuồng Kích <span class="enchant-item-target">(Trident)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Tăng sát thương cận chiến cho đinh ba của bạn.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Vô Hồn</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Tăng sát thương gây ra cho Mob thù địch.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Bow, Crossbow, Trident</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Xạ Thủ</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Mũi tên với sát thương khủng sẽ bắn vào đối thủ đang chém.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Bow, Crossbow, Trident</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Xạ Thủ Nỏ</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Tăng sát thường gây ra với đối thủ cầm nỏ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Crossbow</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Sát Thương Thủy Chiến</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Tăng sát thường gây ra với đối thủ cầm đinh ba.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Trident</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Nam Châm Biển Cả</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Ném đinh ba kéo thẳng đối thủ đến trước mặt bạn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Trident</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Lao Nhân</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có tỉ lệ x2 sát thương khi phóng.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Trident</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Tên Thần</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Tăng sát thương đáng kể gây ra cho đối thủ có 1 cây cung trong tay của họ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Bow, Crossbow</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Mưa Tên</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Triệu hồi mưa tên lên đối thủ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Bow</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Bắn Tỉa</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Bắn trúng vào đầu đối thủ sẽ có tỉ lệ gây sát thương cực mạnh.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Bow</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Dứt Điểm</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Ném đinh ba trúng đầu đối thủ sẽ có tỉ lệ gây sát thương cực lớn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Trident</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Cuồng Kích</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Tăng sát thương cận chiến cho đinh ba của bạn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Trident</div></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-shield-alt"></i> Giáp & Trang Bị Bảo Hộ (Armor, Helmets, Boots, Elytra)</div>
+        <!-- ================= NHÓM 3: GIÁP & PHÒNG THỦ ================= -->
+        <div class="category-header"><i class="fas fa-shield-alt"></i> GIÁP & TRANG BỊ BẢO HỘ</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Lò Xo <span class="enchant-item-target">(Boots)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Giúp bạn nhảy cao hơn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Mềm Dẻo <span class="enchant-item-target">(Boots)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có tỉ lệ chặn sát thương rơi.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Né Đòn <span class="enchant-item-target">(Armor)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có cơ hội né đòn đánh của đối thủ, cơ hội tăng lên khi đi rón rén.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Gia Cố <span class="enchant-item-target">(Elytra)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Giảm sát thương gây ra cho bạn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Dinh Dưỡng <span class="enchant-item-target">(Helmets)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có tỉ lệ phục hồi thức ăn cứ sau vài giây.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Nham Hành <span class="enchant-item-target">(Boots)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Đi trên dung nham.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thủy Hành <span class="enchant-item-target">(Boots)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Đi trên mặt nước.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thủy Chiến <span class="enchant-item-target">(Boots)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">x2 sát thương khi ở dưới nước.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Quá Tải <span class="enchant-item-target">(Armor)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Tăng thêm máu cho bạn.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Lò Xo</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Giúp bạn nhảy cao hơn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Boots</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Mềm Dẻo</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có tỉ lệ chặn sát thương rơi.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Boots</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Né Đòn</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có cơ hội né đòn đánh của đối thủ, cơ hội tăng lên khi đi rón rén.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Armor</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Gia Cố</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Giảm sát thương gây ra cho bạn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Elytra</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Dinh Dưỡng</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có tỉ lệ phục hồi thức ăn cứ sau vài giây.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Helmets</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Nham Hành</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Đi trên dung nham.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Boots</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thủy Hành</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Đi trên mặt nước.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Boots</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thủy Chiến</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">x2 sát thương khi ở dưới nước.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Boots</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Quá Tải</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Tăng thêm máu cho bạn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Armor</div></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-pickaxe"></i> Công Cụ Khai Thác & Nông Nghiệp (Tools, Pickaxes, Hoes)</div>
+        <!-- ================= NHÓM 4: CÔNG CỤ HOẠT ĐỘNG ================= -->
+        <div class="category-header"><i class="fas fa-pickaxe"></i> CÔNG CỤ KHAI THÁC & NÔNG NGHIỆP</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Nung Nóng <span class="enchant-item-target">(Pickaxes)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">Có cơ hội nung chảy khoáng sản.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Kinh Nghiệm <span class="enchant-item-target">(Tools)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">Cho tỉ lệ nhận nhiều kinh nghiệm hơn khi khai thác khoáng sản.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thần Tốc Khai Phá <span class="enchant-item-target">(Tools)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">có tỉ lệ nhận hiệu ứng đào nhanh khi phá vỡ các khối.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thủy Sinh <span class="enchant-item-target">(Pickaxe)</span></span> <span class="tier-tag tier-thuong">Thường</span></div>
-                <p class="enchant-desc">Có cơ hội nhận thêm không khí khi khai thác dưới nước.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tái Canh Tác <span class="enchant-item-target">(Hoes)</span></span> <span class="tier-tag tier-hiem">Hiếm</span></div>
-                <p class="enchant-desc">Tự trồng lại sau khi đập nông sản.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thu Gom <span class="enchant-item-target">(Tools)</span></span> <span class="tier-tag tier-hiem">Hiếm</span></div>
-                <p class="enchant-desc">Tự nhặt các khối bị phá.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Ăn Tạp <span class="enchant-item-target">(Pickaxes)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Có cơ hội hồi phục thức ăn khi khai thác.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thần Nông <span class="enchant-item-target">(Hoes)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Có tỉ lệ thu hoạch trong khu 3x3.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Chuyên Gia Lúa Mì <span class="enchant-item-target">(Hoes)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Trồng hạt lúa mì trong khu 3x3 (shift + chuột phải để thực hiện).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Chuyên Gia Khoai Tây <span class="enchant-item-target">(Hoes)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Trồng khoai tây trong khu 3x3 (shift + chuột phải để thực hiện).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Chuyên Gia Cà Rốt <span class="enchant-item-target">(Hoes)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Trồng khoai tây trong khu 3x3 (shift + chuột phải để thực hiện).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">3x3 <span class="enchant-item-target">(Pickaxes, Shovels)</span></span> <span class="tier-tag tier-thanthoai">Thần Thoại</span></div>
-                <p class="enchant-desc">Phá hủy các khối trong phạm vi 3x3.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Nung Nóng</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Có cơ hội nung chảy khoáng sản.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Pickaxes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Kinh Nghiệm</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Cho tỉ lệ nhận nhiều kinh nghiệm hơn khi khai thác khoáng sản.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Tools</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thần Tốc Khai Phá</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Có tỉ lệ nhận hiệu ứng đào nhanh khi phá vỡ các khối.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Tools</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thủy Sinh</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Có cơ hội nhận thêm không khí khi khai thác dưới nước.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Pickaxe</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Tái Canh Tác</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Tự trồng lại sau khi đập nông sản.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Hoes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thu Gom</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Tự nhặt các khối bị phá.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Tools</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Ăn Tạp</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Có cơ hội hồi phục thức ăn khi khai thác.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Pickaxes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thần Nông</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Có tỉ lệ thu hoạch trong khu 3x3.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Hoes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Chuyên Gia Lúa Mì</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Trồng hạt lúa mì trong khu 3x3 (shift + chuột phải để thực hiện).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Hoes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Chuyên Gia Khoai Tây</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Trồng khoai tây trong khu 3x3 (shift + chuột phải để thực hiện).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Hoes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Chuyên Gia Cà Rốt</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Trồng cà rốt trong khu 3x3 (shift + chuột phải để thực hiện).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Hoes</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">3x3</h3><span class="rarity mythic">Thần thoại</span></div><p class="enchant-desc">Phá hủy các khối trong phạm vi 3x3.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Pickaxes, Shovels</div></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-fish"></i> Ngư Nghiệp & Cần Câu (Fishing Rod)</div>
+        <!-- ================= NHÓM 5: NGƯ NGHIỆP ================= -->
+        <div class="category-header"><i class="fas fa-fish"></i> NGƯ NGHIỆP & CẦN CÂU</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Thủy Thủ <span class="enchant-item-target">(Fishing Rod)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Nhận thêm kinh nghiệm khi câu cá.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tay Quỷ <span class="enchant-item-target">(Fishing Rod)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
-                <p class="enchant-desc">Kéo đối phương lại gần.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Đánh Cá <span class="enchant-item-target">(Fishing Rod)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Tự động thu cần khi cá cắn câu.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Phúc Lộc <span class="enchant-item-target">(Fishing Rod)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Nhận hiệu ứng may mắn khi câu cá.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Lưỡi Câu Sắc Bén <span class="enchant-item-target">(Fishing Rod)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Gây sát thương bằng cần cầu.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Ngư Dân May Mắn <span class="enchant-item-target">(Fishing Rod)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Có tỉ lệ nhận thêm vật phẩm khi câu cá.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Thủy Thủ</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Nhận thêm kinh nghiệm khi câu cá.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Fishing Rod</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Tay Quỷ</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Kéo đối phương lại gần.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Fishing Rod</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Đánh Cá</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Tự động thu cần khi cá cắn câu.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Fishing Rod</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Phúc Lộc</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Nhận hiệu ứng may mắn khi câu cá.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Fishing Rod</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Lưỡi Câu Sắc Bén</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Gây sát thương bằng cần câu.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Fishing Rod</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Ngư Dân May Mắn</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Có tỉ lệ nhận thêm vật phẩm khi câu cá.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Fishing Rod</div></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-cloud-showers-heavy"></i> Vũ Khí Cổ Đại Đặc Biệt (Mace)</div>
+        <!-- ================= NHÓM 6: MACE ================= -->
+        <div class="category-header"><i class="fas fa-cloud-showers-heavy"></i> VŨ KHÍ CỔ ĐẠI ĐẶC BIỆT</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">⚡ Thiên Phạt <span class="enchant-item-target">(Mace)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
-                <p class="enchant-desc">Đập từ trên cao gọi thiên lôi.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">⚡ Thiên Phạt</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Đập từ trên cao gọi thiên lôi.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Mace</div></div>
         </div>
 
-        <div class="category-title"><i class="fas fa-scroll"></i> Cổ Ngữ Phương Tây (Bùa Chú Bản Tiếng Anh)</div>
+        <!-- ================= NHÓM 7: CỔ NGỮ TIẾNG ANH ================= -->
+        <div class="category-header"><i class="fas fa-scroll"></i> CỔ NGỮ PHƯƠNG TÂY (BẢN TIẾNG ANH)</div>
         <div class="enchant-grid">
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Aerial's Bane <span class="enchant-item-target">(Kiếm, Rìu)</span></span></div>
-                <p class="enchant-desc">Sát thương tăng lên vượt trội đối với các sinh vật đang ở trên không.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Illager's Bane <span class="enchant-item-target">(Kiếm, Rìu)</span></span></div>
-                <p class="enchant-desc">Tăng mạnh lượng sát thương lên các sinh vật thuộc nhóm Illager và Phù thủy (Witch).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Might <span class="enchant-item-target">(Nỏ)</span></span></div>
-                <p class="enchant-desc">Gia tăng mạnh mẽ các chỉ số sát thương thuần của mũi tên bắn ra từ Nỏ (Crossbow).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Traveler <span class="enchant-item-target">(Giày)</span></span></div>
-                <p class="enchant-desc">Gia tăng tốc độ di chuyển chạy bộ, đồng thời hỗ trợ tự động bước lên các khối block cao 1 bậc.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Wax Wings <span class="enchant-item-target">(Elytra)</span></span></div>
-                <p class="enchant-desc">Khi sử dụng cánh Elytra để lượn chậm, trang bị sẽ gần như không bị tiêu hao độ bền.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Antidote <span class="enchant-item-target">(Giáp Ngực)</span></span></div>
-                <p class="enchant-desc">Khi dính trạng thái Trúng Độc (Poison), độc tố sẽ cấu trừ vào độ bền của giáp ngực thay vì trừ thẳng vào máu.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Blowthrough <span class="enchant-item-target">(Cung)</span></span></div>
-                <p class="enchant-desc">Mũi tên phóng ra từ Cung có khả năng xuyên thấu qua nhiều mục tiêu thẳng hàng.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Ghasted <span class="enchant-item-target">(Cung)</span></span></div>
-                <p class="enchant-desc">Mũi tên bắn ra biến thành một quả cầu lửa của Ghast với sức công phá vô cùng mạnh mẽ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Gravity <span class="enchant-item-target">(Cung)</span></span></div>
-                <p class="enchant-desc">Mũi tên tạo ra một trường lực hút mạnh, kéo mọi thực thể xung quanh về vị trí trúng đích.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Hydro Veil <span class="enchant-item-target">(Happy Ghast)</span></span></div>
-                <p class="enchant-desc">Thú cưỡi Happy Ghast đồng hành nhận thêm khả năng kháng lửa, kháng nổ và hồi phục máu mạnh mẽ.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Outreach <span class="enchant-item-target">(Công Cụ)</span></span></div>
-                <p class="enchant-desc">Gia tăng đáng kể khoảng cách tầm với tương tác và đặt phá các khối block.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Photosynthesis <span class="enchant-item-target">(Vật Phẩm)</span></span></div>
-                <p class="enchant-desc">Vật phẩm sẽ tự động sửa chữa, hồi phục lại độ bền khi bạn đứng dưới ánh nắng mặt trời.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Spiteful <span class="enchant-item-target">(Vũ Khí)</span></span></div>
-                <p class="enchant-desc">Máu của bạn càng thấp sẽ gây ra càng nhiều sát thương, đôi lúc tự động nhận thêm hiệu ứng Sức mạnh (Strength).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Swift Soar <span class="enchant-item-target">(Happy Ghast)</span></span></div>
-                <p class="enchant-desc">Thú cưỡi Happy Ghast di chuyển và bay với tốc độ nhanh hơn hẳn khi người cưỡi đang chạy nước rút (Sprint).</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Wither Coated <span class="enchant-item-target">(Vũ Khí)</span></span></div>
-                <p class="enchant-desc">Mỗi đòn đánh gây hiệu ứng thối rữa (Wither) lên mục tiêu, nhưng sẽ tiêu hao nhiều độ bền của vũ khí hơn.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Tri-Shot <span class="enchant-item-target">(Cung)</span></span></div>
-                <p class="enchant-desc">Cung thường khi giương lên sẽ bắn ra cùng lúc 3 mũi tên tỏa ra thay vì chỉ 1 mũi tên.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Bug Enchant <span class="enchant-item-target">(Thử Nghiệm)</span></span></div>
-                <p class="enchant-desc">Bùa chú thử nghiệm đặc biệt, khi đem vào chế độ Sinh Tồn (Survival) sẽ tự động biến chuyển thành Sát Thương Của Côn Trùng.</p>
-            </div>
-            <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Curse of Conductivity <span class="enchant-item-target">(Trang Bị)</span></span></div>
-                <p class="enchant-desc">Trang bị khiến bạn dễ trở thành mục tiêu bị thiên lôi dòm ngó và sét đánh trúng hơn khi trời có giông bão.</p>
-            </div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Aerial's Bane</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Sát thương tăng lên vượt trội đối với các sinh vật đang ở trên không.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Kiếm, Rìu</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Illager's Bane</h3><span class="rarity common">Thường</span></div><p class="enchant-desc">Tăng mạnh lượng sát thương lên các sinh vật thuộc nhóm Illager và Phù thủy (Witch).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Kiếm, Rìu</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Might</h3><span class="rarity popular">Phổ biến</span></div><p class="enchant-desc">Gia tăng mạnh mẽ các chỉ số sát thương thuần của mũi tên bắn ra từ Nỏ (Crossbow).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Nỏ</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Traveler</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Gia tăng tốc độ di chuyển chạy bộ, đồng thời hỗ trợ tự động bước lên các khối block cao 1 bậc.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Giày</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Wax Wings</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Khi sử dụng cánh Elytra để lượn chậm, trang bị sẽ gần như không bị tiêu hao độ bền.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Elytra</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Antidote</h3><span class="rarity uncommon">Ko phổ biến</span></div><p class="enchant-desc">Khi dính trạng thái Trúng Độc (Poison), độc tố sẽ cấu trừ vào độ bền của giáp ngực thay vì trừ thẳng vào máu.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Giáp Ngực</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Blowthrough</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Mũi tên phóng ra từ Cung có khả năng xuyên thấu qua nhiều mục tiêu thẳng hàng.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Cung</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Ghasted</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Mũi tên bắn ra biến thành một quả cầu lửa của Ghast với sức công phá vô cùng mạnh mẽ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Cung</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Gravity</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Mũi tên tạo ra một trường lực hút mạnh, kéo mọi thực thể xung quanh về vị trí trúng đích.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Cung</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Hydro Veil</h3><span class="rarity rare">Hiếm</span></div><p class="enchant-desc">Thú cưỡi Happy Ghast đồng hành nhận thêm khả năng kháng lửa, kháng nổ và hồi phục máu mạnh mẽ.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Happy Ghast</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Outreach</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Gia tăng đáng kể khoảng cách tầm với tương tác và đặt phá các khối block.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Công Cụ</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Photosynthesis</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Vật phẩm sẽ tự động sửa chữa, hồi phục lại độ bền khi bạn đứng dưới ánh nắng mặt trời.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Vật Phẩm</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Spiteful</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Máu của bạn càng thấp sẽ gây ra càng nhiều sát thương, đôi lúc tự động nhận thêm hiệu ứng Sức mạnh (Strength).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Vũ Khí</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Swift Soar</h3><span class="rarity epic">Sử thi</span></div><p class="enchant-desc">Thú cưỡi Happy Ghast di chuyển và bay với tốc độ nhanh hơn hẳn khi người cưỡi đang chạy nước rút (Sprint).</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Happy Ghast</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Wither Coated</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Mỗi đòn đánh gây hiệu ứng thối rữa (Wither) lên mục tiêu, nhưng sẽ tiêu hao nhiều độ bền của vũ khí hơn.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Vũ Khí</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Tri-Shot</h3><span class="rarity legendary">Huyền thoại</span></div><p class="enchant-desc">Cung thường khi giương lên sẽ bắn ra cùng lúc 3 mũi tên tỏa ra thay vì chỉ 1 mũi tên.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Cung</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Bug Enchant</h3><span class="rarity mythic">Thần thoại</span></div><p class="enchant-desc">Bùa chú thử nghiệm đặc biệt, khi đem vào chế độ Sinh Tồn (Survival) sẽ tự động biến chuyển thành Sát Thương Của Côn Trùng.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Thử Nghiệm</div></div>
+            <div class="enchant-card"><div class="enchant-card-header"><h3 class="enchant-title">Curse of Conductivity</h3><span class="rarity mythic">Thần thoại</span></div><p class="enchant-desc">Trang bị khiến bạn dễ trở thành mục tiêu bị thiên lôi dòm ngó và sét đánh trúng hơn khi trời có giông bão.</p><div class="enchant-applicable"><i class="fas fa-wrench"></i> Trang Bị</div></div>
         </div>
+    </section>
 
-    </div>
+    <footer>
+        <p class="copyright">&copy; 2026 <span id="footer-name">CloudyMeadow</span>. All Rights Reserved.</p>
+    </footer>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Kiểm tra xem đối tượng config có tồn tại không
-            if (typeof config !== 'undefined') {
-                // 1. Đồng bộ tiêu đề theo config.interface.nav.enchant hoặc config.serverName
-                const titleText = config.interface?.nav?.enchant || "Kho Phù Phép";
-                document.getElementById('enchant-title-hook').innerText = titleText;
-                document.title = `${titleText} - ${config.serverName || 'Minecraft'}`;
-                
-                // 2. Đồng bộ nút "Quay về trang chủ" dựa trên config.interface.nav.home
-                const homeText = config.interface?.nav?.home || "Trang Chủ";
-                document.getElementById('btn-back-text').innerHTML = `<i class="fas fa-arrow-left"></i> Quay về ${homeText}`;
-
-                // 3. Nếu sau này trong config.js bạn bổ sung thuộc tính màu chính (ví dụ config.primaryColor), 
-                // script này sẽ tự nhận diện để đồng bộ sang theme:
-                if (config.primaryColor) {
-                    document.documentElement.style.setProperty('--accent-color', config.primaryColor);
-                }
-            }
-        });
-    </script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

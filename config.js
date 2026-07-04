@@ -38,7 +38,7 @@ const config = {
             },
             { 
                 name: "Hellaoo", 
-                skinName: "Lucasmorelli09", // Đã cập nhật tên Premium để lấy skin
+                skinName: "glammyduck32", // Đã cập nhật tên Premium để lấy skin
                 role: "HELPER", 
                 bio: "Hỗ trợ người chơi, giải đáp thắc mắc & Săn lùng bug game."
             }

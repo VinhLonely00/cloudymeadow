@@ -3,19 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Phù Phép Đặc Biệt - CloudyMeadow</title>
+    <title>Kho Phù Phép - CloudyMeadow</title>
     
     <link rel="icon" href="favicon.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="config.js"></script>
     
     <style>
         :root {
-            --bg-color: #0a0c10;
-            --card-bg: #121620;
-            --accent-color: #7ec2eb;
-            --text-color: #f5f6f7;
-            --text-muted: #8a94a6;
+            /* Các màu sắc chủ đạo được tối ưu đồng bộ với Vanguard Theme */
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-color: #58a6ff; /* Sẽ bị ghi đè tự động bằng JS nếu trang chủ có màu khác */
+            --text-color: #c9d1d9;
+            --text-muted: #8b949e;
+            --primary-font: 'Montserrat', sans-serif;
         }
 
         * {
@@ -29,108 +33,12 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding-top: 110px; /* Đồng bộ độ cao với trang chủ và trang cá */
-            padding-bottom: 60px;
+            padding: 40px 20px;
         }
 
-        /* ================= THANH ĐIỀU HƯỚNG ĐỒNG BỘ TRANG CHỦ / FISH ================= */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: rgba(10, 12, 16, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            z-index: 1000;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-logo {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.8rem;
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .nav-logo span {
-            color: var(--accent-color);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 35px;
-        }
-
-        .nav-menu a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 1.5px;
-            position: relative;
-            padding: 5px 0;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-menu a:hover::after {
-            width: 100%;
-        }
-
-        /* ================= NÚT QUAY VỀ ĐỒNG BỘ THU GỌN ================= */
-        .btn-back-container {
-            margin-bottom: 25px;
-        }
-
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: rgba(126, 194, 235, 0.1);
-            border: 1px solid rgba(126, 194, 235, 0.2);
-            color: var(--accent-color);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-back:hover {
-            background-color: var(--accent-color);
-            color: #000;
-            border-color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(126, 194, 235, 0.2);
-        }
-
-        /* ================= CẤU TRÚC NỘI DUNG ================= */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
         .header {
@@ -139,16 +47,18 @@
         }
 
         .header h1 {
-            font-family: 'Oswald', sans-serif;
+            font-family: var(--primary-font);
             font-size: 2.8rem;
             color: #fff;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .header h1 span {
             color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
         }
 
         .header p {
@@ -156,17 +66,32 @@
             font-size: 1.1rem;
         }
 
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-family: var(--primary-font);
+        }
+
+        .btn-back i { margin-right: 8px; }
+        .btn-back:hover { color: var(--accent-color); transform: translateX(-5px); }
+
         .category-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.8rem;
+            font-family: var(--primary-font);
+            font-size: 1.5rem;
             color: #fff;
             margin: 40px 0 20px 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid rgba(126, 194, 235, 0.2);
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             gap: 12px;
-            text-transform: uppercase;
+            font-weight: 600;
         }
 
         .category-title i {
@@ -182,11 +107,11 @@
         .enchant-card {
             background-color: var(--card-bg);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            border-radius: 8px;
             padding: 20px;
             position: relative;
             overflow: hidden;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s ease;
         }
 
         .enchant-card::before {
@@ -194,30 +119,32 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-color), #a2d2ff);
+            width: 3px;
+            height: 100%;
+            background: var(--accent-color);
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .enchant-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(126, 194, 235, 0.3);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(126, 194, 235, 0.1);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.1);
+            background-color: #1f242c;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
         }
 
         .enchant-card:hover::before { opacity: 1; }
 
         .enchant-title {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.15rem;
+            font-family: var(--primary-font);
+            font-size: 1.1rem;
             color: #fff;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 10px;
+            font-weight: 600;
         }
 
         .enchant-name {
@@ -225,74 +152,52 @@
         }
 
         .enchant-item-target {
-            color: var(--accent-color);
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
             font-weight: 400;
+            display: block;
+            margin-top: 2px;
         }
 
         .tier-tag {
             font-family: 'Inter', sans-serif;
             font-size: 0.65rem;
             font-weight: 700;
-            padding: 2px 6px;
+            padding: 3px 8px;
             border-radius: 4px;
             text-transform: uppercase;
             white-space: nowrap;
         }
 
-        .tier-thuong { background-color: #55ff55; color: #000; }
-        .tier-hiem { background-color: #55ffff; color: #000; }
-        .tier-sieuhiem { background-color: #1ed2ff; color: #fff; }
-        .tier-suthi { background-color: #ff55ff; color: #fff; }
-        .tier-huyenthoai { background-color: #ffaa00; color: #fff; }
-        .tier-thanthoai { background-color: #ff5555; color: #fff; }
+        /* Định dạng màu Tier chuẩn màu Chatcolor Minecraft hệ tối */
+        .tier-thuong { background-color: rgba(85, 255, 85, 0.15); color: #55ff55; border: 1px solid rgba(85, 255, 85, 0.3); }
+        .tier-hiem { background-color: rgba(55, 255, 255, 0.15); color: #55ffff; border: 1px solid rgba(55, 255, 255, 0.3); }
+        .tier-sieuhiem { background-color: rgba(30, 210, 255, 0.15); color: #1ed2ff; border: 1px solid rgba(30, 210, 255, 0.3); }
+        .tier-suthi { background-color: rgba(255, 85, 255, 0.15); color: #ff55ff; border: 1px solid rgba(255, 85, 255, 0.3); }
+        .tier-huyenthoai { background-color: rgba(255, 170, 0, 0.15); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.3); }
+        .tier-thanthoai { background-color: rgba(255, 85, 85, 0.15); color: #ff5555; border: 1px solid rgba(255, 85, 85, 0.3); }
 
         .enchant-desc {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
-        @media (max-width: 992px) {
-            .navbar { padding: 20px 4%; }
-            .nav-menu { gap: 20px; }
-        }
-
         @media (max-width: 768px) {
-            .navbar { padding: 15px 20px; flex-direction: column; gap: 10px; text-align: center; }
-            .nav-menu { gap: 15px; flex-wrap: wrap; justify-content: center; }
-            .nav-menu a { font-size: 0.8rem; }
             .header h1 { font-size: 2.2rem; }
-            body { padding-top: 140px; padding-left: 10px; padding-right: 10px; }
+            body { padding: 20px 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- THANH ĐIỀU HƯỚNG ĐỒNG BỘ HỆ THỐNG -->
-    <nav class="navbar">
-        <a href="index.html" class="nav-logo">Cloudy<span>Meadow</span></a>
-        <ul class="nav-menu">
-            <li><a href="index.html#hero">TRANG CHỦ</a></li>
-            <li><a href="index.html#staff">ĐỘI NGŨ</a></li>
-            <li><a href="index.html#rules">LUẬT</a></li>
-            <li><a href="index.html#faq">CÁCH CHƠI</a></li>
-            <li><a href="fish.html">BÁCH KHOA CÁ</a></li>
-            <li><a href="#" style="color: #7ec2eb; font-weight: 700;">KHO PHÙ PHÉP</a></li>
-        </ul>
-    </nav>
-
     <div class="container">
-        <!-- NÚT QUAY VỀ ĐÃ THU GỌN THEO PHONG CÁCH CHUNG -->
-        <div class="btn-back-container">
-            <a href="index.html" class="btn-back"><i class="fas fa-chevron-left"></i> Trang Chủ</a>
-        </div>
+        <a href="index.html" class="btn-back" id="btn-back-text"><i class="fas fa-arrow-left"></i> Quay về Trang Chủ</a>
 
         <div class="header">
-            <h1>Hệ Thống <span>Phù Phép Đặc Biệt</span></h1>
+            <h1>Hệ Thống <span id="enchant-title-hook">Phù Phép Đặc Biệt</span></h1>
             <p>Danh sách bùa chú độc quyền được phân loại trực quan theo nhóm chức năng trang bị</p>
         </div>
 
-        <!-- ================= VŨ KHÍ CẬN CHIẾN & ĐA NĂNG ================= -->
         <div class="category-title"><i class="fas fa-swords"></i> Vũ Khí Cận Chiến & Đa Năng (Swords, Axes, Weapons)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -324,7 +229,7 @@
                 <p class="enchant-desc">Tăng sát thương gây ra cho EnderMan và EnderDragon.</p>
             </div>
             <div class="enchant-card">
-                <div class="enchant-title"><span class="enchant-name">Ma Cà Rồng <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
+                <div class="enchant-title"><span class="enchant-name">Ma Cà Ròng <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span></div>
                 <p class="enchant-desc">Có cơ hội hồi tới 3 máu sau khi bị đánh vài giây.</p>
             </div>
             <div class="enchant-card">
@@ -345,7 +250,7 @@
             </div>
             <div class="enchant-card">
                 <div class="enchant-title"><span class="enchant-name">Chặt Chẽ <span class="enchant-item-target">(Swords, Axes)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
-                <p class="enchant-desc">Gây sát thương cho mob trong bán kính, tăng theo từng cấp độ.</p>
+                <p class="enchant-desc">Gầy sát thương cho mob trong bán kính, tăng theo từng cấp độ.</p>
             </div>
             <div class="enchant-card">
                 <div class="enchant-title"><span class="enchant-name">Thanh Tẩy <span class="enchant-item-target">(Swords)</span></span> <span class="tier-tag tier-suthi">Sử Thi</span></div>
@@ -397,8 +302,7 @@
             </div>
         </div>
 
-        <!-- ================= ĐINH BA & VŨ KHÍ TẦM XA ================= -->
-        <div class="category-title"><i class="fas fa-bow-arrow"></i> Đinh Ba & Vũ Khí Tầm Xa (Bow, Crossbow, Trident)</div>
+        <div class="category-title"><i class="fas fa-crosshairs"></i> Đinh Ba & Vũ Khí Tầm Xa (Bow, Crossbow, Trident)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
                 <div class="enchant-title"><span class="enchant-name">Vô Hồn <span class="enchant-item-target">(Bow, Crossbow, Trident)</span></span> <span class="tier-tag tier-hiem">Hiếm</span></div>
@@ -446,7 +350,6 @@
             </div>
         </div>
 
-        <!-- ================= GIÁP & TRANG BỊ BẢO HỘ ================= -->
         <div class="category-title"><i class="fas fa-shield-alt"></i> Giáp & Trang Bị Bảo Hộ (Armor, Helmets, Boots, Elytra)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -487,7 +390,6 @@
             </div>
         </div>
 
-        <!-- ================= CÔNG CỤ & KHAI THÁC ================= -->
         <div class="category-title"><i class="fas fa-pickaxe"></i> Công Cụ Khai Thác & Nông Nghiệp (Tools, Pickaxes, Hoes)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -540,7 +442,6 @@
             </div>
         </div>
 
-        <!-- ================= NGƯ NGHIỆP & CẦN CÂU ================= -->
         <div class="category-title"><i class="fas fa-fish"></i> Ngư Nghiệp & Cần Câu (Fishing Rod)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -569,8 +470,7 @@
             </div>
         </div>
 
-        <!-- ================= VŨ KHÍ MACE ================= -->
-        <div class="category-title"><i class="fas fa-thunderstorm"></i> Vũ Khí Cổ Đại Đặc Biệt (Mace)</div>
+        <div class="category-title"><i class="fas fa-cloud-showers-heavy"></i> Vũ Khí Cổ Đại Đặc Biệt (Mace)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
                 <div class="enchant-title"><span class="enchant-name">⚡ Thiên Phạt <span class="enchant-item-target">(Mace)</span></span> <span class="tier-tag tier-huyenthoai">Huyền Thoại</span></div>
@@ -578,7 +478,6 @@
             </div>
         </div>
 
-        <!-- ================= CỔ NGỮ PHƯƠNG TÂY (BẢN TIẾNG ANH - KHÔNG ĐỘ HIẾM) ================= -->
         <div class="category-title"><i class="fas fa-scroll"></i> Cổ Ngữ Phương Tây (Bùa Chú Bản Tiếng Anh)</div>
         <div class="enchant-grid">
             <div class="enchant-card">
@@ -657,5 +556,26 @@
 
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Kiểm tra xem đối tượng config có tồn tại không
+            if (typeof config !== 'undefined') {
+                // 1. Đồng bộ tiêu đề theo config.interface.nav.enchant hoặc config.serverName
+                const titleText = config.interface?.nav?.enchant || "Kho Phù Phép";
+                document.getElementById('enchant-title-hook').innerText = titleText;
+                document.title = `${titleText} - ${config.serverName || 'Minecraft'}`;
+                
+                // 2. Đồng bộ nút "Quay về trang chủ" dựa trên config.interface.nav.home
+                const homeText = config.interface?.nav?.home || "Trang Chủ";
+                document.getElementById('btn-back-text').innerHTML = `<i class="fas fa-arrow-left"></i> Quay về ${homeText}`;
+
+                // 3. Nếu sau này trong config.js bạn bổ sung thuộc tính màu chính (ví dụ config.primaryColor), 
+                // script này sẽ tự nhận diện để đồng bộ sang theme:
+                if (config.primaryColor) {
+                    document.documentElement.style.setProperty('--accent-color', config.primaryColor);
+                }
+            }
+        });
+    </script>
 </body>
 </html>

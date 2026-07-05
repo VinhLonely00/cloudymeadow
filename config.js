@@ -77,15 +77,27 @@ const config = {
             // --- HƯỚNG DẪN QUAN TRỌNG CHO NGƯỜI MỚI ---
             { 
                 q: "📌 Cách Đăng Ký / Đăng Nhập (Register/Login)", 
-                a: "• Mới vào server lần đầu, bạn cần gõ lệnh: <code>/register [mật_khẩu] [mật_khẩu]</code> để đăng ký tài khoản.<br>• Ở những lần chơi sau, hệ thống hỏi thì gõ: <code>/login [mật_khẩu]</code>."
+                a: `• Mới vào server lần đầu, bạn cần gõ lệnh: <code>/register [mật_khẩu] [mật_khẩu]</code> để đăng ký tài khoản.<br>• Ở những lần chơi sau, hệ thống hỏi thì gõ: <code>/login [mật_khẩu]</code>.
+                    <br><br><b>🎬 Video hướng dẫn tham khảo:</b><br>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin-top: 8px;">
+                        <iframe src="https://www.youtube.com/embed/1IWsRzshycs" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                    </div>`
             },
             { 
                 q: "🛡️ Cách Bảo Vệ Đất (Claim Land)", 
-                a: "Sử dụng một chiếc <b>Xẻng Vàng</b>:<br>1. Click chuột phải vào 1 block ở góc đất cần bảo vệ.<br>2. Đi chéo đến góc đối diện bên kia, tiếp tục click chuột phải vào block đó để hoàn thành.<br>• Xem thêm các lệnh bổ trợ claim ở các mục bên dưới."
+                a: `Sử dụng một chiếc <b>Xẻng Vàng</b>:<br>1. Click chuột phải vào 1 block ở góc đất cần bảo vệ.<br>2. Đi chéo đến góc đối diện bên kia, tiếp tục click chuột phải vào block đó để hoàn thành.<br>• Xem thêm các lệnh bổ trợ claim ở các mục bên dưới.
+                    <br><br><b>🎬 Video hướng dẫn chi tiết cách claim:</b><br>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin-top: 8px;">
+                        <iframe src="https://www.youtube.com/embed/XRu_cu7hhDM" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                    </div>`
             },
             { 
                 q: "⚔️ Hướng Dẫn Thách Đấu (Duel PvP)", 
-                a: "• Gõ lệnh <code>/duelhelp</code> để nhận ngay cuốn sách hướng dẫn chi tiết.<br>• Hệ thống hỗ trợ đa dạng thể thức: Đấu giao hữu hoặc cá cược ăn Tiền, đấu 1v1, 2v2 hoặc thậm chí cân team lệch (1v5).<br>• Đa dạng với hơn 15+ bộ Kits khác nhau."
+                a: `• Gõ lệnh <code>/duelhelp</code> để nhận ngay cuốn sách hướng dẫn chi tiết.<br>• Hệ thống hỗ trợ đa dạng thể thức: Đấu giao hữu hoặc cá cược ăn Tiền, đấu 1v1, 2v2 hoặc thậm chí cân team lệch (1v5).<br>• Đa dạng với hơn 15+ bộ Kits khác nhau.
+                    <br><br><b>🎬 Video review tính năng Duel:</b><br>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin-top: 8px;">
+                        <iframe src="https://www.youtube.com/embed/xWM-RO1XmoM" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                    </div>`
             },
             { 
                 q: "🔮 Hệ Thống Custom Enchant", 
@@ -124,15 +136,19 @@ const config = {
             // --- CÁC CHỨC NĂNG NỔI BẬT KHÁC ---
             { 
                 q: "🎮 Các MiniGames giải trí & Kiếm Tiền/Point", 
-                a: "• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>TntTag:</b> Trò chơi ôm bom tử thần nhận cả Tiền và Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền."
-            },
-            { 
-                q: "📦 Lồng Spawner Tiện Ích", 
-                a: "Hệ thống lồng quái thông minh được tối ưu hóa: <b>Không sinh quái ra ngoài</b> gây lag server. Thay vào đó, bạn có thể tương tác trực tiếp với menu GUI của lồng để tự động Bán hoặc Nhận Items vô cùng tiện lợi."
+                a: `• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>TntTag:</b> Trò chơi ôm bom tử thần nhận cả Tiền và Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền.
+                    <br><br><b>🎬 Video giới thiệu MiniGames:</b><br>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin-top: 8px;">
+                        <iframe src="https://www.youtube.com/embed/zR55MnzKBis" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                    </div>`
             },
             { 
                 q: "🚀 Các Tiện Ích Độc Đáo Khác", 
-                a: "• <b>Thang Máy Sắt:</b> Chỉ cần đặt các khối sắt song song thẳng đứng để làm thang máy di chuyển siêu tốc giữa các tầng.<br>• <b>VoiceChat:</b> Hệ thống đàm thoại giọng nói trực tiếp cực tiện ích.<br>• <b>Lệnh /vote(...):</b> Người chơi được quyền bầu chọn thay đổi thời gian (Ngày/Đêm) hoặc thời tiết (Mưa/Nắng).<br>• <b>Đa phiên bản:</b> Hỗ trợ chơi mượt mà trên nhiều phiên bản máy tính và tương thích hoàn toàn với hệ máy PE (Điện thoại).<br>• <b>Thế giới & Quái vật:</b> Khám phá thế giới rộng lớn với các công trình đặc biệt. Quái vật tự nhiên được tăng cường sức mạnh để tăng tính thử thách và cân bằng với Player."
+                a: `• <b>Thang Máy Sắt:</b> Chỉ cần đặt các khối sắt song song thẳng đứng để làm thang máy di chuyển siêu tốc giữa các tầng.<br>• <b>VoiceChat:</b> Hệ thống đàm thoại giọng nói trực tiếp cực tiện ích.<br>• <b>Lệnh /vote(...):</b> Người chơi được quyền bầu chọn thay đổi thời gian (Ngày/Đêm) hoặc thời tiết (Mưa/Nắng).<br>• <b>Đa phiên bản:</b> Hỗ trợ chơi mượt mà trên nhiều phiên bản máy tính và tương thích hoàn toàn với hệ máy PE (Điện thoại).<br>• <b>Thế giới & Quái vật:</b> Khám phá thế giới rộng lớn với các công trình đặc biệt. Quái vật tự nhiên được tăng cường sức mạnh để tăng tính thử thách và cân biến với Player.
+                    <br><br><b>🎬 Video trải nghiệm các tính năng độc lạ khác:</b><br>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin-top: 8px;">
+                        <iframe src="https://www.youtube.com/embed/kymMm4r0Jmk" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>
+                    </div>`
             }
         ],
         // --- VĂN BẢN PHÁP LÝ ---

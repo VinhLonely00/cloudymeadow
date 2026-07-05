@@ -70,7 +70,7 @@ function applyTexts() {
         `);
     }
 
-    // Render danh sách FAQ (Chỉ chạy nếu có vùng chứa)
+    // Render danh sách FAQ (Đã chuyển đổi sang thẻ div để hỗ trợ nhúng iframe/mã HTML phức tạp)
     if (document.getElementById('faq-container') && config.content?.faq) {
         renderGrid('faq-container', config.content.faq, (f) => `
             <div class="faq-item" onclick="toggleFaq(this)">
@@ -153,7 +153,7 @@ function toggleFaq(el) {
     el.classList.toggle('active');
 }
 
-// TỐI ƯU HÓA HÀM RENDER GRID: Tạo chuỗi tổng trước rồi gán một lần để mượt mà khi load iframe video
+// TỐI ƯU HÓA: Tạo bộ đệm chuỗi để render toàn bộ grid một lần duy nhất, tránh lag trình duyệt khi xử lý iframe
 function renderGrid(id, arr, fn) {
     const el = document.getElementById(id); 
     if(el) {

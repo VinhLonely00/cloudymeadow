@@ -109,10 +109,11 @@ const config = {
                 q: "⌨️ Danh Sách Toàn Bộ Lệnh Server (Nên Xem)", 
                 a: `<ul style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px;">
                         <li><code>/help</code> • Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game.</li>
-                        <li><code>/menu</code> • Mở bảng giao diện quản lý nhanh, tích hợp phím tắt cho tất cả các lệnh.</li>
+                        <li><code>/warp</code> • Mở hệ thóng dịch chuyển của Cloudy.</li>
                         <li><code>/tpa [tên]</code> • Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của người chơi khác.</li>
                         <li><code>/phuphep</code> • Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền.</li>
                         <li><code>/buonban</code> • Truy cập trung tâm giao dịch, chợ thương mại để mua bán vật phẩm.</li>
+                        <li><code>/cauca</code> • Truy cập trang quản lý về câu cá.</li>
                         <li><code>/quest</code> • Hệ thống nhiệm vụ hằng ngày/thử thách giúp cày cuốc kiếm thêm thu nhập.</li>
                         <li><code>/team</code> • Khởi tạo, quản lý, mời thành viên hoặc thiết lập tổ đội/bang hội của bạn.</li>
                         <li><code>/game</code> • Trung tâm giải trí, truy cập nhanh các minigame, duel hoặc khu vực kiếm tiền.</li>
@@ -133,10 +134,10 @@ const config = {
                     </ul>`
             },
 
-            // --- CÁC CHỨC NĂNG NỔI BẬT KHÁC ---
+           // --- CÁC CHỨC NĂNG NỔI BẬT KHÁC ---
             { 
                 q: "🎮 Các MiniGames giải trí & Kiếm Tiền/Point", 
-                a: `• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>TntTag:</b> Trò chơi ôm bom tử thần nhận cả Tiền và Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền.
+                a: `• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền.
                     <br><br><b>🎬 Video giới thiệu MiniGames:</b><br>
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; border-radius: 8px; margin-top: 8px;">
                         <iframe src="https://www.youtube.com/embed/zR55MnzKBis" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" allowfullscreen></iframe>

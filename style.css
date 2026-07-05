@@ -138,6 +138,16 @@ section { padding: 80px 5%; max-width: 1200px; margin: 0 auto; }
 .faq-a { padding: 20px; padding-top: 0; color: #aaa; font-size: 0.95rem; line-height: 1.6; }
 .faq-item.active .faq-a { padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.05); }
 
+/* Thêm class bổ trợ cho code lệnh trong FAQ */
+.faq-a code {
+    background: rgba(126, 194, 235, 0.1);
+    color: var(--gold);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
 /* Legal Tabs */
 .legal-box-wrapper { max-width: 900px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 15px; overflow: hidden; }
 .legal-tabs { display: flex; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.3); }
@@ -165,11 +175,12 @@ footer { padding: 50px 20px; text-align: center; border-top: 1px solid var(--bor
 #cm-widget-container {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    right: 30px; /* Vị trí mặc định lúc đầu */
     z-index: 9999;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    /* TỐI ƯU: Đổi sang center để dù kéo sang trái hay phải menu vẫn mở thẳng hàng không bị lệch */
+    align-items: center; 
     gap: 15px;
     user-select: none;
     -webkit-user-select: none;

@@ -80,7 +80,7 @@ function applyTexts() {
                 </div>
                 <div class="faq-body">
                     <div class="faq-inner">
-                        <p class="faq-a">${f.a}</p>
+                        <div class="faq-a">${f.a}</div>
                     </div>
                 </div>
             </div>
@@ -153,11 +153,15 @@ function toggleFaq(el) {
     el.classList.toggle('active');
 }
 
+// TỐI ƯU HÓA HÀM RENDER GRID: Tạo chuỗi tổng trước rồi gán một lần để mượt mà khi load iframe video
 function renderGrid(id, arr, fn) {
     const el = document.getElementById(id); 
     if(el) {
-        el.innerHTML = '';
-        if(arr) arr.forEach(i => el.innerHTML += fn(i));
+        let htmlContent = '';
+        if(arr) {
+            arr.forEach(i => htmlContent += fn(i));
+        }
+        el.innerHTML = htmlContent;
     }
 }
 
@@ -198,7 +202,6 @@ function initParticles() {
    CLOUDYMEADOW FLOATING SUPPORT WIDGET ENGINE (ES6)
    ================================================================ */
 (() => {
-    // Chờ DOM sẵn sàng để bắt đầu khởi tạo widget độc lập
     document.addEventListener("DOMContentLoaded", () => {
         const widget = document.getElementById("cm-widget-container");
         const toggleBtn = document.getElementById("cm-widget-toggle");
@@ -209,24 +212,20 @@ function initParticles() {
         let isDragging = false;
         let startX = 0, startY = 0;
         let initialLeft = 0, initialTop = 0;
-        let hasMoved = false; // Phân biệt hành vi click hay kéo chuột
+        let hasMoved = false;
 
-        // --- 1. Animation xuất hiện khi load trang ---
         setTimeout(() => {
             widget.classList.remove("cm-widget-hidden");
             widget.classList.add("cm-widget-visible");
-            // Sau khi hoàn thành hiệu ứng CSS, khôi phục vị trí cũ
             setTimeout(restorePosition, 500);
         }, 300);
 
-        // --- 2. Xử lý Logic Kéo Thả (Hỗ trợ chuột & Cảm ứng) ---
         const onStart = (e) => {
-            // Loại trừ không cho kéo nếu click trúng menu liên kết
             if (e.target.closest("#cm-widget-menu")) return;
 
             isDragging = true;
             hasMoved = false;
-            widget.style.transition = "none"; // Tắt mượt tạm thời khi đang kéo
+            widget.style.transition = "none";
 
             const clientX = e.type.includes("touch") ? e.touches[0].clientX : e.clientX;
             const clientY = e.type.includes("touch") ? e.touches[0].clientY : e.clientY;
@@ -248,7 +247,6 @@ function initParticles() {
             const deltaX = clientX - startX;
             const deltaY = clientY - startY;
 
-            // Nếu di chuyển quá 5px thì xác nhận là đang thực hiện kéo (drag) chứ không phải click
             if (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5) {
                 hasMoved = true;
                 if (menu.classList.contains("cm-widget-menu-open")) {
@@ -259,7 +257,6 @@ function initParticles() {
             let newLeft = initialLeft + deltaX;
             let newTop = initialTop + deltaY;
 
-            // Giới hạn không cho kéo ra ngoài phạm vi màn hình hiển thị
             const padding = 10;
             const maxLeft = window.innerWidth - widget.offsetWidth - padding;
             const maxTop = window.innerHeight - widget.offsetHeight - padding;
@@ -282,26 +279,22 @@ function initParticles() {
             }
         };
 
-        // Đăng ký Event chuột (PC)
         widget.addEventListener("mousedown", onStart);
         window.addEventListener("mousemove", onMove);
         window.addEventListener("mouseup", onEnd);
 
-        // Đăng ký Event cảm ứng (Mobile/Tablet)
         widget.addEventListener("touchstart", onStart, { passive: true });
         window.addEventListener("touchmove", onMove, { passive: false });
         window.addEventListener("touchend", onEnd);
 
-        // --- 3. Cơ chế tự hút vào mép màn hình bên gần nhất ---
         const snapToEdge = () => {
             widget.style.transition = "all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
             const rect = widget.getBoundingClientRect();
             const screenWidth = window.innerWidth;
             const widgetWidth = widget.offsetWidth;
-            const padding = 20; // Khoảng cách đệm an toàn cách mép biên
+            const padding = 20;
 
             let targetLeft = padding;
-            // Nếu vị trí hiện tại nằm quá nửa màn hình bên phải -> hút sang phải
             if ((rect.left + widgetWidth / 2) > screenWidth / 2) {
                 targetLeft = screenWidth - widgetWidth - padding;
                 menu.style.transformOrigin = "bottom right";
@@ -311,20 +304,17 @@ function initParticles() {
 
             widget.style.left = `${targetLeft}px`;
             
-            // Lưu tọa độ cuối cùng vào bộ nhớ trình duyệt
             setTimeout(() => {
                 localStorage.setItem("cm_widget_x", targetLeft);
                 localStorage.setItem("cm_widget_y", rect.top);
             }, 400);
         };
 
-        // --- 4. Khôi phục vị trí lưu trữ từ localStorage ---
         function restorePosition() {
             const savedX = localStorage.getItem("cm_widget_x");
             const savedY = localStorage.getItem("cm_widget_y");
 
             if (savedX !== null && savedY !== null) {
-                // Kiểm tra lại tính hợp lệ phòng trường hợp xoay màn hình hoặc đổi độ phân giải
                 const padding = 10;
                 let finalX = parseInt(savedX, 10);
                 let finalY = parseInt(savedY, 10);
@@ -341,7 +331,6 @@ function initParticles() {
                 widget.style.right = "auto";
                 widget.style.bottom = "auto";
 
-                // Điều chỉnh hướng hiển thị của menu tương ứng theo mép bám dính
                 if ((finalX + widget.offsetWidth / 2) > window.innerWidth / 2) {
                     menu.style.transformOrigin = "bottom right";
                 } else {
@@ -350,7 +339,6 @@ function initParticles() {
             }
         }
 
-        // --- 5. Đóng / Mở Menu ---
         const toggleMenu = () => {
             if (menu.classList.contains("cm-widget-menu-closed")) {
                 menu.classList.remove("cm-widget-menu-closed");
@@ -365,23 +353,19 @@ function initParticles() {
             menu.classList.add("cm-widget-menu-closed");
         };
 
-        // Nhấn nút bong bóng chính
         toggleBtn.addEventListener("click", (e) => {
             e.stopPropagation();
-            // Chỉ kích hoạt mở menu nếu người dùng thực hiện hành vi Click chứ không phải Kéo thả
             if (!hasMoved) {
                 toggleMenu();
             }
         });
 
-        // Đóng menu tự động khi người dùng nhấp chuột ra ngoài vùng Widget
         document.addEventListener("click", (e) => {
             if (!widget.contains(e.target)) {
                 closeMenu();
             }
         });
 
-        // Xử lý khi resize cửa sổ trình duyệt (Tự động tính toán lại vị trí bám dính biên)
         let resizeTimeout;
         window.addEventListener("resize", () => {
             clearTimeout(resizeTimeout);

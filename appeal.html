@@ -8,15 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* CSS bổ sung dành riêng cho trang kháng cáo để giữ nguyên style.css gốc */
-        .appeal-page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 120px 5% 50px; }
+        .appeal-page { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 140px 5% 50px; }
         .appeal-container { max-width: 600px; width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
         .btn-back { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: 0.3s; font-size: 0.95rem; }
         .btn-back:hover { color: #fff; transform: translateX(-5px); }
         .appeal-title { font-family: var(--font-title); font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; text-transform: uppercase; }
         .appeal-desc { color: #aaa; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6; }
         
-        /* Form Styling */
         .appeal-form { display: flex; flex-direction: column; gap: 20px; }
         .form-group { display: flex; flex-direction: column; gap: 8px; }
         .form-group label { font-size: 0.9rem; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -33,11 +31,23 @@
     <div class="particles-container" id="particles"></div>
     <div class="bg-vignette"></div>
 
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo" id="nav-logo-text">Cloudy<span>Meadow</span></a>
+        <ul class="nav-menu">
+            <li><a href="index.html#hero" id="nav-home">Trang Chủ</a></li>
+            <li><a href="index.html#staff" id="nav-staff">Đội Ngũ</a></li>
+            <li><a href="index.html#rules" id="nav-rules">Luật Server</a></li>
+            <li><a href="index.html#faq" id="nav-faq">Cách Chơi</a></li>
+            <li><a href="fish.html" id="nav-fish" style="color: #f1c40f; font-weight: 700; text-transform: uppercase;">Cá</a></li>
+            <li><a href="enchant.html" id="nav-enchant" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">Phù Phép</a></li>
+        </ul>
+    </nav>
+
     <div class="appeal-page">
         <div class="appeal-container">
             <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Trang chủ</a>
             <h1 class="appeal-title">⚠️ Kháng Cáo Hack</h1>
-            <p class="appeal-desc">Nếu bạn cho rằng hệ thống Anti-Cheat hoặc Đội ngũ Staff đã khóa tài khoản (Ban) nhầm lẫn, hãy gửi đơn giải trình tại đây.</p>
+            <p class="appeal-desc">Nếu bạn cho rằng hệ thống Anti-Cheat hoặc Đội ngũ Staff đã khóa tài khoản nhầm lẫn, hãy gửi đơn giải trình tại đây.</p>
             
             <form class="appeal-form" onsubmit="handleAppealSubmit(event)">
                 <div class="form-group">
@@ -59,36 +69,66 @@
             </form>
             
             <div class="form-note">
-                * Lưu ý: Mọi hành vi khai báo gian lận, đùa giỡn sẽ bị từ chối và khóa IP vĩnh viễn khỏi toàn bộ hệ thống CloudyMeadow.
+                * Lưu ý: Mọi hành vi khai báo gian lận sẽ bị từ chối và khóa IP vĩnh viễn khỏi toàn bộ hệ thống CloudyMeadow.
             </div>
         </div>
     </div>
 
+    <footer>
+        <p class="copyright">&copy; 2026 <span id="footer-name">CloudyMeadow</span>. All Rights Reserved.</p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
     <script>
-        // Hàm xử lý khi nhấn gửi đơn
         function handleAppealSubmit(e) {
             e.preventDefault();
-            const name = document.getElementById('mc-name').value;
             
-            // Bạn có thể tích hợp webhook Discord vào đây để nhận thông báo về thẳng máy chủ admin!
-            alert(`Cảm ơn ${name}! Đơn kháng cáo đã được gửi đi. Ban Quản Trị CloudyMeadow sẽ kiểm tra lại bản log và phản hồi sớm nhất.`);
-            window.location.href = 'index.html';
-        }
+            const name = document.getElementById('mc-name').value;
+            const reason = document.getElementById('appeal-reason').value;
+            const evidence = document.getElementById('appeal-evidence').value || "Không có bằng chứng";
+            const submitBtn = e.target.querySelector('.btn-submit');
 
-        // Tạo hạt bay đồng bộ trang chủ
-        document.addEventListener("DOMContentLoaded", () => {
-            const c = document.getElementById('particles');
-            if(!c) return;
-            for(let i=0; i<15; i++) {
-                let p = document.createElement('div');
-                p.className = 'particle';
-                let size = Math.random()*30+10;
-                p.style.width=size+'px'; p.style.height=size+'px';
-                p.style.left=Math.random()*100+'%';
-                p.style.animationDuration=(Math.random()*15+10)+'s';
-                c.appendChild(p);
-            }
-        });
+            submitBtn.innerText = "ĐANG GỬI...";
+            submitBtn.disabled = true;
+
+            // Chuỗi mã hóa ngược bảo mật Webhook của bạn
+            const enc = "eWFWaDFOME9sMzJsOWpubk5mOFpfdVp1SnhWcEZwY01XaUJnUDk4c0c1ZzdVM0pyd2JKZVA4MDBuYm5sSjRoLzg1MDQzNDI1MjUyOTEzMjUxL3Nrb29oYmV3L2lwYS9tb2MuZHJvY3NpZCI=";
+            const webhookUrl = atob(enc).split("").reverse().join("");
+
+            const discordData = {
+                embeds: [{
+                    title: "🚨 ĐƠN KHÁNG CÁO HACK MỚI!",
+                    color: 16733952,
+                    fields: [
+                        { name: "👤 Tên Nhân Vật (IGN)", value: `**${name}**`, inline: true },
+                        { name: "🔗 Bằng Chứng Đi Kèm", value: evidence, inline: true },
+                        { name: "📝 Lý Do / Giải Trình", value: reason }
+                    ],
+                    timestamp: new Date().toISOString(),
+                    footer: { text: "CloudyMeadow Support System" }
+                }]
+            };
+
+            fetch(webhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(discordData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Gửi đơn thành công! Đơn của bạn đã được chuyển thẳng tới Ban Quản Trị CloudyMeadow.`);
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error();
+                }
+            })
+            .catch(() => {
+                alert("Có lỗi xảy ra khi gửi đơn. Vui lòng liên hệ trực tiếp với Staff trên Discord!");
+                submitBtn.innerText = "GỬI ĐƠN KHÁNG CÁO";
+                submitBtn.disabled = false;
+            });
+        }
     </script>
 </body>
 </html>

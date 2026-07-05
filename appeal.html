@@ -92,14 +92,13 @@
             submitBtn.innerText = "ĐANG GỬI...";
             submitBtn.disabled = true;
 
-            // Chuỗi mã hóa ngược bảo mật Webhook của bạn
-            const enc = "eWFWaDFOME9sMzJsOWpubk5mOFpfdVp1SnhWcEZwY01XaUJnUDk4c0c1ZzdVM0pyd2JKZVA4MDBuYm5sSjRoLzg1MDQzNDI1MjUyOTEzMjUxL3Nrb29oYmV3L2lwYS9tb2MuZHJvY3NpZCI=";
-            const webhookUrl = atob(enc).split("").reverse().join("");
+            // Sử dụng trực tiếp link Webhook gốc 100% của bạn để tránh lỗi giải mã
+            const webhookUrl = "https://discord.com/api/webhooks/1523192525362434058/h4Jlbnbn08PeJBw2JU7g5Gs89PgBiWmcpFpXbJuzZu_F8nnncJ9lzI23lAO0N1hkVweF";
 
             const discordData = {
                 embeds: [{
                     title: "🚨 ĐƠN KHÁNG CÁO HACK MỚI!",
-                    color: 16733952,
+                    color: 16733952, // Mã màu cam cảnh báo dạng thập phân
                     fields: [
                         { name: "👤 Tên Nhân Vật (IGN)", value: `**${name}**`, inline: true },
                         { name: "🔗 Bằng Chứng Đi Kèm", value: evidence, inline: true },
@@ -110,15 +109,15 @@
                 }]
             };
 
+            // Tiến hành gửi dữ liệu đi kèm với cấu hình chống chặn CORS local file
             fetch(webhookUrl, {
                 method: "POST",
-                mode: "no-cors", // Bật chế độ bỏ qua chặn CORS khi chạy local file
+                mode: "no-cors", 
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(discordData)
             })
             .then(() => {
-                // Ở chế độ no-cors, trình duyệt không trả về response.ok công khai
-                // nhưng đơn vẫn sẽ được gửi đi thành công đến Discord!
+                // Với chế độ "no-cors", dữ liệu sẽ gửi đi thành công mà không bị chặn lại
                 alert(`Gửi đơn thành công! Đơn của bạn đã được chuyển thẳng tới Ban Quản Trị CloudyMeadow.`);
                 window.location.href = 'index.html';
             })

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hỗ Trợ Trực Tiếp - CloudyMeadow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS bổ sung dành riêng cho trang hỗ trợ để giữ nguyên style.css gốc */
+        .support-page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 120px 5% 50px; }
+        .support-container { max-width: 600px; width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: 0.3s; font-size: 0.95rem; }
+        .btn-back:hover { color: #fff; transform: translateX(-5px); }
+        .support-title { font-family: var(--font-title); font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; text-transform: uppercase; }
+        .support-desc { color: #aaa; font-size: 0.95rem; margin-bottom: 30px; line-height: 1.6; }
+        .channel-list { display: flex; flex-direction: column; gap: 15px; }
+        .channel-item { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.02); border: 1px solid var(--border); padding: 18px 25px; border-radius: 10px; text-decoration: none; color: #fff; transition: 0.3s; }
+        .channel-item:hover { border-color: var(--gold); background: rgba(126, 194, 235, 0.05); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(126, 194, 235, 0.1); }
+        .channel-info { display: flex; align-items: center; gap: 15px; }
+        .channel-info i { font-size: 1.5rem; color: var(--gold); }
+        .channel-name { font-weight: 600; font-size: 1.05rem; }
+        .channel-status { font-size: 0.85rem; color: #888; margin-top: 2px; }
+        .channel-action { background: var(--gold); color: #000; padding: 8px 16px; border-radius: 5px; font-family: var(--font-title); font-weight: 700; font-size: 0.9rem; transition: 0.3s; }
+        .channel-item:hover .channel-action { background: var(--gold-hover); }
+    </style>
+</head>
+<body>
+
+    <div class="particles-container" id="particles"></div>
+    <div class="bg-vignette"></div>
+
+    <div class="support-page">
+        <div class="support-container">
+            <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Trang chủ</a>
+            <h1 class="support-title">🛠 Hỗ Trợ Trực Tiếp</h1>
+            <p class="support-desc">Bạn gặp sự cố về lỗi nạp thẻ, lỗi tài khoản hoặc bug game? Vui lòng kết nối với Ban Quản Trị qua các kênh chính thức dưới đây để được xử lý nhanh nhất.</p>
+            
+            <div class="channel-list">
+                <a href="https://discord.gg/2uzK8EryBG" target="_blank" class="channel-item">
+                    <div class="channel-info">
+                        <i class="fab fa-discord"></i>
+                        <div>
+                            <div class="channel-name">Discord Server</div>
+                            <div class="channel-status">Mở Ticket tại kênh #ticket-support</div>
+                        </div>
+                    </div>
+                    <div class="channel-action">THAM GIA</div>
+                </a>
+
+                <a href="https://discord.gg/2uzK8EryBG" target="_blank" class="channel-item">
+                    <div class="channel-info">
+                        <i class="fas fa-user-shield"></i>
+                        <div>
+                            <div class="channel-name">Gặp Trực Tiếp Admin</div>
+                            <div class="channel-status">Vynduskwinter / VinhLonely00</div>
+                        </div>
+                    </div>
+                    <div class="channel-action">LIÊN HỆ</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        // Khởi tạo hạt bay đồng bộ trang chủ
+        document.addEventListener("DOMContentLoaded", () => {
+            const c = document.getElementById('particles');
+            if(!c) return;
+            for(let i=0; i<15; i++) {
+                let p = document.createElement('div');
+                p.className = 'particle';
+                let size = Math.random()*30+10;
+                p.style.width=size+'px'; p.style.height=size+'px';
+                p.style.left=Math.random()*100+'%';
+                p.style.animationDuration=(Math.random()*15+10)+'s';
+                c.appendChild(p);
+            }
+        });
+    </script>
+</body>
+</html>

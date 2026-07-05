@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kháng Cáo Hack - CloudyMeadow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS bổ sung dành riêng cho trang kháng cáo để giữ nguyên style.css gốc */
+        .appeal-page { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 120px 5% 50px; }
+        .appeal-container { max-width: 600px; width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 15px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); backdrop-filter: blur(10px); }
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; color: var(--gold); text-decoration: none; font-weight: 600; margin-bottom: 20px; transition: 0.3s; font-size: 0.95rem; }
+        .btn-back:hover { color: #fff; transform: translateX(-5px); }
+        .appeal-title { font-family: var(--font-title); font-size: 2.2rem; color: var(--gold); margin-bottom: 10px; text-transform: uppercase; }
+        .appeal-desc { color: #aaa; font-size: 0.95rem; margin-bottom: 25px; line-height: 1.6; }
+        
+        /* Form Styling */
+        .appeal-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 8px; }
+        .form-group label { font-size: 0.9rem; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-group input, .form-group textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); border-radius: 6px; padding: 12px 15px; color: #fff; font-family: var(--font-main); font-size: 0.95rem; transition: 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 10px rgba(126, 194, 235, 0.2); }
+        .btn-submit { background: var(--gold); color: #000; border: none; padding: 14px; border-radius: 6px; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; margin-top: 10px; }
+        .btn-submit:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(126, 194, 235, 0.2); }
+        
+        .form-note { font-size: 0.85rem; color: #666; text-align: center; margin-top: 15px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <div class="particles-container" id="particles"></div>
+    <div class="bg-vignette"></div>
+
+    <div class="appeal-page">
+        <div class="appeal-container">
+            <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Quay lại Trang chủ</a>
+            <h1 class="appeal-title">⚠️ Kháng Cáo Hack</h1>
+            <p class="appeal-desc">Nếu bạn cho rằng hệ thống Anti-Cheat hoặc Đội ngũ Staff đã khóa tài khoản (Ban) nhầm lẫn, hãy gửi đơn giải trình tại đây.</p>
+            
+            <form class="appeal-form" onsubmit="handleAppealSubmit(event)">
+                <div class="form-group">
+                    <label for="mc-name">Tên nhân vật trong game (In-game Name)</label>
+                    <input type="text" id="mc-name" required placeholder="Ví dụ: VinhLonely00">
+                </div>
+                
+                <div class="form-group">
+                    <label for="appeal-reason">Lời giải trình / Lý do kháng ban</label>
+                    <textarea id="appeal-reason" rows="4" required placeholder="Vui lòng mô tả rõ bạn đang làm gì trước khi bị khóa tài khoản..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="appeal-evidence">Link hình ảnh / Video bằng chứng (Nếu có)</label>
+                    <input type="url" id="appeal-evidence" placeholder="https://youtube.com/... hoặc link ảnh">
+                </div>
+
+                <button type="submit" class="btn-submit">Gửi đơn kháng cáo</button>
+            </form>
+            
+            <div class="form-note">
+                * Lưu ý: Mọi hành vi khai báo gian lận, đùa giỡn sẽ bị từ chối và khóa IP vĩnh viễn khỏi toàn bộ hệ thống CloudyMeadow.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm xử lý khi nhấn gửi đơn
+        function handleAppealSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('mc-name').value;
+            
+            // Bạn có thể tích hợp webhook Discord vào đây để nhận thông báo về thẳng máy chủ admin!
+            alert(`Cảm ơn ${name}! Đơn kháng cáo đã được gửi đi. Ban Quản Trị CloudyMeadow sẽ kiểm tra lại bản log và phản hồi sớm nhất.`);
+            window.location.href = 'index.html';
+        }
+
+        // Tạo hạt bay đồng bộ trang chủ
+        document.addEventListener("DOMContentLoaded", () => {
+            const c = document.getElementById('particles');
+            if(!c) return;
+            for(let i=0; i<15; i++) {
+                let p = document.createElement('div');
+                p.className = 'particle';
+                let size = Math.random()*30+10;
+                p.style.width=size+'px'; p.style.height=size+'px';
+                p.style.left=Math.random()*100+'%';
+                p.style.animationDuration=(Math.random()*15+10)+'s';
+                c.appendChild(p);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -106,7 +106,7 @@ const config = {
 
             // --- ĐÃ GỘP: TẤT CẢ LỆNH SERVER VÀO MỘT MỤC DUY NHẤT ---
             { 
-                q: "⌨️ Danh Sách Toàn Bộ Lệnh Server (Nên Xem)", 
+                q: "⌨️ Danh Sách Lệnh Quan Trọng (Nên Xem)", 
                 a: `<ul style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px;">
                         <li><code>/help</code> • Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game.</li>
                         <li><code>/warp</code> • Mở hệ thóng dịch chuyển của Cloudy.</li>

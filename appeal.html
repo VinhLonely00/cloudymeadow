@@ -20,6 +20,21 @@
         .form-group label { font-size: 0.9rem; font-weight: 600; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; }
         .form-group input, .form-group textarea { background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); border-radius: 6px; padding: 12px 15px; color: #fff; font-family: var(--font-main); font-size: 0.95rem; transition: 0.3s; }
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 10px rgba(126, 194, 235, 0.2); }
+        
+        /* Upload Area Styling */
+        .upload-zone { border: 2px dashed var(--border); border-radius: 6px; padding: 25px; text-align: center; background: rgba(0, 0, 0, 0.2); cursor: pointer; transition: 0.3s; position: relative; }
+        .upload-zone:hover, .upload-zone.dragover { border-color: var(--gold); background: rgba(126, 194, 235, 0.05); }
+        .upload-zone i { font-size: 2rem; color: var(--gold); margin-bottom: 10px; }
+        .upload-zone p { font-size: 0.9rem; color: #aaa; margin: 0; }
+        .upload-zone span { font-size: 0.8rem; color: #666; display: block; margin-top: 5px; }
+        #file-input { display: none; }
+        
+        /* Preview Image Styling */
+        .preview-container { display: none; margin-top: 15px; position: relative; text-align: center; border: 1px solid var(--border); border-radius: 6px; padding: 10px; background: rgba(0,0,0,0.5); }
+        #image-preview { max-width: 100%; max-height: 200px; border-radius: 4px; object-fit: contain; }
+        .btn-remove-img { position: absolute; top: 15px; right: 15px; background: rgba(255, 0, 0, 0.8); color: white; border: none; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem; transition: 0.3s; }
+        .btn-remove-img:hover { background: red; transform: scale(1.1); }
+
         .btn-submit { background: var(--gold); color: #000; border: none; padding: 14px; border-radius: 6px; font-family: var(--font-title); font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.3s; text-transform: uppercase; margin-top: 10px; }
         .btn-submit:hover { background: var(--gold-hover); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(126, 194, 235, 0.2); }
         
@@ -49,7 +64,7 @@
             <h1 class="appeal-title">⚠️ Kháng Cáo Hack</h1>
             <p class="appeal-desc">Nếu bạn cho rằng hệ thống Anti-Cheat hoặc Đội ngũ Staff đã khóa tài khoản nhầm lẫn, hãy gửi đơn giải trình tại đây.</p>
             
-            <form class="appeal-form" onsubmit="handleAppealSubmit(event)">
+            <form class="appeal-form" id="appealForm" onsubmit="handleAppealSubmit(event)">
                 <div class="form-group">
                     <label for="mc-name">Tên nhân vật trong game (In-game Name)</label>
                     <input type="text" id="mc-name" required placeholder="Ví dụ: VinhLonely00">
@@ -61,8 +76,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="appeal-evidence">Link hình ảnh / Video bằng chứng (Nếu có)</label>
-                    <input type="url" id="appeal-evidence" placeholder="https://youtube.com/... hoặc link ảnh">
+                    <label>Bằng chứng hình ảnh (Bắt buộc hoặc bổ sung)</label>
+                    <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p id="upload-text">Nhấp để chọn tệp ảnh, kéo thả ảnh vào đây, hoặc nhấn vào vùng này rồi bấm <b>Ctrl + V</b> để dán ảnh chụp màn hình</p>
+                        <span>Hỗ trợ định dạng: .png, .jpg, .jpeg, .gif</span>
+                        <input type="file" id="file-input" accept="image/*">
+                    </div>
+                    
+                    <div class="preview-container" id="preview-container">
+                        <button type="button" class="btn-remove-img" onclick="removeSelectedImage()"><i class="fas fa-times"></i></button>
+                        <img id="image-preview" src="" alt="Xem trước ảnh">
+                    </div>
                 </div>
 
                 <button type="submit" class="btn-submit">Gửi đơn kháng cáo</button>
@@ -81,27 +106,91 @@
     <script src="config.js"></script>
     <script src="script.js"></script>
     <script>
+        let selectedFile = null;
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const uploadText = document.getElementById('upload-text');
+
+        // Hàm xử lý hiển thị ảnh xem trước
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            selectedFile = file;
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imagePreview.src = e.target.result;
+                previewContainer.style.display = 'block';
+                uploadText.innerHTML = `Đã chọn: <b>${file.name || 'Ảnh từ bộ nhớ tạm'}</b>`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 1. Xử lý khi bấm nút chọn file thủ công
+        fileInput.addEventListener('change', (e) => {
+            handleFile(e.target.files[0]);
+        });
+
+        // 2. Xử lý sự kiện kéo thả file (Drag & Drop)
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.add('dragover'); }, false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => { e.preventDefault(); dropZone.classList.remove('dragover'); }, false);
+        });
+        dropZone.addEventListener('drop', (e) => {
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        // 3. Xử lý sự kiện dán ảnh bằng phím tắt Ctrl + V
+        document.addEventListener('paste', (e) => {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let index in items) {
+                const item = items[index];
+                if (item.kind === 'file' && item.type.startsWith('image/')) {
+                    const blob = item.getAsFile();
+                    // Đặt tên giả định cho file dán tạm
+                    const fileFromPaste = new File([blob], `pasted_image_${Date.now()}.png`, { type: blob.type });
+                    handleFile(fileFromPaste);
+                    break;
+                }
+            }
+        });
+
+        // Hàm xóa ảnh hiện tại
+        function removeSelectedImage() {
+            selectedFile = null;
+            fileInput.value = '';
+            imagePreview.src = '';
+            previewContainer.style.display = 'none';
+            uploadText.innerHTML = 'Nhấp để chọn tệp ảnh, kéo thả ảnh vào đây, hoặc nhấn vào vùng này rồi bấm <b>Ctrl + V</b> để dán ảnh chụp màn hình';
+        }
+
+        // 4. Xử lý gửi toàn bộ dữ liệu kèm tệp tin lên Discord Webhook
         function handleAppealSubmit(e) {
             e.preventDefault();
             
             const name = document.getElementById('mc-name').value;
             const reason = document.getElementById('appeal-reason').value;
-            const evidence = document.getElementById('appeal-evidence').value || "Không có bằng chứng";
             const submitBtn = e.target.querySelector('.btn-submit');
 
-            submitBtn.innerText = "ĐANG GỬI...";
+            submitBtn.innerText = "ĐANG GỬI ĐƠN & ẢNH...";
             submitBtn.disabled = true;
 
-            // Sử dụng trực tiếp link Webhook gốc 100% của bạn để tránh lỗi giải mã
             const webhookUrl = "https://discord.com/api/webhooks/1523192525362434058/h4Jlbnbn08PeJBw2JU7g5Gs89PgBiWmcpFpXbJuzZu_F8nnncJ9lzI23lAO0N1hkVweF";
 
-            const discordData = {
+            // Khởi tạo FormData để truyền tải file nhị phân
+            const formData = new FormData();
+
+            // Cấu trúc chuỗi Embed dạng JSON text
+            const embedData = {
                 embeds: [{
                     title: "🚨 ĐƠN KHÁNG CÁO HACK MỚI!",
-                    color: 16733952, // Mã màu cam cảnh báo dạng thập phân
+                    color: 16733952,
                     fields: [
                         { name: "👤 Tên Nhân Vật (IGN)", value: `**${name}**`, inline: true },
-                        { name: "🔗 Bằng Chứng Đi Kèm", value: evidence, inline: true },
                         { name: "📝 Lý Do / Giải Trình", value: reason }
                     ],
                     timestamp: new Date().toISOString(),
@@ -109,20 +198,29 @@
                 }]
             };
 
-            // Tiến hành gửi dữ liệu đi kèm với cấu hình chống chặn CORS local file
+            // Nếu người chơi có chọn/dán ảnh, đính kèm vào tin nhắn Discord
+            if (selectedFile) {
+                formData.append('file', selectedFile, selectedFile.name);
+                embedData.embeds[0].image = { url: `attachment://${selectedFile.name}` };
+            } else {
+                embedData.embeds[0].fields.push({ name: "🔗 Bằng Chứng Đi Kèm", value: "Không tải lên tệp ảnh" });
+            }
+
+            // Gắn gói dữ liệu chữ vào formData
+            formData.append('payload_json', JSON.stringify(embedData));
+
+            // Gửi dữ liệu bằng FormData (bỏ qua header Content-Type thủ công vì trình duyệt sẽ tự định nghĩa boundary cho file)
             fetch(webhookUrl, {
                 method: "POST",
-                mode: "no-cors", 
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(discordData)
+                mode: "no-cors",
+                body: formData
             })
             .then(() => {
-                // Với chế độ "no-cors", dữ liệu sẽ gửi đi thành công mà không bị chặn lại
-                alert(`Gửi đơn thành công! Đơn của bạn đã được chuyển thẳng tới Ban Quản Trị CloudyMeadow.`);
+                alert(`Gửi đơn thành công! Đơn kháng cáo và hình ảnh đính kèm đã được gửi trực tiếp tới Ban Quản Trị CloudyMeadow.`);
                 window.location.href = 'index.html';
             })
             .catch(() => {
-                alert("Có lỗi xảy ra khi gửi đơn. Vui lòng liên hệ trực tiếp với Staff trên Discord!");
+                alert("Có lỗi xảy ra khi gửi tệp dữ liệu. Vui lòng liên hệ trực tiếp với Staff trên Discord!");
                 submitBtn.innerText = "GỬI ĐƠN KHÁNG CÁO";
                 submitBtn.disabled = false;
             });

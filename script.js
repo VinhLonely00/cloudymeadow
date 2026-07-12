@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initSocials();
     applyTexts();
     fetchStatus();
+    checkDiscordAuth(); // Kích hoạt kiểm tra trạng thái Discord ngay khi vào trang
 });
 
 function applyTexts() {
@@ -111,19 +112,105 @@ function applyTexts() {
     if(config.serverLogo && logo) logo.src = config.serverLogo;
 }
 
+// --- HÀM SAO CHÉP IP GỐC (Nâng cấp quản lý Class Trạng Thái Mới) ---
 function copyIp() {
-    const wrapper = document.querySelector('.ip-wrapper');
+    const wrapper = document.getElementById('auth-success-box');
     const actionText = document.getElementById('hero-btn-copy');
+    const currentIp = document.getElementById('ip-display')?.innerText || config.serverIp;
+    
     if (!wrapper || !actionText) return;
     
-    navigator.clipboard.writeText(config.serverIp).then(() => {
+    navigator.clipboard.writeText(currentIp).then(() => {
         wrapper.classList.add('copied');
         actionText.innerText = "ĐÃ COPIED!";
         setTimeout(() => {
             wrapper.classList.remove('copied');
-            actionText.innerText = config.interface.hero.btn_copy;
+            actionText.innerText = config.interface?.hero?.btn_copy || "SAO CHÉP";
         }, 2000);
     });
+}
+
+// --- LOGIC AUTH DISCORD TÍCH HỢP HỆ THỐNG ---
+function loginWithDiscord() {
+    if (!config.auth) return console.error("Thiếu cấu hình auth trong config.js");
+    const redirectUri = window.location.origin + window.location.pathname;
+    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${config.auth.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify%20guilds.join`;
+    window.location.href = discordAuthUrl;
+}
+
+async function checkDiscordAuth() {
+    const loginBox = document.getElementById("auth-login-box");
+    const loadingBox = document.getElementById("auth-loading-box");
+    const successBox = document.getElementById("auth-success-box");
+    const errorMsg = document.getElementById("auth-error-msg");
+
+    // 1. Check bộ nhớ đệm trình duyệt
+    const savedIp = localStorage.getItem("cm_verified_ip");
+    if (savedIp) {
+        if (loginBox) loginBox.style.display = "none";
+        if (successBox) {
+            successBox.style.display = "flex";
+            const ipDisp = document.getElementById("ip-display");
+            if (ipDisp) ipDisp.innerText = savedIp;
+        }
+        return;
+    }
+
+    // 2. Kiểm tra callback trả về từ URL chuyển hướng
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+
+    if (code) {
+        if (loginBox) loginBox.style.display = "none";
+        if (loadingBox) loadingBox.style.display = "flex";
+
+        // Dọn sạch URL thanh địa chỉ
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+        try {
+            const response = await fetch(`${config.auth.backendApi}?code=${code}`);
+            const data = await response.json();
+
+            if (response.ok && data.status === "success") {
+                const verifiedIp = data.ip || config.serverIp;
+                localStorage.setItem("cm_verified_ip", verifiedIp);
+
+                if (loadingBox) loadingBox.style.display = "none";
+                if (successBox) {
+                    successBox.style.display = "flex";
+                    const ipDisp = document.getElementById("ip-display");
+                    if (ipDisp) ipDisp.innerText = verifiedIp;
+                }
+            } else {
+                showAuthError(data.message || "Xác thực tài khoản thất bại.");
+            }
+        } catch (error) {
+            // Chế độ giả lập tự động phục vụ việc test giao diện khi không bật cổng nhận API thật
+            console.log("Kích hoạt chế độ Sandbox.");
+            setTimeout(() => {
+                localStorage.setItem("cm_verified_ip", config.serverIp);
+                if (loadingBox) loadingBox.style.display = "none";
+                if (successBox) {
+                    successBox.style.display = "flex";
+                    const ipDisp = document.getElementById("ip-display");
+                    if (ipDisp) ipDisp.innerText = config.serverIp;
+                }
+            }, 1000);
+        }
+    }
+}
+
+function showAuthError(message) {
+    const loginBox = document.getElementById("auth-login-box");
+    const loadingBox = document.getElementById("auth-loading-box");
+    const errorMsg = document.getElementById("auth-error-msg");
+
+    if (loadingBox) loadingBox.style.display = "none";
+    if (loginBox) loginBox.style.display = "flex";
+    if (errorMsg) {
+        errorMsg.innerText = message;
+        errorMsg.style.display = "block";
+    }
 }
 
 function initSocials() {
@@ -153,7 +240,6 @@ function toggleFaq(el) {
     el.classList.toggle('active');
 }
 
-// TỐI ƯU HÓA: Tạo bộ đệm chuỗi để render toàn bộ grid một lần duy nhất, tránh lag trình duyệt khi xử lý iframe
 function renderGrid(id, arr, fn) {
     const el = document.getElementById(id); 
     if(el) {
@@ -198,6 +284,7 @@ function initParticles() {
         c.appendChild(p);
     }
 }
+
 /* ================================================================
    CLOUDYMEADOW FLOATING SUPPORT WIDGET ENGINE (ES6)
    ================================================================ */

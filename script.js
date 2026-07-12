@@ -180,6 +180,56 @@ function switchInterfaceToSuccess(ipToShow) {
         if (ipDisp) ipDisp.innerText = ipToShow;
     }
 }
+
+// --- CÁC HÀM TIỆN ÍCH CORE CỦA THEME (Định nghĩa bổ sung để tránh lỗi sập Engine) ---
+function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value !== undefined) el.innerText = value;
+}
+
+function renderGrid(containerId, items, templateFn) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = items.map(templateFn).join('');
+}
+
+function toggleFaq(element) {
+    element.classList.toggle('active');
+}
+
+function initSocials() {
+    if(!config.social) return;
+    const bindLink = (id, url) => {
+        const el = document.getElementById(id);
+        if(el) {
+            if(url) { el.href = url; el.style.display = ""; }
+            else { el.style.display = "none"; }
+        }
+    };
+    bindLink('social-discord', config.social.discord);
+    bindLink('social-tiktok', config.social.tiktok);
+    bindLink('social-youtube', config.social.youtube);
+}
+
+function fetchStatus() {
+    const countEl = document.getElementById('player-count');
+    if (!countEl) return;
+    fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.online && data.players) {
+                countEl.innerText = data.players.online;
+            } else {
+                countEl.innerText = "0";
+            }
+        })
+        .catch(() => { countEl.innerText = "0"; });
+}
+
+function initParticles() {
+    // Giữ trống hoặc tích hợp thư viện hạt tùy thích, hàm này được gọi ở DOMContentLoaded
+}
+
 /* ================================================================
    CLOUDYMEADOW FLOATING SUPPORT WIDGET ENGINE (ES6)
    ================================================================ */

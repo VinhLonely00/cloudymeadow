@@ -34,14 +34,42 @@
         <img src="logo.png" alt="Logo" class="hero-logo" id="hero-logo-img">
         <p class="hero-subtitle" id="hero-subtitle">Đang tải...</p>
 
-        <div class="ip-wrapper" onclick="copyIp()">
-            <div class="ip-content">
-                <i class="fas fa-wifi"></i>
-                <span class="ip-text" id="ip-display">cloudymeadow.sytes.net</span>
+        <!-- KHU VỰC ĐĂNG NHẬP / SAO CHÉP IP DISCORD -->
+        <div id="discord-auth-section">
+            
+            <!-- Trạng thái 1: Chưa đăng nhập - Nút Đăng nhập Discord -->
+            <div id="auth-login-box" class="ip-wrapper auth-btn-discord" onclick="loginWithDiscord()">
+                <div class="ip-content">
+                    <i class="fab fa-discord"></i>
+                    <span class="ip-text">Tham gia Discord để nhận IP</span>
+                </div>
+                <div class="ip-action">
+                    <span>DISCORD</span>
+                </div>
             </div>
-            <div class="ip-action">
-                <span id="hero-btn-copy">SAO CHÉP</span>
+
+            <!-- Trạng thái 2: Đang tải - Xoay tròn (Mặc định ẩn) -->
+            <div id="auth-loading-box" class="ip-wrapper" style="display: none; cursor: wait;">
+                <div class="ip-content">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span class="ip-text">Đang kiểm tra thành viên...</span>
+                </div>
             </div>
+
+            <!-- Trạng thái 3: Đã xác thực - Hiện IP gốc để Copy (Mặc định ẩn) -->
+            <div id="auth-success-box" class="ip-wrapper" onclick="copyIp()" style="display: none;">
+                <div class="ip-content">
+                    <i class="fas fa-wifi"></i>
+                    <span class="ip-text" id="ip-display">cloudymeadow.sytes.net</span>
+                </div>
+                <div class="ip-action">
+                    <span id="hero-btn-copy">SAO CHÉP</span>
+                </div>
+            </div>
+
+            <!-- Dòng thông báo lỗi (Mặc định ẩn) -->
+            <p id="auth-error-msg" style="color: #ff4d4d; font-weight: 600; margin-top: 10px; display: none; font-size: 0.95rem;"></p>
+
         </div>
         
         <div class="online-status">

@@ -130,161 +130,56 @@ function copyIp() {
     });
 }
 
-// --- LOGIC AUTH DISCORD TÍCH HỢP HỆ THỐNG ---
+// --- LOGIC MỞ KHOÁ IP BẰNG LINK MỜI DISCORD (ĐƠN GIẢN & LƯU MÃI MÃI) ---
 function loginWithDiscord() {
-    if (!config.auth) return console.error("Thiếu cấu hình auth trong config.js");
-    const redirectUri = window.location.origin + window.location.pathname;
-    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${config.auth.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=identify%20guilds.join`;
-    window.location.href = discordAuthUrl;
-}
-
-async function checkDiscordAuth() {
-    const loginBox = document.getElementById("auth-login-box");
-    const loadingBox = document.getElementById("auth-loading-box");
-    const successBox = document.getElementById("auth-success-box");
-    const errorMsg = document.getElementById("auth-error-msg");
-
-    // 1. Check bộ nhớ đệm trình duyệt
-    const savedIp = localStorage.getItem("cm_verified_ip");
-    if (savedIp) {
-        if (loginBox) loginBox.style.display = "none";
-        if (successBox) {
-            successBox.style.display = "flex";
-            const ipDisp = document.getElementById("ip-display");
-            if (ipDisp) ipDisp.innerText = savedIp;
-        }
+    // 1. Mở link mời Discord lấy trực tiếp từ config hệ thống ở tab mới
+    if (config.social && config.social.discord) {
+        window.open(config.social.discord, '_blank');
+    } else {
+        console.error("Chưa cấu hình link Discord tại mục config.social.discord");
         return;
     }
 
-    // 2. Kiểm tra callback trả về từ URL chuyển hướng
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    // 2. Lưu trạng thái "đã bấm" vào bộ nhớ trình duyệt để không bắt bấm lại nữa
+    localStorage.setItem("cm_verified_ip", config.serverIp);
 
-    if (code) {
-        if (loginBox) loginBox.style.display = "none";
-        if (loadingBox) loadingBox.style.display = "flex";
+    // 3. Chuyển đổi giao diện sang trạng thái thành công ngay lập tức để lấy IP
+    switchInterfaceToSuccess(config.serverIp);
+}
 
-        // Dọn sạch URL thanh địa chỉ
-        window.history.replaceState({}, document.title, window.location.pathname);
-
-        try {
-            const response = await fetch(`${config.auth.backendApi}?code=${code}`);
-            const data = await response.json();
-
-            if (response.ok && data.status === "success") {
-                const verifiedIp = data.ip || config.serverIp;
-                localStorage.setItem("cm_verified_ip", verifiedIp);
-
-                if (loadingBox) loadingBox.style.display = "none";
-                if (successBox) {
-                    successBox.style.display = "flex";
-                    const ipDisp = document.getElementById("ip-display");
-                    if (ipDisp) ipDisp.innerText = verifiedIp;
-                }
-            } else {
-                showAuthError(data.message || "Xác thực tài khoản thất bại.");
-            }
-        } catch (error) {
-            // Chế độ giả lập tự động phục vụ việc test giao diện khi không bật cổng nhận API thật
-            console.log("Kích hoạt chế độ Sandbox.");
-            setTimeout(() => {
-                localStorage.setItem("cm_verified_ip", config.serverIp);
-                if (loadingBox) loadingBox.style.display = "none";
-                if (successBox) {
-                    successBox.style.display = "flex";
-                    const ipDisp = document.getElementById("ip-display");
-                    if (ipDisp) ipDisp.innerText = config.serverIp;
-                }
-            }, 1000);
-        }
+function checkDiscordAuth() {
+    // Kiểm tra xem trình duyệt của người chơi đã có dữ liệu lưu trữ chưa
+    const savedIp = localStorage.getItem("cm_verified_ip");
+    
+    if (savedIp) {
+        // Nếu có: Tự động mở khoá và hiển thị IP ngay từ đầu, bỏ qua bước đăng nhập
+        switchInterfaceToSuccess(savedIp);
+    } else {
+        // Nếu chưa: Đảm bảo hiển thị form bắt bấm nút tham gia Discord ban đầu
+        const loginBox = document.getElementById("auth-login-box");
+        const successBox = document.getElementById("auth-success-box");
+        const loadingBox = document.getElementById("auth-loading-box");
+        
+        if (loginBox) loginBox.style.display = "flex";
+        if (loadingBox) loadingBox.style.display = "none";
+        if (successBox) successBox.style.display = "none";
     }
 }
 
-function showAuthError(message) {
+// Hàm phụ trợ quản lý hiển thị các box giao diện
+function switchInterfaceToSuccess(ipToShow) {
     const loginBox = document.getElementById("auth-login-box");
     const loadingBox = document.getElementById("auth-loading-box");
-    const errorMsg = document.getElementById("auth-error-msg");
+    const successBox = document.getElementById("auth-success-box");
 
+    if (loginBox) loginBox.style.display = "none";
     if (loadingBox) loadingBox.style.display = "none";
-    if (loginBox) loginBox.style.display = "flex";
-    if (errorMsg) {
-        errorMsg.innerText = message;
-        errorMsg.style.display = "block";
+    if (successBox) {
+        successBox.style.display = "flex";
+        const ipDisp = document.getElementById("ip-display");
+        if (ipDisp) ipDisp.innerText = ipToShow;
     }
 }
-
-function initSocials() {
-    const c = document.getElementById('social-container');
-    if(!c) return;
-    c.innerHTML = '';
-    const s = config.social;
-    if(!s) return;
-    
-    const add = (i, l) => c.innerHTML += `<a href="${l}" target="_blank" class="social-icon"><i class="${i}"></i></a>`;
-    if(s.discord) add('fab fa-discord', s.discord);
-    if(s.twitter) add('fab fa-twitter', s.twitter);
-    if(s.instagram) add('fab fa-instagram', s.instagram);
-    if(s.tiktok) add('fab fa-tiktok', s.tiktok);
-    if(s.youtube) add('fab fa-youtube', s.youtube);
-    if(s.store) add('fas fa-shopping-cart', s.store);
-}
-
-function openLegal(id) {
-    document.querySelectorAll('.l-content').forEach(d=>d.classList.remove('active'));
-    document.querySelectorAll('.l-tab').forEach(b=>b.classList.remove('active'));
-    if(document.getElementById('legal-'+id)) document.getElementById('legal-'+id).classList.add('active');
-    if(document.getElementById('tab-'+id)) document.getElementById('tab-'+id).classList.add('active');
-}
-
-function toggleFaq(el) {
-    el.classList.toggle('active');
-}
-
-function renderGrid(id, arr, fn) {
-    const el = document.getElementById(id); 
-    if(el) {
-        let htmlContent = '';
-        if(arr) {
-            arr.forEach(i => htmlContent += fn(i));
-        }
-        el.innerHTML = htmlContent;
-    }
-}
-
-function setText(id, txt) { 
-    const el = document.getElementById(id);
-    if(el && txt) el.innerText = txt; 
-}
-
-function fetchStatus() {
-    const el = document.getElementById('player-count');
-    if(!el) return;
-    
-    fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
-        .then(r=>r.json())
-        .then(d => {
-            el.innerText = (d && d.online) ? d.players.online : '-';
-        })
-        .catch(() => {
-            el.innerText = '-';
-        });
-}
-
-function initParticles() {
-    const c = document.getElementById('particles');
-    if(!c) return;
-    c.innerHTML = '';
-    for(let i=0; i<25; i++) {
-        let p = document.createElement('div');
-        p.className = 'particle';
-        let size = Math.random()*30+10;
-        p.style.width=size+'px'; p.style.height=size+'px';
-        p.style.left=Math.random()*100+'%';
-        p.style.animationDuration=(Math.random()*15+10)+'s';
-        c.appendChild(p);
-    }
-}
-
 /* ================================================================
    CLOUDYMEADOW FLOATING SUPPORT WIDGET ENGINE (ES6)
    ================================================================ */

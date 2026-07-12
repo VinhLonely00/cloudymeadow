@@ -74,7 +74,6 @@ const config = {
 
         // --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
         faq: [
-            // --- HƯỚNG DẪN QUAN TRỌNG CHO NGƯỜI MỚI ---
             { 
                 q: "📌 Cách Đăng Ký / Đăng Nhập (Register/Login)", 
                 a: `• Mới vào server lần đầu, bạn cần gõ lệnh: <code>/register [mật_khẩu] [mật_khẩu]</code> để đăng ký tài khoản.<br>• Ở những lần chơi sau, hệ thống hỏi thì gõ: <code>/login [mật_khẩu]</code>.
@@ -103,13 +102,11 @@ const config = {
                 q: "🔮 Hệ Thống Custom Enchant", 
                 a: "• Server sở hữu hơn 60+ bùa chú (Enchant) được custom độc lạ, thú vị và cân bằng, không sợ bị quá OP.<br>• Cách lấy duy nhất là sử dụng lệnh <code>/phuphep</code> để random bằng tiền server, hoặc săn các bùa độc quyền thông qua các sự kiện (Event) do BQT tổ chức."
             },
-
-            // --- ĐÃ GỘP: TẤT CẢ LỆNH SERVER VÀO MỘT MỤC DUY NHẤT ---
             { 
                 q: "⌨️ Danh Sách Lệnh Quan Trọng (Nên Xem)", 
                 a: `<ul style="list-style-type: none; padding-left: 0; display: flex; flex-direction: column; gap: 8px;">
                         <li><code>/help</code> • Nhận sách hướng dẫn cơ bản và tổng quan của server ngay trong game.</li>
-                        <li><code>/warp</code> • Mở hệ thóng dịch chuyển của Cloudy.</li>
+                        <li><code>/warp</code> • Mở hệ thống dịch chuyển của Cloudy.</li>
                         <li><code>/tpa [tên]</code> • Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của người chơi khác.</li>
                         <li><code>/phuphep</code> • Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền.</li>
                         <li><code>/buonban</code> • Truy cập trung tâm giao dịch, chợ thương mại để mua bán vật phẩm.</li>
@@ -133,8 +130,6 @@ const config = {
                         <li><b>Hành động vui vẻ:</b> <code>/spin</code> (xoay người), <code>/crawl</code> (bò), <code>/lay</code> (nằm), <code>/sit</code> (ngồi).</li>
                     </ul>`
             },
-
-           // --- CÁC CHỨC NĂNG NỔI BẬT KHÁC ---
             { 
                 q: "🎮 Các MiniGames giải trí & Kiếm Tiền/Point", 
                 a: `• <b>Parkour:</b> Thử thách vượt chướng ngại vật nhận Point.<br>• <b>ChatGame:</b> Nhanh tay lẹ mắt cào phím nhận Point.<br>• <b>Câu Cá:</b> Hoạt động thư giãn đổi lấy Tiền.<br>• <b>Duel:</b> So trình PvP kiếm Tiền hoặc vui vẻ.<br>• <b>TaiXiu:</b> Thử thách nhân phẩm kiếm Tiền.
@@ -194,20 +189,11 @@ const config = {
             staff: "Đội Ngũ", 
             rules: "Luật", 
             faq: "Cách Chơi", 
-            fish: "Câu Cá",     // Tên hiển thị nút Cá
-            enchant: "Phù Phép"   // Tên hiển thị nút Phù Phép
+            fish: "Câu Cá",     
+            enchant: "Phù Phép"  
         },
         hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
         titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", faq: "LỆNH & CÁCH CHƠI", legal: "CHÍNH SÁCH" },
         legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }
-    },
-
-    // 6. CẤU HÌNH XÁC THỰC DISCORD OAUTH2 (MỚI TÍCH HỢP)
-    auth: {
-        // Hãy copy "ID Máy khách" trên Discord Developer Portal rồi dán đè vào đây:
-        clientId: "1520479106062614810",
-        
-        // Link API xử lý của Backend (Khi nào bạn dựng backend thật thì đổi link này)
-        backendApi: ""
     }
 };

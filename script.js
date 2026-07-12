@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initSocials();
     applyTexts();
     fetchStatus();
-    checkDiscordAuth(); // Kích hoạt kiểm tra trạng thái Discord ngay khi vào trang
+    checkDiscordAuth(); // Kiểm tra trạng thái mở khóa IP ngay khi tải trang
 });
 
 function applyTexts() {
@@ -44,12 +44,10 @@ function applyTexts() {
         }
     }
 
-    // Render danh sách Đội ngũ (Đã tối ưu hóa hỗ trợ acc crack mượn skinName)
+    // Render danh sách Đội ngũ (Hỗ trợ tài khoản crack mượn skinName)
     if (document.getElementById('staff-container') && config.content?.staff) {
         renderGrid('staff-container', config.content.staff, (m) => {
-            // Kiểm tra: Nếu có thuộc tính skinName thì fetch theo skinName, ngược lại fetch theo name gốc
             const skinToFetch = m.skinName ? m.skinName : m.name;
-
             return `
                 <div class="staff-card">
                     <img src="https://minotar.net/helm/${skinToFetch}/100.png" class="staff-head" alt="${m.name}">
@@ -61,7 +59,7 @@ function applyTexts() {
         });
     }
 
-    // Render danh sách Luật (Chỉ chạy nếu có vùng chứa)
+    // Render danh sách Luật
     if (document.getElementById('rules-container') && config.content?.rules) {
         renderGrid('rules-container', config.content.rules, (r) => `
             <div class="rule-card">
@@ -71,7 +69,7 @@ function applyTexts() {
         `);
     }
 
-    // Render danh sách FAQ (Đã chuyển đổi sang thẻ div để hỗ trợ nhúng iframe/mã HTML phức tạp)
+    // Render danh sách FAQ (Thẻ div linh hoạt cho HTML phức tạp)
     if (document.getElementById('faq-container') && config.content?.faq) {
         renderGrid('faq-container', config.content.faq, (f) => `
             <div class="faq-item" onclick="toggleFaq(this)">
@@ -88,14 +86,14 @@ function applyTexts() {
         `);
     }
 
-    // Gán nội dung HTML cho các tab Chính sách (Chỉ chạy ở trang chủ index.html)
+    // Gán nội dung HTML cho các tab Chính sách
     if(config.content?.legal) {
         if(document.getElementById('legal-tos')) document.getElementById('legal-tos').innerHTML = config.content.legal.tos;
         if(document.getElementById('legal-notice')) document.getElementById('legal-notice').innerHTML = config.content.legal.notice;
         if(document.getElementById('legal-priv')) document.getElementById('legal-priv').innerHTML = config.content.legal.priv;
     }
 
-    // Đồng bộ hóa Tên Server chia khối màu cho Logo dạng text
+    // Đồng bộ hóa Tên Server và chia khối màu cho Logo dạng text
     const logoText = document.getElementById('nav-logo-text');
     if (logoText && config.serverName) {
         if(config.serverName.length > 6) {
@@ -106,82 +104,77 @@ function applyTexts() {
     }
     
     setText('footer-name', config.serverName);
-    setText('ip-display', config.serverIp);
     
     const logo = document.getElementById('hero-logo-img');
     if(config.serverLogo && logo) logo.src = config.serverLogo;
 }
 
-// --- HÀM SAO CHÉP IP GỐC (Nâng cấp quản lý Class Trạng Thái Mới) ---
-function copyIp() {
-    const wrapper = document.getElementById('auth-success-box');
-    const actionText = document.getElementById('hero-btn-copy');
-    const currentIp = document.getElementById('ip-display')?.innerText || config.serverIp;
-    
-    if (!wrapper || !actionText) return;
-    
-    navigator.clipboard.writeText(currentIp).then(() => {
-        wrapper.classList.add('copied');
-        actionText.innerText = "ĐÃ COPIED!";
-        setTimeout(() => {
-            wrapper.classList.remove('copied');
-            actionText.innerText = config.interface?.hero?.btn_copy || "SAO CHÉP";
-        }, 2000);
-    });
-}
-
-// --- LOGIC MỞ KHOÁ IP BẰNG LINK MỜI DISCORD (ĐƠN GIẢN & LƯU MÃI MÃI) ---
-function loginWithDiscord() {
-    // 1. Mở link mời Discord lấy trực tiếp từ config hệ thống ở tab mới
-    if (config.social && config.social.discord) {
-        window.open(config.social.discord, '_blank');
-    } else {
-        console.error("Chưa cấu hình link Discord tại mục config.social.discord");
-        return;
-    }
-
-    // 2. Lưu trạng thái "đã bấm" vào bộ nhớ trình duyệt để không bắt bấm lại nữa
-    localStorage.setItem("cm_verified_ip", config.serverIp);
-
-    // 3. Chuyển đổi giao diện sang trạng thái thành công ngay lập tức để lấy IP
-    switchInterfaceToSuccess(config.serverIp);
-}
-
+// --- LOGIC ĐĂNG NHẬP / SAO CHÉP IP DỰA TRÊN HTML GỐC ---
 function checkDiscordAuth() {
-    // Kiểm tra xem trình duyệt của người chơi đã có dữ liệu lưu trữ chưa
-    const savedIp = localStorage.getItem("cm_verified_ip");
-    
-    if (savedIp) {
-        // Nếu có: Tự động mở khoá và hiển thị IP ngay từ đầu, bỏ qua bước đăng nhập
-        switchInterfaceToSuccess(savedIp);
+    const isVerified = localStorage.getItem("cm_verified_ip");
+    const ipDisplay = document.getElementById('ip-display');
+    const actionText = document.getElementById('hero-btn-copy');
+
+    if (isVerified) {
+        // Nếu đã xác minh: Hiển thị IP thật từ file cấu hình
+        if (ipDisplay) ipDisplay.innerText = config.serverIp;
+        if (actionText) actionText.innerText = config.interface?.hero?.btn_copy || "SAO CHÉP";
     } else {
-        // Nếu chưa: Đảm bảo hiển thị form bắt bấm nút tham gia Discord ban đầu
-        const loginBox = document.getElementById("auth-login-box");
-        const successBox = document.getElementById("auth-success-box");
-        const loadingBox = document.getElementById("auth-loading-box");
+        // Nếu chưa xác minh: Giấu IP đi và yêu cầu nhấn để nhận link Discord
+        if (ipDisplay) ipDisplay.innerText = "NHẤN VÀO ĐÂY ĐỂ LẤY IP";
+        if (actionText) actionText.innerText = "DISCORD";
+    }
+}
+
+function copyIp() {
+    const isVerified = localStorage.getItem("cm_verified_ip");
+    const actionText = document.getElementById('hero-btn-copy');
+    const ipWrapper = document.querySelector('.ip-wrapper');
+
+    if (!isVerified) {
+        // HÀNH ĐỘNG 1: Chưa xác minh -> Mở link Discord và kích hoạt IP
+        if (config.social && config.social.discord) {
+            window.open(config.social.discord, '_blank');
+            localStorage.setItem("cm_verified_ip", "true");
+            checkDiscordAuth(); // Cập nhật lại giao diện ngay lập tức
+        } else {
+            console.error("Chưa cấu hình mục config.social.discord");
+        }
+    } else {
+        // HÀNH ĐỘNG 2: Đã xác minh -> Tiến hành sao chép IP vào bộ nhớ tạm
+        if (!actionText || !ipWrapper) return;
         
-        if (loginBox) loginBox.style.display = "flex";
-        if (loadingBox) loadingBox.style.display = "none";
-        if (successBox) successBox.style.display = "none";
+        navigator.clipboard.writeText(config.serverIp).then(() => {
+            ipWrapper.classList.add('copied');
+            actionText.innerText = "ĐÃ COPY!";
+            setTimeout(() => {
+                ipWrapper.classList.remove('copied');
+                actionText.innerText = config.interface?.hero?.btn_copy || "SAO CHÉP";
+            }, 2000);
+        });
     }
 }
 
-// Hàm phụ trợ quản lý hiển thị các box giao diện
-function switchInterfaceToSuccess(ipToShow) {
-    const loginBox = document.getElementById("auth-login-box");
-    const loadingBox = document.getElementById("auth-loading-box");
-    const successBox = document.getElementById("auth-success-box");
+// --- XỬ LÝ CHUYỂN ĐỔI TAB CHÍNH SÁCH (Fix lỗi onclick ở HTML gốc) ---
+function openLegal(tabName) {
+    // Ẩn tất cả nội dung tab
+    const contents = document.querySelectorAll('.l-content');
+    contents.forEach(content => content.classList.remove('active'));
 
-    if (loginBox) loginBox.style.display = "none";
-    if (loadingBox) loadingBox.style.display = "none";
-    if (successBox) {
-        successBox.style.display = "flex";
-        const ipDisp = document.getElementById("ip-display");
-        if (ipDisp) ipDisp.innerText = ipToShow;
-    }
+    // Bỏ kích hoạt tất cả nút bấm tab
+    const tabs = document.querySelectorAll('.l-tab');
+    tabs.forEach(tab => tab.classList.remove('active'));
+
+    // Hiển thị nội dung tab được chọn
+    const targetContent = document.getElementById(`legal-${tabName}`);
+    if (targetContent) targetContent.classList.add('active');
+
+    // Kích hoạt nút bấm tab được chọn (tìm dựa trên id)
+    const targetTab = document.getElementById(`tab-${tabName}`);
+    if (targetTab) targetTab.classList.add('active');
 }
 
-// --- CÁC HÀM TIỆN ÍCH CORE CỦA THEME (Định nghĩa bổ sung để tránh lỗi sập Engine) ---
+// --- CÁC HÀM TIỆN ÍCH CORE CỦA THEME ---
 function setText(id, value) {
     const el = document.getElementById(id);
     if (el && value !== undefined) el.innerText = value;
@@ -198,17 +191,15 @@ function toggleFaq(element) {
 }
 
 function initSocials() {
-    if(!config.social) return;
-    const bindLink = (id, url) => {
-        const el = document.getElementById(id);
-        if(el) {
-            if(url) { el.href = url; el.style.display = ""; }
-            else { el.style.display = "none"; }
-        }
-    };
-    bindLink('social-discord', config.social.discord);
-    bindLink('social-tiktok', config.social.tiktok);
-    bindLink('social-youtube', config.social.youtube);
+    if (!config.social || !document.getElementById('social-container')) return;
+    
+    // Tự động render thanh mxh ngoài màn hình thay vì gắn cứng tĩnh
+    let html = '';
+    if(config.social.discord) html += `<a href="${config.social.discord}" target="_blank" class="social-icon"><i class="fab fa-discord"></i></a>`;
+    if(config.social.tiktok) html += `<a href="${config.social.tiktok}" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>`;
+    if(config.social.youtube) html += `<a href="${config.social.youtube}" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>`;
+    
+    document.getElementById('social-container').innerHTML = html;
 }
 
 function fetchStatus() {
@@ -227,7 +218,7 @@ function fetchStatus() {
 }
 
 function initParticles() {
-    // Giữ trống hoặc tích hợp thư viện hạt tùy thích, hàm này được gọi ở DOMContentLoaded
+    // Để trống hoặc gọi thư viện particles tùy biến theo nhu cầu
 }
 
 /* ================================================================

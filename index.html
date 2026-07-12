@@ -37,14 +37,11 @@
         <!-- KHU VỰC ĐĂNG NHẬP / SAO CHÉP IP DISCORD -->
         <div id="discord-auth-section">
             
-            <!-- Trạng thái 1: Chưa đăng nhập - Nút Đăng nhập Discord -->
+            <!-- Trạng thái 1: Chưa đăng nhập - Nút Đăng nhập Discord gộp làm một -->
             <div id="auth-login-box" class="ip-wrapper auth-btn-discord" onclick="loginWithDiscord()">
-                <div class="ip-content">
+                <div class="ip-content" style="width: 100%; justify-content: center; padding: 12px 25px;">
                     <i class="fab fa-discord"></i>
                     <span class="ip-text">Tham gia Discord để nhận IP</span>
-                </div>
-                <div class="ip-action">
-                    <span>DISCORD</span>
                 </div>
             </div>
 
@@ -56,7 +53,7 @@
                 </div>
             </div>
 
-            <!-- Trạng thái 3: Đã xác thực - Hiện IP gốc để Copy (Mặc định ẩn) -->
+            <!-- Trạng thái 3: Đã xác thực - Hiện IP gốc để Copy (Mặc định ẩn nhưng nút copy cũ vẫn giữ nguyên cấu trúc gốc) -->
             <div id="auth-success-box" class="ip-wrapper" onclick="copyIp()" style="display: none;">
                 <div class="ip-content">
                     <i class="fas fa-wifi"></i>

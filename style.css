@@ -79,6 +79,34 @@ body {
 .ip-wrapper.copied .ip-content { color: #2ecc71; }
 .ip-wrapper.copied .ip-action { background: #2ecc71; color: #fff; }
 
+/* ================================================================
+   AUTH SECTION - DISCORD OVERRIDES
+   ================================================================ */
+.auth-btn-discord {
+    border-color: rgba(88, 101, 242, 0.4);
+}
+.auth-btn-discord .ip-content {
+    color: #5865F2;
+    font-weight: 600;
+}
+.auth-btn-discord .ip-action {
+    background: #5865F2;
+    color: #ffffff;
+}
+.auth-btn-discord:hover {
+    border-color: #5865F2;
+    box-shadow: 0 0 25px rgba(88, 101, 242, 0.3);
+}
+
+#auth-loading-box .ip-content {
+    color: var(--gold);
+}
+
+#discord-auth-section .ip-wrapper {
+    align-items: center;
+    justify-content: center;
+}
+
 .online-status { font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
 .dot { width: 8px; height: 8px; background: #2ecc71; border-radius: 50%; box-shadow: 0 0 5px #2ecc71; }
 .social-bar { display: flex; gap: 20px; }

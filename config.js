@@ -59,7 +59,7 @@ const config = {
                 title: "4. Bảo Mật Tài Khoản", desc: "Tự bảo quản mật khẩu của mình. Staff không bao giờ đòi hỏi mật khẩu của bạn."
             },
             { 
-                title: "5. Nghiêm Cấm Lạm Dụng Bug", desc: "Gặp lỗi game thì báo Helper Hellaoo nhận thưởng, cố tình lạm dụng trục lợi là ăn phạt nặng."
+                title: "5. Nghiêm Cấm Lạm Dụng Bug", desc: "Gặp lỗi game thì báo Helper Hellaoo nhận thưởng, cố tinh lạm dụng trục lợi là ăn phạt nặng."
             },
             { 
                 title: "6. Không Phá Hoại (Grief)", desc: "Không được đập phá công trình của người khác trong vùng đất đã được claim bảo vệ."
@@ -200,5 +200,14 @@ const config = {
         hero: { subtitle: "Đồng Cỏ Mây - Trải nghiệm sinh tồn đỉnh cao", btn_copy: "SAO CHÉP IP", online: "đang chơi" },
         titles: { staff: "BAN QUẢN TRỊ", rules: "LUẬT SERVER", faq: "LỆNH & CÁCH CHƠI", legal: "CHÍNH SÁCH" },
         legal_tabs: { tos: "Điều Khoản", priv: "Bảo Mật", notice: "Bản Quyền" }
+    },
+
+    // 6. CẤU HÌNH XÁC THỰC DISCORD OAUTH2 (MỚI TÍCH HỢP)
+    auth: {
+        // Hãy copy "ID Máy khách" trên Discord Developer Portal rồi dán đè vào đây:
+        clientId: "1520479106062614810",
+        
+        // Link API xử lý của Backend (Khi nào bạn dựng backend thật thì đổi link này)
+        backendApi: ""
     }
 };

@@ -110,7 +110,7 @@ const config = {
                         <li><code>/tpa [tên]</code> • Gửi yêu cầu dịch chuyển nhanh (teleport) đến vị trí của người chơi khác.</li>
                         <li><code>/phuphep</code> • Mở tính năng nâng cấp, quay ngẫu nhiên các Custom Enchant độc quyền.</li>
                         <li><code>/buonban</code> • Truy cập trung tâm giao dịch, chợ thương mại để mua bán vật phẩm.</li>
-                        <li><code>/cauca</code> • Truy cập trang quản lý về câu cá.</li>
+                        <li><code>/cauca</code> • Xem thông tin các item có thể câu được.</li>
                         <li><code>/quest</code> • Hệ thống nhiệm vụ hằng ngày/thử thách giúp cày cuốc kiếm thêm thu nhập.</li>
                         <li><code>/claim</code> • Quản lý đất đai bảo vệ:
                             <ul style="padding-left: 15px; margin-top: 4px; display: flex; flex-direction: column; gap: 4px; list-style-type: square; color: #888;">

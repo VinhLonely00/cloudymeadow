@@ -8,6 +8,8 @@
     <link rel="icon" href="favicon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Cropper.js Library for Cropping/Resizing Images -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     
     <link rel="stylesheet" href="style.css">
     <style>
@@ -51,11 +53,99 @@
             padding: 14px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.95rem;
+            vertical-align: middle;
         }
 
         .fish-table tr:hover {
             background: rgba(255, 255, 255, 0.03);
             transition: background 0.2s ease;
+        }
+
+        /* Styling cho Ô Hình Ảnh Drag & Drop */
+        .image-upload-box {
+            width: 110px;
+            height: 110px;
+            border: 2px dashed rgba(126, 194, 235, 0.5);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .image-upload-box:hover {
+            border-color: #7ec2eb;
+            background: rgba(126, 194, 235, 0.08);
+        }
+
+        .image-upload-box i {
+            font-size: 1.8rem;
+            color: #7ec2eb;
+            margin-bottom: 6px;
+        }
+
+        .image-upload-box span {
+            font-size: 0.75rem;
+            color: #aaa;
+            text-align: center;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        .action-btns {
+            margin-top: 8px;
+            display: flex;
+            gap: 6px;
+        }
+
+        .btn-action {
+            padding: 5px 10px;
+            font-size: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+
+        .btn-edit { background: #3498db; color: #fff; }
+        .btn-save { background: #2ecc71; color: #fff; }
+        .btn-action:hover { opacity: 0.85; }
+
+        /* Modal Chỉnh Sửa Ảnh */
+        .crop-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .crop-container {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .crop-img-wrapper {
+            max-height: 350px;
+            margin-bottom: 15px;
         }
 
         .btn-back {
@@ -104,51 +194,331 @@
                 <thead>
                     <tr>
                         <th style="width: 60px; text-align: center;">STT</th>
-                        <th>Tên vật phẩm</th>
-                        <th style="width: 60px; text-align: center;">STT</th>
-                        <th>Tên Vật phẩm</th>
+                        <th>Vật phẩm</th>
+                        <th>Tác Dụng</th>
+                        <th style="width: 160px; text-align: center;">Hình Ảnh</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Dòng 1 -->
                     <tr>
                         <td style="text-align: center;">1</td>
                         <td>Pháo Chùm</td>
-                        <td style="text-align: center;">6</td>
-                        <td>Vanilla</td>
+                        <td>Bắn ra chùm đạn gây sát thương diện rộng.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(1)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-1" class="image-preview">
+                            </div>
+                            <input type="file" id="file-1" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 1)">
+                            <div class="action-btns" id="controls-1">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(1)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(1)">Lưu khóa</button>
+                            </div>
+                        </td>
                     </tr>
+
+                    <!-- Dòng 2 -->
                     <tr>
                         <td style="text-align: center;">2</td>
                         <td>Pháo Hạt Nhân</td>
-                        <td style="text-align: center;">7</td>
-                        <td>Nhân Ngư</td>
+                        <td>Tạo vụ nổ lớn công suất cao.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(2)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-2" class="image-preview">
+                            </div>
+                            <input type="file" id="file-2" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 2)">
+                            <div class="action-btns" id="controls-2">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(2)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(2)">Lưu khóa</button>
+                            </div>
+                        </td>
                     </tr>
+
+                    <!-- Dòng 3 -->
                     <tr>
                         <td style="text-align: center;">3</td>
                         <td>Bộ đồ da (giảm sát thương ngang netherit)</td>
-                        <td style="text-align: center;">8</td>
-                        <td>Spiderman</td>
+                        <td>Tăng giáp bảo vệ tương đương giáp Netherite.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(3)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-3" class="image-preview">
+                            </div>
+                            <input type="file" id="file-3" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 3)">
+                            <div class="action-btns" id="controls-3">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(3)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(3)">Lưu khóa</button>
+                            </div>
+                        </td>
                     </tr>
+
+                    <!-- Dòng 4 -->
                     <tr>
                         <td style="text-align: center;">4</td>
                         <td>Tất cả các loại động vật</td>
-                        <td style="text-align: center;">9</td>
-                        <td>Point</td>
+                        <td>Các loài sinh vật hiền lành, triệu hồi/thu phục.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(4)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-4" class="image-preview">
+                            </div>
+                            <input type="file" id="file-4" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 4)">
+                            <div class="action-btns" id="controls-4">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(4)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(4)">Lưu khóa</button>
+                            </div>
+                        </td>
                     </tr>
+
+                    <!-- Dòng 5 -->
                     <tr>
                         <td style="text-align: center;">5</td>
                         <td>Tất cả các loại quái vật (trừ boss)</td>
+                        <td>Các sinh vật hung dữ, thử thách người chơi.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(5)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-5" class="image-preview">
+                            </div>
+                            <input type="file" id="file-5" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 5)">
+                            <div class="action-btns" id="controls-5">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(5)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(5)">Lưu khóa</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Dòng 6 -->
+                    <tr>
+                        <td style="text-align: center;">6</td>
+                        <td>Vanilla</td>
+                        <td>Vật phẩm gốc mặc định.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(6)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-6" class="image-preview">
+                            </div>
+                            <input type="file" id="file-6" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 6)">
+                            <div class="action-btns" id="controls-6">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(6)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(6)">Lưu khóa</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Dòng 7 -->
+                    <tr>
+                        <td style="text-align: center;">7</td>
+                        <td>Nhân Ngư</td>
+                        <td>Tăng khả năng bơi lội và thở dưới nước.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(7)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-7" class="image-preview">
+                            </div>
+                            <input type="file" id="file-7" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 7)">
+                            <div class="action-btns" id="controls-7">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(7)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(7)">Lưu khóa</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Dòng 8 -->
+                    <tr>
+                        <td style="text-align: center;">8</td>
+                        <td>Spiderman</td>
+                        <td>Bắn tơ, leo tường và di chuyển nhanh.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(8)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-8" class="image-preview">
+                            </div>
+                            <input type="file" id="file-8" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 8)">
+                            <div class="action-btns" id="controls-8">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(8)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(8)">Lưu khóa</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Dòng 9 -->
+                    <tr>
+                        <td style="text-align: center;">9</td>
+                        <td>Point</td>
+                        <td>Điểm thưởng dùng để đổi quà/nâng cấp.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(9)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-9" class="image-preview">
+                            </div>
+                            <input type="file" id="file-9" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 9)">
+                            <div class="action-btns" id="controls-9">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(9)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(9)">Lưu khóa</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Dòng 10 -->
+                    <tr>
                         <td style="text-align: center;">10</td>
                         <td>Các loại quặng (trừ netherit)</td>
+                        <td>Khoáng sản dùng để chế tạo thiết bị, công cụ.</td>
+                        <td>
+                            <div class="image-upload-box" onclick="triggerFileInput(10)">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Kéo/Thả hoặc Click chọn ảnh</span>
+                                <img id="preview-10" class="image-preview">
+                            </div>
+                            <input type="file" id="file-10" accept="image/*" style="display:none;" onchange="handleFileSelect(event, 10)">
+                            <div class="action-btns" id="controls-10">
+                                <button class="btn-action btn-edit" style="display:none;" onclick="reEdit(10)">Chỉnh sửa</button>
+                                <button class="btn-action btn-save" style="display:none;" onclick="lockItem(10)">Lưu khóa</button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </section>
 
+    <!-- Modal Cắt & Chỉnh Sửa Ảnh -->
+    <div class="crop-modal" id="cropModal">
+        <div class="crop-container">
+            <h3 style="color:#7ec2eb; margin-bottom:10px;">Chỉnh Sửa Khung Ảnh</h3>
+            <div class="crop-img-wrapper">
+                <img id="cropTarget" style="max-width: 100%;">
+            </div>
+            <button class="btn-action btn-save" onclick="applyCrop()">Áp Dụng Ảnh</button>
+        </div>
+    </div>
+
     <footer>
         <p class="copyright">&copy; 2026 <span id="footer-name">CloudyMeadow</span>. All Rights Reserved.</p>
     </footer>
 
+    <!-- Cropper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script>
+        let currentId = null;
+        let cropper = null;
+        let originalImages = {};
+
+        // Xử lý sự kiện Drag & Drop
+        document.querySelectorAll('.image-upload-box').forEach((box, index) => {
+            const id = index + 1;
+
+            box.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                box.style.borderColor = '#7ec2eb';
+            });
+
+            box.addEventListener('dragleave', () => {
+                box.style.borderColor = 'rgba(126, 194, 235, 0.5)';
+            });
+
+            box.addEventListener('drop', (e) => {
+                e.preventDefault();
+                box.style.borderColor = 'rgba(126, 194, 235, 0.5)';
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    processImage(e.dataTransfer.files[0], id);
+                }
+            });
+        });
+
+        function triggerFileInput(id) {
+            const fileInput = document.getElementById(`file-${id}`);
+            if (fileInput && !fileInput.disabled) {
+                fileInput.click();
+            }
+        }
+
+        function handleFileSelect(e, id) {
+            if (e.target.files && e.target.files[0]) {
+                processImage(e.target.files[0], id);
+            }
+        }
+
+        function processImage(file, id) {
+            currentId = id;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImages[id] = e.target.result;
+                openCropModal(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function openCropModal(imageSrc) {
+            const cropModal = document.getElementById('cropModal');
+            const cropTarget = document.getElementById('cropTarget');
+            cropTarget.src = imageSrc;
+            cropModal.style.display = 'flex';
+
+            if (cropper) cropper.destroy();
+
+            cropper = new Cropper(cropTarget, {
+                aspectRatio: 1, // Khung vuông
+                viewMode: 1,
+            });
+        }
+
+        function applyCrop() {
+            if (!cropper) return;
+            const canvas = cropper.getCroppedCanvas({ width: 150, height: 150 });
+            const croppedUrl = canvas.toDataURL();
+
+            const box = document.querySelector(`#preview-${currentId}`).parentElement;
+            const img = document.getElementById(`preview-${currentId}`);
+            
+            img.src = croppedUrl;
+            img.style.display = 'block';
+
+            // Ẩn các icon & chữ hướng dẫn
+            box.querySelector('i').style.display = 'none';
+            box.querySelector('span').style.display = 'none';
+
+            // Hiện các nút Chỉnh sửa & Lưu khóa
+            const controls = document.getElementById(`controls-${currentId}`);
+            controls.querySelectorAll('button').forEach(btn => btn.style.display = 'inline-block');
+
+            document.getElementById('cropModal').style.display = 'none';
+        }
+
+        function reEdit(id) {
+            if (originalImages[id]) {
+                currentId = id;
+                openCropModal(originalImages[id]);
+            }
+        }
+
+        function lockItem(id) {
+            // Khóa lại: Không thể chọn/thả ảnh hay sửa nữa
+            const fileInput = document.getElementById(`file-${id}`);
+            fileInput.disabled = true;
+
+            const box = document.getElementById(`preview-${id}`).parentElement;
+            box.onclick = null; // Tắt tính năng click chọn ảnh
+            box.style.cursor = 'default';
+            box.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+
+            // Ẩn thanh công cụ Chỉnh Sửa / Lưu Khóa
+            const controls = document.getElementById(`controls-${id}`);
+            controls.innerHTML = '<span style="color:#2ecc71; font-size:0.8rem; font-weight:600;"><i class="fas fa-lock"></i> Đã khóa</span>';
+        }
+    </script>
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>

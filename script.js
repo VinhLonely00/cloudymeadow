@@ -1,5 +1,5 @@
 /* ================================================================
-   CLOUDYMEADOW - MAIN ENGINE (HERO PROFILE VERSION)
+   CLOUDYMEADOW - MAIN ENGINE (HERO PROFILE VERSION - FIXED)
    ================================================================ */
 
 let tempDiscordUser = null; // Biến tạm lưu thông tin Discord
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // --- DISCORD AUTH & PROFILE SYSTEM ---
 function loginWithDiscord() {
-    if (!config.discordAuth?.clientId) {
+    if (typeof config === "undefined" || !config.discordAuth?.clientId) {
         alert("Lỗi: Chưa cấu hình Client ID Discord trong config.js!");
         return;
     }
@@ -53,14 +53,20 @@ function checkDiscordAuthSystem() {
     }
 }
 
-function submitPlayerInfo(event) {
-    event.preventDefault();
-    if (!tempDiscordUser) return;
+// Lưu thông tin người chơi khi nhập vào Modal Form
+function savePlayerInfo() {
+    const ignInput = document.getElementById("player-ign-input");
+    const ignValue = ignInput ? ignInput.value.trim() : "";
+
+    if (!ignValue) {
+        alert("Vui lòng nhập Tên Trong Game (IGN) của bạn!");
+        return;
+    }
 
     const profileData = {
-        ign: document.getElementById("ign-input").value.trim(),
-        gender: document.getElementById("gender-select").value,
-        specialty: document.getElementById("specialty-select").value
+        ign: ignValue,
+        gender: "Người chơi",
+        specialty: "Thành viên"
     };
 
     // Lưu thông tin vào LocalStorage
@@ -84,7 +90,6 @@ function sendLogToDiscordWebhook(user, profile) {
         : "https://cdn.discordapp.com/embed/avatars/0.png";
 
     const webhookData = {
-        // Đã xóa 'username' và 'avatar_url' để Discord tự lấy Tên & Avatar gốc của Bot
         embeds: [
             {
                 title: "🎮 Người dùng mới đăng nhập Website!",
@@ -92,8 +97,6 @@ function sendLogToDiscordWebhook(user, profile) {
                 thumbnail: { url: avatarUrl },
                 fields: [
                     { name: "Tên Trong Game (IGN)", value: `\`${profile.ign}\``, inline: true },
-                    { name: "Giới Tính", value: profile.gender, inline: true },
-                    { name: "Chuyên Môn", value: profile.specialty, inline: true },
                     { name: "Discord", value: `**${displayName}** (@${user.username})`, inline: true },
                     { name: "Discord ID", value: `\`${user.id}\``, inline: true },
                     { name: "Thời Gian", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
@@ -141,14 +144,16 @@ document.addEventListener("click", (e) => {
 function unlockWebsite(user, profile) {
     const loginOverlay = document.getElementById("login-overlay");
     const infoModal = document.getElementById("info-modal");
-    const mainContent = document.getElementById("main-content");
+    
+    // Đồng bộ ID thẻ chính với HTML (main-app)
+    const mainContent = document.getElementById("main-app") || document.getElementById("main-content");
 
     if (loginOverlay) loginOverlay.style.display = "none";
     if (infoModal) infoModal.style.display = "none";
     if (mainContent) mainContent.style.display = "block";
 
-    const displayName = user.global_name || user.username;
-    const avatarUrl = user.avatar 
+    const displayName = user ? (user.global_name || user.username) : "GUEST";
+    const avatarUrl = user && user.avatar 
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
         : "https://cdn.discordapp.com/embed/avatars/0.png";
 
@@ -160,11 +165,20 @@ function unlockWebsite(user, profile) {
 
     if (avatarEl) avatarEl.src = avatarUrl;
     if (nameEl) nameEl.innerText = displayName;
-    if (ignEl) ignEl.innerText = profile.ign;
-    if (detailsEl) detailsEl.innerText = `${profile.gender} • ${profile.specialty}`;
+    if (ignEl) ignEl.innerText = profile ? profile.ign : "";
+    if (detailsEl) detailsEl.innerText = profile ? `${profile.gender} • ${profile.specialty}` : "";
+
+    // Cập nhật dữ liệu thanh User Menu
+    const menuAvatar = document.getElementById("menu-user-avatar");
+    const menuName = document.getElementById("menu-user-name");
+    const menuIgn = document.getElementById("menu-user-ign");
+
+    if (menuAvatar) menuAvatar.src = avatarUrl;
+    if (menuName) menuName.innerText = displayName;
+    if (menuIgn) menuIgn.innerText = profile ? profile.ign : "";
 
     const ipDisplay = document.getElementById('ip-display');
-    if (ipDisplay) ipDisplay.innerText = config.serverIp;
+    if (ipDisplay && typeof config !== "undefined") ipDisplay.innerText = config.serverIp;
 }
 
 function logoutDiscord() {
@@ -175,6 +189,7 @@ function logoutDiscord() {
 
 // --- LOGIC GIAO DIỆN CỦA SERVER ---
 function applyTexts() {
+    if (typeof config === "undefined") return;
     const ui = config.interface;
 
     if(ui) {
@@ -270,7 +285,7 @@ function copyIp() {
     const actionText = document.getElementById('hero-btn-copy');
     const successBox = document.getElementById('auth-success-box');
 
-    if (!actionText || !successBox) return;
+    if (!actionText || !successBox || typeof config === "undefined") return;
 
     navigator.clipboard.writeText(config.serverIp).then(() => {
         successBox.classList.add('copied');
@@ -312,7 +327,7 @@ function toggleFaq(element) {
 }
 
 function initSocials() {
-    if (!config.social || !document.getElementById('social-container')) return;
+    if (typeof config === "undefined" || !config.social || !document.getElementById('social-container')) return;
 
     let html = '';
     if(config.social.discord) html += `<a href="${config.social.discord}" target="_blank" class="social-icon"><i class="fab fa-discord"></i></a>`;
@@ -322,23 +337,21 @@ function initSocials() {
     document.getElementById('social-container').innerHTML = html;
 }
 
+// Lấy trạng thái máy chủ chuẩn qua API Minetools
 function fetchStatus() {
     const countEl = document.getElementById('player-count');
-    if (!countEl) return;
-    fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
+    if (!countEl || typeof config === "undefined") return;
 
-    // Sử dụng API Minetools quét theo IP:PORT
-    fetch(`https://api.minetools.eu/ping/${config.serverIp.replace(':', '/')}`)
+    const cleanIp = config.serverIp.replace(':', '/');
+    fetch(`https://api.minetools.eu/ping/${cleanIp}`)
         .then(res => res.json())
         .then(data => {
-            if (data.online && data.players) {
             if (data && data.players) {
                 countEl.innerText = data.players.online;
             } else {
                 countEl.innerText = "0";
             }
         })
-        .catch(() => { countEl.innerText = "0"; });
         .catch(() => { 
             countEl.innerText = "0"; 
         });

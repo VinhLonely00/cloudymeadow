@@ -325,16 +325,20 @@ function initSocials() {
 function fetchStatus() {
     const countEl = document.getElementById('player-count');
     if (!countEl) return;
-    fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
+
+    // Sử dụng API Minetools quét theo IP:PORT
+    fetch(`https://api.minetools.eu/ping/${config.serverIp.replace(':', '/')}`)
         .then(res => res.json())
         .then(data => {
-            if (data.online && data.players) {
+            if (data && data.players) {
                 countEl.innerText = data.players.online;
             } else {
                 countEl.innerText = "0";
             }
         })
-        .catch(() => { countEl.innerText = "0"; });
+        .catch(() => { 
+            countEl.innerText = "0"; 
+        });
 }
 
 function initParticles() {

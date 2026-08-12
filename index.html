@@ -23,17 +23,24 @@
         </button>
     </div>
 
-    <!-- 2. FORM BẮT BUỘC NHẬP THÔNG TIN (Mới) -->
     <!-- 2. FORM THÔNG TIN NGƯỜI CHƠI -->
     <div id="info-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(11, 14, 20, 0.95); z-index: 100000; align-items: center; justify-content: center;">
         <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 30px; width: 90%; max-width: 420px; color: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
             <h3 style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; text-align: center; margin-bottom: 5px; color: #f1c40f;">THÔNG TIN NGƯỜI CHƠI</h3>
-@@ -79,98 +79,112 @@
+            <p style="color: #8b949e; font-size: 0.85rem; text-align: center; margin-bottom: 20px;">Nhập tên trong game (IGN) của bạn để tiếp tục.</p>
+            <input type="text" id="player-ign-input" placeholder="Nhập IGN Minecraft..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: #fff; margin-bottom: 15px; box-sizing: border-box;">
+            <button onclick="savePlayerInfo()" style="width: 100%; background: #238636; color: #fff; border: none; padding: 10px; font-weight: bold; border-radius: 6px; cursor: pointer;">XÁC NHẬN</button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main-app">
+        <nav>
+            <ul>
                 <li><a href="fish.html" id="nav-fish" style="color: #f1c40f; font-weight: 700; text-transform: uppercase;">Cá</a></li>
                 <li><a href="enchant.html" id="nav-enchant" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">Phù Phép</a></li>
             </ul>
 
-            <!-- Khung User Profile hiển thị đầy đủ thông tin -->
             <div id="user-profile-bar" style="display: flex; align-items: center; gap: 10px; margin-left: 15px;">
                 <img id="menu-user-avatar" src="" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
                 <div style="display: flex; flex-direction: column;">
@@ -51,10 +58,8 @@
             <img src="logo.png" alt="Logo" class="hero-logo" id="hero-logo-img">
             <p class="hero-subtitle" id="hero-subtitle">Đang tải...</p>
             
-            <!-- THAY THẾ DÒNG SUBTITLE BẰNG THÔNG TIN USER NẰM CHÍNH GIỮA HEADER -->
             <div id="hero-user-profile" style="margin: 15px 0 25px 0; display: flex; flex-direction: column; align-items: center; gap: 10px;">
                 <div style="position: relative;">
-                    <!-- Avatar + Dropdown Menu Button -->
                     <div id="profile-dropdown-btn" onclick="toggleUserDropdown(event)" style="display: flex; align-items: center; gap: 10px; background: rgba(22, 27, 34, 0.8); border: 1px solid rgba(255, 255, 255, 0.15); padding: 8px 18px; border-radius: 30px; cursor: pointer; backdrop-filter: blur(5px); transition: 0.2s;">
                         <img id="hero-user-avatar" src="" style="width: 36px; height: 36px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
                         
@@ -69,7 +74,6 @@
                         <i id="dropdown-arrow" class="fas fa-chevron-down" style="color: #8b949e; font-size: 0.8rem; margin-left: 5px; transition: transform 0.3s ease;"></i>
                     </div>
 
-                    <!-- Khung Menu xổ xuống khi click -->
                     <div id="profile-dropdown-menu" style="display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); width: 220px; background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.6); z-index: 1000; flex-direction: column; gap: 10px;">
                         <button onclick="logoutDiscord()" style="width: 100%; background: rgba(255, 77, 77, 0.15); color: #ff4d4d; border: 1px solid rgba(255, 77, 77, 0.4); padding: 8px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: bold; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s;">
                             <i class="fas fa-sign-out-alt"></i> Đăng Xuất
@@ -78,7 +82,6 @@
                 </div>
             </div>
 
-            <!-- Nút sao chép IP -->
             <div id="discord-auth-section">
                 <div id="auth-success-box" class="ip-wrapper" onclick="copyIp()" style="display: flex;">
                     <div class="ip-content">
@@ -148,7 +151,6 @@
                 <i class="fas fa-comment-dots"></i>
             </button>
         </div>
-
     </div>
 
     <script src="config.js"></script>

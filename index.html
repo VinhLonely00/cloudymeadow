@@ -14,118 +14,120 @@
 </head>
 <body>
 
-    <div class="particles-container" id="particles"></div>
-    <div class="bg-vignette"></div>
-
-    <nav class="navbar">
-        <a href="#" class="nav-logo" id="nav-logo-text">Cloudy<span>Meadow</span></a>
+    <!-- 1. MÀN HÌNH KHÓA ĐĂNG NHẬP (Hiển thị khi chưa Auth) -->
+    <div id="login-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0b0e14; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
+        <img src="logo.png" alt="Logo" style="width: 120px; height: auto;">
+        <h2 style="color: #fff; font-family: 'Oswald', sans-serif; letter-spacing: 1px;">CLOUDYMEADOW ACCESS</h2>
+        <p style="color: #a0a0a0; margin-top: -10px;">Vui lòng đăng nhập bằng Discord để truy cập website.</p>
         
-        <ul class="nav-menu">
-            <li><a href="#hero" id="nav-home">Trang Chủ</a></li>
-            <li><a href="#staff" id="nav-staff">Đội Ngũ</a></li>
-            <li><a href="#rules" id="nav-rules">Luật Server</a></li>
-            <li><a href="#faq" id="nav-faq">Cách Chơi</a></li>
-            <li><a href="fish.html" id="nav-fish" style="color: #f1c40f; font-weight: 700; text-transform: uppercase;">Cá</a></li>
-            <li><a href="enchant.html" id="nav-enchant" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">Phù Phép</a></li>
-        </ul>
-    </nav>
-
-    <header id="hero">
-        <img src="logo.png" alt="Logo" class="hero-logo" id="hero-logo-img">
-        <p class="hero-subtitle" id="hero-subtitle">Đang tải...</p>
-
-        <!-- KHU VỰC ĐĂNG NHẬP / SAO CHÉP IP DISCORD -->
-        <div id="discord-auth-section">
-            
-            <!-- Trạng thái 1: Chưa đăng nhập - Nút Đăng nhập Discord gộp làm một -->
-            <div id="auth-login-box" class="ip-wrapper auth-btn-discord" onclick="loginWithDiscord()">
-                <div class="ip-content" style="width: 100%; justify-content: center; padding: 12px 25px;">
-                    <i class="fab fa-discord"></i>
-                    <span class="ip-text">Tham gia Discord để nhận IP</span>
-                </div>
-            </div>
-
-            <!-- Trạng thái 2: Đang tải - Xoay tròn (Mặc định ẩn) -->
-            <div id="auth-loading-box" class="ip-wrapper" style="display: none; cursor: wait;">
-                <div class="ip-content">
-                    <i class="fas fa-spinner fa-spin"></i>
-                    <span class="ip-text">Đang kiểm tra thành viên...</span>
-                </div>
-            </div>
-
-            <!-- Trạng thái 3: Đã xác thực - Hiện IP gốc để Copy (Mặc định ẩn nhưng nút copy cũ vẫn giữ nguyên cấu trúc gốc) -->
-            <div id="auth-success-box" class="ip-wrapper" onclick="copyIp()" style="display: none;">
-                <div class="ip-content">
-                    <i class="fas fa-wifi"></i>
-                    <span class="ip-text" id="ip-display">cloudymeadow.sytes.net</span>
-                </div>
-                <div class="ip-action">
-                    <span id="hero-btn-copy">SAO CHÉP</span>
-                </div>
-            </div>
-
-            <!-- Dòng thông báo lỗi (Mặc định ẩn) -->
-            <p id="auth-error-msg" style="color: #ff4d4d; font-weight: 600; margin-top: 10px; display: none; font-size: 0.95rem;"></p>
-
-        </div>
-        
-        <div class="online-status">
-            <span class="dot"></span> <span id="player-count">0</span> <span id="hero-online">đang chơi</span>
-        </div>
-
-        <div class="social-bar" id="social-container"></div>
-    </header>
-
-    <section id="staff">
-        <div class="section-header"><h2 id="title-staff">BAN QUẢN TRỊ</h2><div class="gold-line"></div></div>
-        <div class="grid-container" id="staff-container"></div>
-    </section>
-
-    <section id="rules">
-        <div class="section-header"><h2 id="title-rules">LUẬT SERVER</h2><div class="gold-line"></div></div>
-        <div class="grid-container" id="rules-container"></div>
-    </section>
-
-    <section id="faq">
-        <div class="section-header"><h2 id="title-faq">LỆNH & CÁCH CHƠI</h2><div class="gold-line"></div></div>
-        <div class="faq-grid" id="faq-container"></div>
-    </section>
-
-    <section id="legal">
-        <div class="section-header"><h2 id="title-legal">CHÍNH SÁCH</h2></div>
-        <div class="legal-box-wrapper">
-            <div class="legal-tabs">
-                <button class="l-tab active" onclick="openLegal('tos')" id="tab-tos">Điều Khoản</button>
-                <button class="l-tab" onclick="openLegal('notice')" id="tab-notice">Bản Quyền</button>
-                <button class="l-tab" onclick="openLegal('priv')" id="tab-priv">Bảo Mật</button>
-            </div>
-            <div class="legal-content">
-                <div id="legal-tos" class="l-content active"></div>
-                <div id="legal-notice" class="l-content"></div>
-                <div id="legal-priv" class="l-content"></div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <p class="copyright">&copy; 2026 <span id="footer-name">CloudyMeadow</span>. All Rights Reserved.</p>
-    </footer>
-
-    <div id="cm-widget-container" class="cm-widget-hidden">
-        <div id="cm-widget-menu" class="cm-widget-menu-closed">
-            <a href="support.html" class="cm-widget-item">
-                <span class="cm-widget-icon">🛠</span>
-                <span class="cm-widget-text">Hỗ trợ trực tiếp</span>
-            </a>
-            <a href="appeal.html" class="cm-widget-item">
-                <span class="cm-widget-icon">⚠️</span>
-                <span class="cm-widget-text">Kháng cáo hack</span>
-            </a>
-        </div>
-        <button id="cm-widget-toggle" aria-label="Support Menu">
-            <i class="fas fa-comment-dots"></i>
+        <button onclick="loginWithDiscord()" style="background: #5865F2; color: #fff; border: none; padding: 14px 28px; font-size: 1rem; font-weight: bold; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s;">
+            <i class="fab fa-discord" style="font-size: 1.2rem;"></i> ĐĂNG NHẬP BẰNG DISCORD
         </button>
     </div>
+
+    <!-- 2. NỘI DUNG TRANG WEB CHÍNH (Tự động ẩn đến khi Auth xong) -->
+    <div id="main-content" style="display: none;">
+
+        <div class="particles-container" id="particles"></div>
+        <div class="bg-vignette"></div>
+
+        <nav class="navbar">
+            <a href="#" class="nav-logo" id="nav-logo-text">Cloudy<span>Meadow</span></a>
+            
+            <ul class="nav-menu">
+                <li><a href="#hero" id="nav-home">Trang Chủ</a></li>
+                <li><a href="#staff" id="nav-staff">Đội Ngũ</a></li>
+                <li><a href="#rules" id="nav-rules">Luật Server</a></li>
+                <li><a href="#faq" id="nav-faq">Cách Chơi</a></li>
+                <li><a href="fish.html" id="nav-fish" style="color: #f1c40f; font-weight: 700; text-transform: uppercase;">Cá</a></li>
+                <li><a href="enchant.html" id="nav-enchant" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">Phù Phép</a></li>
+            </ul>
+
+            <!-- Khung Avatar + Tên + Nút Đăng Xuất trên Menu -->
+            <div id="user-profile-bar" style="display: flex; align-items: center; gap: 10px; margin-left: 15px;">
+                <img id="menu-user-avatar" src="" style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
+                <span id="menu-user-name" style="color: #fff; font-weight: 600; font-size: 0.9rem;"></span>
+                <button onclick="logoutDiscord()" style="background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 1px solid #ff4d4d; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: bold;">Thoát</button>
+            </div>
+        </nav>
+
+        <header id="hero">
+            <img src="logo.png" alt="Logo" class="hero-logo" id="hero-logo-img">
+            <p class="hero-subtitle" id="hero-subtitle">Đang tải...</p>
+
+            <!-- KHU VỰC COPY IP SAU KHINH ĐÃ XÁC THỰC -->
+            <div id="discord-auth-section">
+                <div id="auth-success-box" class="ip-wrapper" onclick="copyIp()" style="display: flex;">
+                    <div class="ip-content">
+                        <i class="fas fa-wifi"></i>
+                        <span class="ip-text" id="ip-display">cloudymeadow.sytes.net</span>
+                    </div>
+                    <div class="ip-action">
+                        <span id="hero-btn-copy">SAO CHÉP IP</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="online-status">
+                <span class="dot"></span> <span id="player-count">0</span> <span id="hero-online">đang chơi</span>
+            </div>
+
+            <div class="social-bar" id="social-container"></div>
+        </header>
+
+        <section id="staff">
+            <div class="section-header"><h2 id="title-staff">BAN QUẢN TRỊ</h2><div class="gold-line"></div></div>
+            <div class="grid-container" id="staff-container"></div>
+        </section>
+
+        <section id="rules">
+            <div class="section-header"><h2 id="title-rules">LUẬT SERVER</h2><div class="gold-line"></div></div>
+            <div class="grid-container" id="rules-container"></div>
+        </section>
+
+        <section id="faq">
+            <div class="section-header"><h2 id="title-faq">LỆNH & CÁCH CHƠI</h2><div class="gold-line"></div></div>
+            <div class="faq-grid" id="faq-container"></div>
+        </section>
+
+        <section id="legal">
+            <div class="section-header"><h2 id="title-legal">CHÍNH SÁCH</h2></div>
+            <div class="legal-box-wrapper">
+                <div class="legal-tabs">
+                    <button class="l-tab active" onclick="openLegal('tos')" id="tab-tos">Điều Khoản</button>
+                    <button class="l-tab" onclick="openLegal('notice')" id="tab-notice">Bản Quyền</button>
+                    <button class="l-tab" onclick="openLegal('priv')" id="tab-priv">Bảo Mật</button>
+                </div>
+                <div class="legal-content">
+                    <div id="legal-tos" class="l-content active"></div>
+                    <div id="legal-notice" class="l-content"></div>
+                    <div id="legal-priv" class="l-content"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="copyright">&copy; 2026 <span id="footer-name">CloudyMeadow</span>. All Rights Reserved.</p>
+        </footer>
+
+        <div id="cm-widget-container" class="cm-widget-hidden">
+            <div id="cm-widget-menu" class="cm-widget-menu-closed">
+                <a href="support.html" class="cm-widget-item">
+                    <span class="cm-widget-icon">🛠</span>
+                    <span class="cm-widget-text">Hỗ trợ trực tiếp</span>
+                </a>
+                <a href="appeal.html" class="cm-widget-item">
+                    <span class="cm-widget-icon">⚠️</span>
+                    <span class="cm-widget-text">Kháng cáo hack</span>
+                </a>
+            </div>
+            <button id="cm-widget-toggle" aria-label="Support Menu">
+                <i class="fas fa-comment-dots"></i>
+            </button>
+        </div>
+
+    </div>
+
     <script src="config.js"></script>
     <script src="script.js"></script>
 </body>

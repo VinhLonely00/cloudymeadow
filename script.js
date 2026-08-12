@@ -1,5 +1,5 @@
 /* ================================================================
-   VANGUARD THEME - ENGINE (AUTHENTICATED & PROFILE VERSION)
+   CLOUDYMEADOW - MAIN ENGINE (HERO PROFILE VERSION)
    ================================================================ */
 
 let tempDiscordUser = null; // Biến tạm lưu thông tin Discord
@@ -111,6 +111,34 @@ function sendLogToDiscordWebhook(user, profile) {
     }).catch(err => console.error("Lỗi gửi Webhook:", err));
 }
 
+// Bật / Tắt Dropdown Menu ở Hero Header
+function toggleUserDropdown(event) {
+    event.stopPropagation();
+    const dropdown = document.getElementById("profile-dropdown-menu");
+    const arrow = document.getElementById("dropdown-arrow");
+
+    if (!dropdown) return;
+
+    const isOpen = dropdown.style.display === "flex";
+    dropdown.style.display = isOpen ? "none" : "flex";
+    
+    if (arrow) {
+        arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
+    }
+}
+
+// Đóng Dropdown khi bấm ra ngoài
+document.addEventListener("click", (e) => {
+    const profileBox = document.getElementById("hero-user-profile");
+    const dropdown = document.getElementById("profile-dropdown-menu");
+    const arrow = document.getElementById("dropdown-arrow");
+
+    if (profileBox && !profileBox.contains(e.target)) {
+        if (dropdown) dropdown.style.display = "none";
+        if (arrow) arrow.style.transform = "rotate(0deg)";
+    }
+});
+
 function unlockWebsite(user, profile) {
     const loginOverlay = document.getElementById("login-overlay");
     const infoModal = document.getElementById("info-modal");
@@ -125,16 +153,16 @@ function unlockWebsite(user, profile) {
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
         : "https://cdn.discordapp.com/embed/avatars/0.png";
 
-    // Cập nhật thông tin lên Menu Bar
-    const menuAvatar = document.getElementById("menu-user-avatar");
-    const menuName = document.getElementById("menu-user-name");
-    const menuIgn = document.getElementById("menu-user-ign");
-    const menuDetails = document.getElementById("menu-user-details");
+    // Cập nhật dữ liệu vào Hero Profile
+    const avatarEl = document.getElementById("hero-user-avatar");
+    const nameEl = document.getElementById("hero-user-name");
+    const ignEl = document.getElementById("hero-user-ign");
+    const detailsEl = document.getElementById("hero-user-details");
 
-    if (menuAvatar) menuAvatar.src = avatarUrl;
-    if (menuName) menuName.innerText = displayName;
-    if (menuIgn) menuIgn.innerText = profile.ign;
-    if (menuDetails) menuDetails.innerText = `${profile.gender} • ${profile.specialty}`;
+    if (avatarEl) avatarEl.src = avatarUrl;
+    if (nameEl) nameEl.innerText = displayName;
+    if (ignEl) ignEl.innerText = profile.ign;
+    if (detailsEl) detailsEl.innerText = `${profile.gender} • ${profile.specialty}`;
 
     const ipDisplay = document.getElementById('ip-display');
     if (ipDisplay) ipDisplay.innerText = config.serverIp;
@@ -161,7 +189,6 @@ function applyTexts() {
         }
 
         if(ui.hero) {
-            setText('hero-subtitle', ui.hero.subtitle);
             setText('hero-btn-copy', ui.hero.btn_copy);
             setText('hero-online', ui.hero.online);
         }

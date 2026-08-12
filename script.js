@@ -1,195 +1,16 @@
 /* ================================================================
-   CLOUDYMEADOW - MAIN ENGINE (HERO PROFILE VERSION - FIXED)
+   VANGUARD THEME - ENGINE v8.0 (ANTI-TRICK DISCORD AUTH)
    ================================================================ */
-
-let tempDiscordUser = null; // Biến tạm lưu thông tin Discord
 
 document.addEventListener("DOMContentLoaded", () => {
     initParticles();
     initSocials();
     applyTexts();
     fetchStatus();
-    checkDiscordAuthSystem();
+    checkDiscordAuth(); // Khởi tạo và kiểm tra trạng thái hiển thị IP tinh chỉnh chống trick
 });
 
-// --- DISCORD AUTH & PROFILE SYSTEM ---
-function loginWithDiscord() {
-    if (typeof config === "undefined" || !config.discordAuth?.clientId) {
-        alert("Lỗi: Chưa cấu hình Client ID Discord trong config.js!");
-        return;
-    }
-    const redirectUri = window.location.origin + window.location.pathname;
-    const scope = encodeURIComponent("identify");
-    const discordAuthUrl = `https://discord.com/oauth2/authorize?client_id=${config.discordAuth.clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=${scope}`;
-
-    window.location.href = discordAuthUrl;
-}
-
-function checkDiscordAuthSystem() {
-    const savedUser = localStorage.getItem("discord_user");
-    const savedProfile = localStorage.getItem("player_profile");
-
-    if (savedUser && savedProfile) {
-        unlockWebsite(JSON.parse(savedUser), JSON.parse(savedProfile));
-    } else {
-        const hashParams = new URLSearchParams(window.location.hash.substring(1));
-        const accessToken = hashParams.get("access_token");
-
-        if (accessToken) {
-            fetch("https://discord.com/api/users/@me", {
-                headers: { Authorization: `Bearer ${accessToken}` }
-            })
-            .then(res => res.json())
-            .then(userData => {
-                if (userData.id) {
-                    tempDiscordUser = userData;
-                    document.getElementById("login-overlay").style.display = "none";
-                    document.getElementById("info-modal").style.display = "flex"; // Hiện Form nhập info
-                    window.history.replaceState({}, document.title, window.location.pathname);
-                }
-            })
-            .catch(err => console.error("Lỗi xác thực Discord:", err));
-        }
-    }
-}
-
-// Lưu thông tin người chơi khi nhập vào Modal Form
-function savePlayerInfo() {
-    const ignInput = document.getElementById("player-ign-input");
-    const ignValue = ignInput ? ignInput.value.trim() : "";
-
-    if (!ignValue) {
-        alert("Vui lòng nhập Tên Trong Game (IGN) của bạn!");
-        return;
-    }
-
-    const profileData = {
-        ign: ignValue,
-        gender: "Người chơi",
-        specialty: "Thành viên"
-    };
-
-    // Lưu thông tin vào LocalStorage
-    localStorage.setItem("discord_user", JSON.stringify(tempDiscordUser));
-    localStorage.setItem("player_profile", JSON.stringify(profileData));
-
-    // Gửi log chứa đầy đủ thông tin về Webhook Discord
-    sendLogToDiscordWebhook(tempDiscordUser, profileData);
-
-    // Mở khóa giao diện
-    document.getElementById("info-modal").style.display = "none";
-    unlockWebsite(tempDiscordUser, profileData);
-}
-
-function sendLogToDiscordWebhook(user, profile) {
-    if (!config.discordAuth?.webhookUrl) return;
-
-    const displayName = user.global_name || user.username;
-    const avatarUrl = user.avatar 
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
-        : "https://cdn.discordapp.com/embed/avatars/0.png";
-
-    const webhookData = {
-        embeds: [
-            {
-                title: "🎮 Người dùng mới đăng nhập Website!",
-                color: 15844367, // Màu vàng
-                thumbnail: { url: avatarUrl },
-                fields: [
-                    { name: "Tên Trong Game (IGN)", value: `\`${profile.ign}\``, inline: true },
-                    { name: "Discord", value: `**${displayName}** (@${user.username})`, inline: true },
-                    { name: "Discord ID", value: `\`${user.id}\``, inline: true },
-                    { name: "Thời Gian", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
-                ],
-                footer: { text: "CloudyMeadow Access System" }
-            }
-        ]
-    };
-
-    fetch(config.discordAuth.webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(webhookData)
-    }).catch(err => console.error("Lỗi gửi Webhook:", err));
-}
-
-// Bật / Tắt Dropdown Menu ở Hero Header
-function toggleUserDropdown(event) {
-    event.stopPropagation();
-    const dropdown = document.getElementById("profile-dropdown-menu");
-    const arrow = document.getElementById("dropdown-arrow");
-
-    if (!dropdown) return;
-
-    const isOpen = dropdown.style.display === "flex";
-    dropdown.style.display = isOpen ? "none" : "flex";
-
-    if (arrow) {
-        arrow.style.transform = isOpen ? "rotate(0deg)" : "rotate(180deg)";
-    }
-}
-
-// Đóng Dropdown khi bấm ra ngoài
-document.addEventListener("click", (e) => {
-    const profileBox = document.getElementById("hero-user-profile");
-    const dropdown = document.getElementById("profile-dropdown-menu");
-    const arrow = document.getElementById("dropdown-arrow");
-
-    if (profileBox && !profileBox.contains(e.target)) {
-        if (dropdown) dropdown.style.display = "none";
-        if (arrow) arrow.style.transform = "rotate(0deg)";
-    }
-});
-
-function unlockWebsite(user, profile) {
-    const loginOverlay = document.getElementById("login-overlay");
-    const infoModal = document.getElementById("info-modal");
-    
-    // Đồng bộ ID thẻ chính với HTML (main-app)
-    const mainContent = document.getElementById("main-app") || document.getElementById("main-content");
-
-    if (loginOverlay) loginOverlay.style.display = "none";
-    if (infoModal) infoModal.style.display = "none";
-    if (mainContent) mainContent.style.display = "block";
-
-    const displayName = user ? (user.global_name || user.username) : "GUEST";
-    const avatarUrl = user && user.avatar 
-        ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
-        : "https://cdn.discordapp.com/embed/avatars/0.png";
-
-    // Cập nhật dữ liệu vào Hero Profile
-    const avatarEl = document.getElementById("hero-user-avatar");
-    const nameEl = document.getElementById("hero-user-name");
-    const ignEl = document.getElementById("hero-user-ign");
-    const detailsEl = document.getElementById("hero-user-details");
-
-    if (avatarEl) avatarEl.src = avatarUrl;
-    if (nameEl) nameEl.innerText = displayName;
-    if (ignEl) ignEl.innerText = profile ? profile.ign : "";
-    if (detailsEl) detailsEl.innerText = profile ? `${profile.gender} • ${profile.specialty}` : "";
-
-    // Cập nhật dữ liệu thanh User Menu
-    const menuAvatar = document.getElementById("menu-user-avatar");
-    const menuName = document.getElementById("menu-user-name");
-    const menuIgn = document.getElementById("menu-user-ign");
-
-    if (menuAvatar) menuAvatar.src = avatarUrl;
-    if (menuName) menuName.innerText = displayName;
-    if (menuIgn) menuIgn.innerText = profile ? profile.ign : "";
-
-    const ipDisplay = document.getElementById('ip-display');
-    if (ipDisplay && typeof config !== "undefined") ipDisplay.innerText = config.serverIp;
-}
-
-function logoutDiscord() {
-    localStorage.removeItem("discord_user");
-    localStorage.removeItem("player_profile");
-    window.location.reload();
-}
-
-// --- LOGIC GIAO DIỆN CỦA SERVER ---
 function applyTexts() {
-    if (typeof config === "undefined") return;
     const ui = config.interface;
 
     if(ui) {
@@ -203,6 +24,7 @@ function applyTexts() {
         }
 
         if(ui.hero) {
+            setText('hero-subtitle', ui.hero.subtitle);
             setText('hero-btn-copy', ui.hero.btn_copy);
             setText('hero-online', ui.hero.online);
         }
@@ -274,29 +96,79 @@ function applyTexts() {
             logoText.innerHTML = `<span>${config.serverName}</span>`;
         }
     }
-
+    
     setText('footer-name', config.serverName);
-
+    
     const logo = document.getElementById('hero-logo-img');
     if(config.serverLogo && logo) logo.src = config.serverLogo;
 }
 
+// --- LOGIC KIỂM TRA CHỐNG TRICK LỎ ---
+function checkDiscordAuth() {
+    // Thu thập nguồn gốc trang trước đó xem có phải chuyển hướng ngược từ Discord về không
+    const referrer = document.referrer.toLowerCase();
+    
+    // Nếu người dùng đi từ discord.com quay trở lại, lập tức kích hoạt trạng thái mở khóa vĩnh viễn
+    if (referrer.includes('discord.com')) {
+        localStorage.setItem("cm_verified_ip", "true");
+    }
+
+    const isVerified = localStorage.getItem("cm_verified_ip");
+    const loginBox = document.getElementById('auth-login-box');
+    const loadingBox = document.getElementById('auth-loading-box');
+    const successBox = document.getElementById('auth-success-box');
+    const ipDisplay = document.getElementById('ip-display');
+
+    if (ipDisplay) ipDisplay.innerText = config.serverIp;
+
+    if (isVerified === "true") {
+        // Trạng thái 3: Đã xác thực thực tế -> Mở khối hiện IP công khai
+        if(loginBox) loginBox.style.display = 'none';
+        if(loadingBox) loadingBox.style.display = 'none';
+        if(successBox) successBox.style.display = 'flex';
+    } else {
+        // Trạng thái 1: Chưa xác thực -> Bắt buộc hiện nút Đăng nhập
+        if(loginBox) loginBox.style.display = 'flex';
+        if(loadingBox) loadingBox.style.display = 'none';
+        if(successBox) successBox.style.display = 'none';
+    }
+}
+
+// HÀM CLICK: XÓA TRANG HIỆN TẠI - ĐÈ LỜI MỜI DISCORD LÊN NGAY LẬP TỨC
+function loginWithDiscord() {
+    const errorMsg = document.getElementById('auth-error-msg');
+
+    if (!config.social || !config.social.discord) {
+        if(errorMsg) {
+            errorMsg.innerText = "Lỗi: Không tìm thấy link Discord trong config.js!";
+            errorMsg.style.display = "block";
+        }
+        return;
+    }
+
+    // Tuyệt đối KHÔNG lưu localStorage ở đây để chặn đứng hành vi nhấn xong tắt tab.
+    // Thực hiện xóa hoàn toàn lịch sử trang hiện tại và nạp thẳng link mời Discord vào cửa sổ này.
+    window.location.replace(config.social.discord);
+}
+
+// Hành động sao chép IP khi ở Trạng thái 3
 function copyIp() {
     const actionText = document.getElementById('hero-btn-copy');
     const successBox = document.getElementById('auth-success-box');
 
-    if (!actionText || !successBox || typeof config === "undefined") return;
-
+    if (!actionText || !successBox) return;
+    
     navigator.clipboard.writeText(config.serverIp).then(() => {
         successBox.classList.add('copied');
         actionText.innerText = "ĐÃ COPY!";
         setTimeout(() => {
             successBox.classList.remove('copied');
-            actionText.innerText = config.interface?.hero?.btn_copy || "SAO CHÉP IP";
+            actionText.innerText = config.interface?.hero?.btn_copy || "SAO CHÉP";
         }, 2000);
     });
 }
 
+// --- XỬ LÝ CHUYỂN ĐỔI TAB CHÍNH SÁCH ---
 function openLegal(tabName) {
     const contents = document.querySelectorAll('.l-content');
     contents.forEach(content => content.classList.remove('active'));
@@ -311,6 +183,7 @@ function openLegal(tabName) {
     if (targetTab) targetTab.classList.add('active');
 }
 
+// --- HÀM BỔ TRỢ HỆ THỐNG CƠ BẢN ---
 function setText(id, value) {
     const el = document.getElementById(id);
     if (el && value !== undefined) el.innerText = value;
@@ -327,34 +200,29 @@ function toggleFaq(element) {
 }
 
 function initSocials() {
-    if (typeof config === "undefined" || !config.social || !document.getElementById('social-container')) return;
-
+    if (!config.social || !document.getElementById('social-container')) return;
+    
     let html = '';
     if(config.social.discord) html += `<a href="${config.social.discord}" target="_blank" class="social-icon"><i class="fab fa-discord"></i></a>`;
     if(config.social.tiktok) html += `<a href="${config.social.tiktok}" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>`;
     if(config.social.youtube) html += `<a href="${config.social.youtube}" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>`;
-
+    
     document.getElementById('social-container').innerHTML = html;
 }
 
-// Lấy trạng thái máy chủ chuẩn qua API Minetools
 function fetchStatus() {
     const countEl = document.getElementById('player-count');
-    if (!countEl || typeof config === "undefined") return;
-
-    const cleanIp = config.serverIp.replace(':', '/');
-    fetch(`https://api.minetools.eu/ping/${cleanIp}`)
+    if (!countEl) return;
+    fetch(`https://api.mcsrvstat.us/2/${config.serverIp}`)
         .then(res => res.json())
         .then(data => {
-            if (data && data.players) {
+            if (data.online && data.players) {
                 countEl.innerText = data.players.online;
             } else {
                 countEl.innerText = "0";
             }
         })
-        .catch(() => { 
-            countEl.innerText = "0"; 
-        });
+        .catch(() => { countEl.innerText = "0"; });
 }
 
 function initParticles() {
@@ -382,14 +250,14 @@ function initParticles() {
 }
 
 /* ================================================================
-   FLOATING SUPPORT WIDGET ENGINE
+   CLOUDYMEADOW FLOATING SUPPORT WIDGET ENGINE (ES6)
    ================================================================ */
 (() => {
     document.addEventListener("DOMContentLoaded", () => {
         const widget = document.getElementById("cm-widget-container");
         const toggleBtn = document.getElementById("cm-widget-toggle");
         const menu = document.getElementById("cm-widget-menu");
-
+        
         if (!widget || !toggleBtn || !menu) return;
 
         let isDragging = false;
@@ -486,7 +354,7 @@ function initParticles() {
             }
 
             widget.style.left = `${targetLeft}px`;
-
+            
             setTimeout(() => {
                 localStorage.setItem("cm_widget_x", targetLeft);
                 localStorage.setItem("cm_widget_y", rect.top);

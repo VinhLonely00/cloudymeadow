@@ -106,6 +106,7 @@
             align-items: flex-start;
             justify-content: space-between;
             gap: 12px;
+            padding-right: 45px; /* Dành khoảng trống cho huy hiệu cấp tối đa ở góc */
         }
 
         .enchant-name {
@@ -142,6 +143,22 @@
         .tier-huyenthoai { background: rgba(255, 170, 0, 0.15); color: #ffaa00; border: 1px solid rgba(255, 170, 0, 0.5); }
         .tier-thanthoai { background: rgba(255, 85, 85, 0.2); color: #ff5555; border: 1px solid #ff5555; box-shadow: 0 0 8px rgba(255, 85, 85, 0.3); }
 
+        /* Huy hiệu cấp độ tối đa góc trên bên phải */
+        .max-level-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(126, 194, 235, 0.15);
+            border: 1px solid rgba(126, 194, 235, 0.4);
+            color: #7ec2eb;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
         .enchant-desc {
             color: #e0e0e0;
             font-family: 'Inter', sans-serif;
@@ -151,8 +168,9 @@
 
         @media (max-width: 768px) {
             .enchant-section { padding: 100px 15px 40px; }
-            .enchant-title { flex-direction: column; align-items: flex-start; gap: 8px; }
+            .enchant-title { flex-direction: column; align-items: flex-start; gap: 8px; padding-right: 0; }
             .tier-tag { min-width: auto; width: auto; }
+            .max-level-badge { top: 12px; right: 12px; }
         }
     </style>
 </head>
@@ -187,6 +205,7 @@
         <div class="enchant-grid">
             <!-- Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Gặm Nhấm <span class="enchant-item-target">(Swords, Axes)</span></span> 
                     <span class="tier-tag tier-hiem">Hiếm</span>
@@ -195,6 +214,7 @@
             </div>
             <!-- Siêu Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Đại Kiếm <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -202,6 +222,7 @@
                 <p class="enchant-desc">Tăng mạnh sát thương lên kẻ đang giương/cầm Cung.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Cuồng Kiếm <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -209,6 +230,7 @@
                 <p class="enchant-desc">Tăng thêm sát thương cho các đòn đánh chí mạng.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Nam Châm <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -216,6 +238,7 @@
                 <p class="enchant-desc">Kéo/hút người chơi bị đánh về phía bản thân.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Bất Thân <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -224,6 +247,7 @@
             </div>
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Bối Rối <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -231,6 +255,7 @@
                 <p class="enchant-desc">Tỉ lệ gây hiệu ứng buồn nôn/mờ màn hình cho đối thủ.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Hồi Phục Ẩn Núp <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -238,6 +263,7 @@
                 <p class="enchant-desc">Khi rời giao tranh 10s sẽ tự hồi máu từ từ.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Thanh Tẩy <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -246,6 +272,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Hút Máu <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -253,6 +280,7 @@
                 <p class="enchant-desc">Tỉ lệ hút máu trực tiếp khi đánh.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Mạch Máu Cổ Báo <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -260,6 +288,7 @@
                 <p class="enchant-desc">Đánh trúng 3 đòn liên tiếp, đòn thứ 4 gia tăng tầm đánh xa hơn.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Sát Phạt <span class="enchant-item-target">(Swords, Axes)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -267,6 +296,7 @@
                 <p class="enchant-desc">Tăng sát thương ngẫu nhiên lên mob thù địch.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX II</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Xương Sống Thép <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -274,6 +304,7 @@
                 <p class="enchant-desc">Đánh sau lưng đối thủ nhận ngay Sức Mạnh II trong 10 giây.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Lướt Kiếm Xuyên Thấu <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -282,6 +313,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Cuồng Bão <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -289,6 +321,7 @@
                 <p class="enchant-desc">Ngồi + Chuột phải: Tăng 50% sát thương nhưng nhận thêm 30% sát thương.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Nuốt Chửng Linh Hồn <span class="enchant-item-target">(Swords)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -302,6 +335,7 @@
         <div class="enchant-grid">
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Man Rợ <span class="enchant-item-target">(Axes)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -309,6 +343,7 @@
                 <p class="enchant-desc">Tăng sát thương khi dùng Rìu tấn công.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Bổ Bổ Bổ <span class="enchant-item-target">(Axes)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -316,6 +351,7 @@
                 <p class="enchant-desc">Khi nhảy đánh chí mạng tạo sóng chấn động gây sát thương diện rộng.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Cuồng Phong Đẩy Lùi <span class="enchant-item-target">(Axes)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -324,6 +360,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Hù Dọa <span class="enchant-item-target">(Axes)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -331,6 +368,7 @@
                 <p class="enchant-desc">Tỉ lệ biến Mũ của đối thủ thành Bí Ngô trong vài giây.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Triệt Phế Khiên <span class="enchant-item-target">(Axes)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -344,6 +382,7 @@
         <div class="enchant-grid">
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Cây Gậy To Bự <span class="enchant-item-target">(Mace)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -351,6 +390,7 @@
                 <p class="enchant-desc">Nội tại: Cầm Mace trên tay miễn nhiễm hoàn toàn bật lùi.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Giảm Cân Thần Tốc <span class="enchant-item-target">(Mace)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -359,6 +399,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Thiên Phạt <span class="enchant-item-target">(Mace)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -366,6 +407,7 @@
                 <p class="enchant-desc">Đập từ trên cao (Chí mạng) gọi thiên lôi giáng xuống mục tiêu.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">U Đầu <span class="enchant-item-target">(Mace)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -373,6 +415,7 @@
                 <p class="enchant-desc">Đòn chí mạng bằng Mace có cơ hội làm đối thủ đứng im.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Cuồng Phong Vung <span class="enchant-item-target">(Mace)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -381,6 +424,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Sóng Gây Nhiễu <span class="enchant-item-target">(Mace)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -394,6 +438,7 @@
         <div class="enchant-grid">
             <!-- Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Ghim Mục Tiêu <span class="enchant-item-target">(Spear)</span></span> 
                     <span class="tier-tag tier-hiem">Hiếm</span>
@@ -402,6 +447,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Lôi Thần <span class="enchant-item-target">(Spear)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -409,6 +455,7 @@
                 <p class="enchant-desc">Đâm trúng đối thủ gọi sấm sét giáng xuống và gây thêm 50% sát thương!</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Xung Phong <span class="enchant-item-target">(Spear)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -417,6 +464,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Diệt Thế <span class="enchant-item-target">(Spear)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -424,6 +472,7 @@
                 <p class="enchant-desc">Đâm trúng đối thủ sẽ xóa sạch toàn bộ các hiệu ứng có lợi đang có của đối phương.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Diệt Sinh <span class="enchant-item-target">(Spear)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -437,6 +486,7 @@
         <div class="enchant-grid">
             <!-- Siêu Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Sát Thần Biển Cả <span class="enchant-item-target">(Trident)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -444,6 +494,7 @@
                 <p class="enchant-desc">Đâm/ném trúng khiến đối phương nhận hiệu ứng Độc & Buồn nôn trong số giây.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Nam Châm Biển Cả <span class="enchant-item-target">(Trident)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -452,6 +503,7 @@
             </div>
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Lao Nhân <span class="enchant-item-target">(Trident)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -460,6 +512,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Dứt Điểm <span class="enchant-item-target">(Trident)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -467,6 +520,7 @@
                 <p class="enchant-desc">Đánh hoặc ném trúng 2 lần, đòn thứ ba tạo 2 lần sét đánh xuống mục tiêu.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Cuồng Kích <span class="enchant-item-target">(Trident)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -480,6 +534,7 @@
         <div class="enchant-grid">
             <!-- Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Băng Tiêm <span class="enchant-item-target">(Bow)</span></span> 
                     <span class="tier-tag tier-hiem">Hiếm</span>
@@ -488,6 +543,7 @@
             </div>
             <!-- Siêu Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Xạ Thủ <span class="enchant-item-target">(Bow, Crossbow, Trident)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -496,6 +552,7 @@
             </div>
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Mưa Tên <span class="enchant-item-target">(Bow)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -503,6 +560,7 @@
                 <p class="enchant-desc">Bắn trúng có tỉ lệ x3 sát thương.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Bắn Tỉa <span class="enchant-item-target">(Bow)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -510,6 +568,7 @@
                 <p class="enchant-desc">Khoảng cách bắn càng xa, sát thương gây ra càng mạnh.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Tên Thần <span class="enchant-item-target">(Bow, Crossbow)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -523,6 +582,7 @@
         <div class="enchant-grid">
             <!-- Siêu Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Xạ Thủ Nỏ <span class="enchant-item-target">(Crossbow)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -531,6 +591,7 @@
             </div>
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Độc Xuyên Tâm <span class="enchant-item-target">(Crossbow)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -539,6 +600,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Bắn Liên Thanh <span class="enchant-item-target">(Crossbow)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -546,6 +608,7 @@
                 <p class="enchant-desc">Bắn trúng mục tiêu sẽ khiến lần nạp đạn tiếp theo cực nhanh.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Bộc Sóng Đẩy <span class="enchant-item-target">(Crossbow)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -554,6 +617,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Xuyên Giáp <span class="enchant-item-target">(Crossbow)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -567,6 +631,7 @@
         <div class="enchant-grid">
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Tê Liệt <span class="enchant-item-target">(Fishing Rod)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -574,6 +639,7 @@
                 <p class="enchant-desc">Móc trúng đối phương sẽ gây hiệu ứng Làm Chậm / Choáng trong 3 giây.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Hấp Thụ <span class="enchant-item-target">(Shield)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -582,6 +648,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Kéo Giật <span class="enchant-item-target">(Fishing Rod)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -589,6 +656,7 @@
                 <p class="enchant-desc">Móc phao câu trúng đối phương sẽ kéo thẳng mục tiêu về phía bạn với lực cực mạnh.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Hất Văng <span class="enchant-item-target">(Shield)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -597,6 +665,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Phản Đòn <span class="enchant-item-target">(Shield)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -610,6 +679,7 @@
         <div class="enchant-grid">
             <!-- Thường -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Nung Nóng <span class="enchant-item-target">(Pickaxes, Shovels)</span></span> 
                     <span class="tier-tag tier-thuong">Thường</span>
@@ -617,6 +687,7 @@
                 <p class="enchant-desc">Có cơ hội nung chảy khoáng sản.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Thần Tốc Khai Phá <span class="enchant-item-target">(Tools)</span></span> 
                     <span class="tier-tag tier-thuong">Thường</span>
@@ -624,6 +695,7 @@
                 <p class="enchant-desc">Có tỉ lệ nhận hiệu ứng đào nhanh khi phá vỡ các khối.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Kinh Nghiệm <span class="enchant-item-target">(Pickaxes)</span></span> 
                     <span class="tier-tag tier-thuong">Thường</span>
@@ -632,6 +704,7 @@
             </div>
             <!-- Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Tái Canh Tác <span class="enchant-item-target">(Hoes)</span></span> 
                     <span class="tier-tag tier-hiem">Hiếm</span>
@@ -639,6 +712,7 @@
                 <p class="enchant-desc">Tự trồng lại sau khi đập nông sản chín.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Thu Gom <span class="enchant-item-target">(Tools)</span></span> 
                     <span class="tier-tag tier-hiem">Hiếm</span>
@@ -647,6 +721,7 @@
             </div>
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Thần Nông <span class="enchant-item-target">(Hoes)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -655,6 +730,7 @@
             </div>
             <!-- Thần Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">3x3 <span class="enchant-item-target">(Pickaxes, Shovels)</span></span> 
                     <span class="tier-tag tier-thanthoai">Thần Thoại</span>
@@ -668,6 +744,7 @@
         <div class="enchant-grid">
             <!-- Siêu Hiếm -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Lò Xo <span class="enchant-item-target">(Boots)</span></span> 
                     <span class="tier-tag tier-sieuhiem">Siêu Hiếm</span>
@@ -676,6 +753,7 @@
             </div>
             <!-- Sử Thi -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Né Đòn <span class="enchant-item-target">(Armor)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -683,6 +761,7 @@
                 <p class="enchant-desc">Có cơ hội né đòn đánh của đối thủ, cơ hội tăng lên khi đi rón rén.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Dinh Dưỡng <span class="enchant-item-target">(Helmets)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -690,6 +769,7 @@
                 <p class="enchant-desc">Có tỉ lệ phục hồi thức ăn cứ sau vài giây.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Mềm Dẻo <span class="enchant-item-target">(Boots)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -697,6 +777,7 @@
                 <p class="enchant-desc">Có tỉ lệ chặn sát thương rơi.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Gia Cố <span class="enchant-item-target">(Elytra)</span></span> 
                     <span class="tier-tag tier-suthi">Sử Thi</span>
@@ -705,6 +786,7 @@
             </div>
             <!-- Huyền Thoại -->
             <div class="enchant-card">
+                <span class="max-level-badge">MAX III</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Quá Tải <span class="enchant-item-target">(Armor)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -712,6 +794,7 @@
                 <p class="enchant-desc">Tăng thêm máu tối đa cho bạn.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX I</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Nham Hành <span class="enchant-item-target">(Boots)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>
@@ -719,6 +802,7 @@
                 <p class="enchant-desc">Đi trên dung nham.</p>
             </div>
             <div class="enchant-card">
+                <span class="max-level-badge">MAX II</span>
                 <div class="enchant-title">
                     <span class="enchant-name">Thủy Chiến <span class="enchant-item-target">(Boots)</span></span> 
                     <span class="tier-tag tier-huyenthoai">Huyền Thoại</span>

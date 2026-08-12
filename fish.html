@@ -245,41 +245,55 @@
     </footer>
 
     <script>
+        // Mảng dữ liệu chứa sẵn đường dẫn ảnh tĩnh (img)
         const items = [
-            { id: 1, name: "Pháo Chùm", desc: "Bắn ra chùm đạn gây sát thương diện rộng." },
-            { id: 2, name: "Pháo Hạt Nhân", desc: "Tạo vụ nổ lớn công suất cao." },
-            { id: 3, name: "Bộ đồ da (giảm sát thương ngang netherit)", desc: "Tăng giáp bảo vệ tương đương giáp Netherite." },
-            { id: 4, name: "Tất cả các loại động vật", desc: "Các loài sinh vật hiền lành, triệu hồi/thu phục." },
-            { id: 5, name: "Tất cả các loại quái vật (trừ boss)", desc: "Các sinh vật hung dữ, thử thách người chơi." },
-            { id: 6, name: "Vanilla", desc: "Vật phẩm gốc mặc định." },
-            { id: 7, name: "Nhân Ngư", desc: "Tăng khả năng bơi lội và thở dưới nước." },
-            { id: 8, name: "Spiderman", desc: "Bắn tơ, leo tường và di chuyển nhanh." },
-            { id: 9, name: "Point", desc: "Điểm thưởng dùng để đổi quà/nâng cấp." },
-            { id: 10, name: "Các loại quặng (trừ netherit)", desc: "Khoáng sản dùng để chế tạo thiết bị, công cụ." }
+            { id: 1, name: "Pháo Chùm", desc: "Bắn ra chùm đạn gây sát thương diện rộng.", img: "images/Chum.png" },
+            { id: 2, name: "Pháo Hạt Nhân", desc: "Tạo vụ nổ lớn công suất cao.", img: "images/Nuke.png" },
+            { id: 3, name: "Bộ đồ da (giảm sát thương ngang netherit)", desc: "Tăng giáp bảo vệ tương đương giáp Netherite.", img: "images/Giapping.png" },
+            { id: 4, name: "Tất cả các loại động vật", desc: "Các loài sinh vật hiền lành, triệu hồi/thu phục.", img: "images/Animal.png" },
+            { id: 5, name: "Tất cả các loại quái vật (trừ boss)", desc: "Các sinh vật hung dữ, thử thách người chơi.", img: "images/Monster.png" },
+            { id: 6, name: "Vanilla", desc: "Vật phẩm gốc mặc định.", img: "images/vanilla.png" },
+            { id: 7, name: "Nhân Ngư", desc: "Tăng khả năng bơi lội và thở dưới nước.", img: "images/nhanngu.png" },
+            { id: 8, name: "Spiderman", desc: "Bắn tơ, leo tường và di chuyển nhanh.", img: "images/Spiderman.png" },
+            { id: 9, name: "Point", desc: "Điểm thưởng dùng để đổi quà/nâng cấp.", img: "images/point.png" },
+            { id: 10, name: "Các loại quặng (trừ netherit)", desc: "Khoáng sản dùng để chế tạo thiết bị, công cụ.", img: "images/ores.png" }
         ];
+
+        let isLocked = {};
+        let imageData = {};
 
         const tbody = document.querySelector('.fish-table tbody');
 
         items.forEach(item => {
             const tr = document.createElement('tr');
+            
+            // Kiểm tra xem item có sẵn đường dẫn ảnh không
+            const hasImg = Boolean(item.img);
+            const imgSrc = item.img || '';
+
             tr.innerHTML = `
                 <td style="text-align: center;">${item.id}</td>
                 <td><strong>${item.name}</strong></td>
                 <td>${item.desc}</td>
                 <td style="text-align: center;">
-                    <div class="image-upload-box" id="box-${item.id}" onclick="handleBoxClick(${item.id})">
-                        <i class="fas fa-cloud-upload-alt" id="icon-${item.id}"></i>
-                        <span class="btn-label" id="label-${item.id}">Kéo thả ảnh<br>hoặc Nhấp vào</span>
-                        <img id="preview-${item.id}" class="image-preview">
+                    <div class="image-upload-box" id="box-${item.id}" onclick="handleBoxClick(${item.id})" style="${hasImg ? 'border-style: solid;' : ''}">
+                        <i class="fas fa-cloud-upload-alt" id="icon-${item.id}" style="${hasImg ? 'display:none;' : ''}"></i>
+                        <span class="btn-label" id="label-${item.id}" style="${hasImg ? 'display:none;' : ''}">Kéo thả ảnh<br>hoặc Nhấp vào</span>
+                        <img id="preview-${item.id}" class="image-preview" src="${imgSrc}" style="${hasImg ? 'display:block;' : ''}">
                     </div>
                     <input type="file" id="file-${item.id}" accept="image/*" style="display:none;" onchange="handleFileSelect(event, ${item.id})">
                     <div class="action-btns" id="controls-${item.id}">
-                        <button class="btn-action btn-change" style="display:none;" onclick="triggerFileInput(${item.id})">Đổi ảnh</button>
-                        <button class="btn-action btn-save" style="display:none;" onclick="lockItem(${item.id})">Lưu khóa</button>
+                        <button class="btn-action btn-change" style="${hasImg ? 'display:inline-block;' : 'display:none;'}" onclick="triggerFileInput(${item.id})">Đổi ảnh</button>
+                        <button class="btn-action btn-save" style="${hasImg ? 'display:inline-block;' : 'display:none;'}" onclick="lockItem(${item.id})">Lưu khóa</button>
                     </div>
                 </td>
             `;
             tbody.appendChild(tr);
+
+            // Lưu sẵn đường dẫn ảnh vào bộ nhớ tạm
+            if (hasImg) {
+                imageData[item.id] = item.img;
+            }
 
             // Gắn sự kiện Kéo & Thả (Drag & Drop)
             setTimeout(() => {
@@ -301,9 +315,7 @@
             }, 0);
         });
 
-        let isLocked = {};
-        let imageData = {};
-
+        // Xử lý khi bấm vào khung ảnh: Nếu đã có ảnh thì Phóng to Full, chưa có thì chọn tệp
         function handleBoxClick(id) {
             if (imageData[id]) {
                 openFullImg(imageData[id]);
@@ -337,12 +349,10 @@
                 img.src = imageData[id];
                 img.style.display = 'block';
 
-                // Ẩn văn bản & icon kéo thả khi đã chọn ảnh
                 label.style.display = 'none';
                 icon.style.display = 'none';
                 box.style.borderStyle = 'solid';
 
-                // Hiển thị các nút thao tác "Đổi ảnh" & "Lưu khóa"
                 const controls = document.getElementById(`controls-${id}`);
                 controls.querySelectorAll('button').forEach(btn => btn.style.display = 'inline-block');
             };
@@ -356,7 +366,6 @@
             const box = document.getElementById(`box-${id}`);
             box.style.borderColor = 'rgba(255, 255, 255, 0.2)';
 
-            // Khóa lại và chỉ cho phép nhấp vào để xem Full ảnh
             const controls = document.getElementById(`controls-${id}`);
             controls.innerHTML = '<span style="color:#2ecc71; font-size:0.75rem; font-weight:600;"><i class="fas fa-lock"></i> Đã khóa</span>';
         }

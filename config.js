@@ -3,10 +3,16 @@
    ================================================================ */
 
 const config = {
+    // 0. CẤU HÌNH DISCORD AUTH & WEBHOOK (Thêm mới)
+    discordAuth: {
+        clientId: "PASTE_CLIENT_ID_CỦA_BẠN_VÀO_ĐÂY", 
+        webhookUrl: "PASTE_URL_DISCORD_WEBHOOK_VÀO_ĐÂY" 
+    },
+
     // 1. INFO SERVIDOR
     serverName: "CloudyMeadow",
     serverIp: "cloudymeadow.sytes.net",
-    serverLogo: "logo.png", // Đảm bảo file logo.png nằm cùng thư mục
+    serverLogo: "logo.png",
 
     // 2. REDES SOCIALES
     social: {
@@ -18,16 +24,16 @@ const config = {
         youtube: "https://www.youtube.com/@servermc_00"
     },
 
-    // 3. ĐÃ BỎ TRANG VOTE LINK (Xóa trắng danh sách)
+    // 3. VOTE LINK
     voteLinks: [],
 
     // 4. CONTENIDO (Việt Nam)
     content: {
-    // --- STAFF ---
+        // --- STAFF ---
         staff: [
             { 
                 name: "VinhLonely00", 
-                skinName: "Drewusalem", // Đã cập nhật tên Premium để lấy skin
+                skinName: "Drewusalem", 
                 role: "OWNER", 
                 bio: "Quản lý & Phát triển toàn bộ hệ thống server."
             },
@@ -38,7 +44,7 @@ const config = {
             },
             { 
                 name: "Hellaoo", 
-                skinName: "glammyduck32", // Đã cập nhật tên Premium để lấy skin
+                skinName: "glammyduck32", 
                 role: "HELPER", 
                 bio: "Hỗ trợ người chơi, giải đáp thắc mắc & Săn lùng bug game."
             }
@@ -46,33 +52,17 @@ const config = {
 
         // --- REGLAS (Luật Server) ---
         rules: [
-            { 
-                title: "1. Tôn Trọng Lẫn Nhau", desc: "Không văng tục, xúc phạm, phân biệt chủng tộc hoặc toxic với người chơi khác và Staff."
-            },
-            { 
-                title: "2. Không Hack / Cheats", desc: "Nghiêm cấm dùng client hack (Xray, Fly, KillAura...). Vi phạm là ăn BAN vĩnh viễn không giải thích."
-            },
-            { 
-                title: "3. Không Spam / Quảng Cáo", desc: "Vui lòng không spam chat, viết hoa vô tội vạ hoặc chèo kéo quảng cáo server khác."
-            },
-            { 
-                title: "4. Bảo Mật Tài Khoản", desc: "Tự bảo quản mật khẩu của mình. Staff không bao giờ đòi hỏi mật khẩu của bạn."
-            },
-            { 
-                title: "5. Nghiêm Cấm Lạm Dụng Bug", desc: "Gặp lỗi game thì báo Helper Hellaoo nhận thưởng, cố tinh lạm dụng trục lợi là ăn phạt nặng."
-            },
-            { 
-                title: "6. Không Phá Hoại (Grief)", desc: "Không được đập phá công trình của người khác trong vùng đất đã được claim bảo vệ."
-            },
-            { 
-                title: "7. Skin & Tên Hợp Lệ", desc: "Không đặt tên nhân vật hoặc sử dụng skin có nội dung phản cảm, đồi trụy hoặc chính trị."
-            },
-            { 
-                title: "8. Quyết Định Của Staff", desc: "Quyết định cuối cùng thuộc về BQT. Cãi cùn hay gây sự công khai sẽ nhận vé phạt bonus."
-            }
+            { title: "1. Tôn Trọng Lẫn Nhau", desc: "Không văng tục, xúc phạm, phân biệt chủng tộc hoặc toxic với người chơi khác và Staff." },
+            { title: "2. Không Hack / Cheats", desc: "Nghiêm cấm dùng client hack (Xray, Fly, KillAura...). Vi phạm là ăn BAN vĩnh viễn không giải thích." },
+            { title: "3. Không Spam / Quảng Cáo", desc: "Vui lòng không spam chat, viết hoa vô tội vạ hoặc chèo kéo quảng cáo server khác." },
+            { title: "4. Bảo Mật Tài Khoản", desc: "Tự bảo quản mật khẩu của mình. Staff không bao giờ đòi hỏi mật khẩu của bạn." },
+            { title: "5. Nghiêm Cấm Lạm Dụng Bug", desc: "Gặp lỗi game thì báo Helper Hellaoo nhận thưởng, cố tinh lạm dụng trục lợi là ăn phạt nặng." },
+            { title: "6. Không Phá Hoại (Grief)", desc: "Không được đập phá công trình của người khác trong vùng đất đã được claim bảo vệ." },
+            { title: "7. Skin & Tên Hợp Lệ", desc: "Không đặt tên nhân vật hoặc sử dụng skin có nội dung phản cảm, đồi trụy hoặc chính trị." },
+            { title: "8. Quyết Định Của Staff", desc: "Quyết định cuối cùng thuộc về BQT. Cãi cùn hay gây sự công khai sẽ nhận vé phạt bonus." }
         ],
 
-        // --- HỒI SINH FAQ THÀNH LỆNH SERVER & CÁCH CHƠI ---
+        // --- FAQ ---
         faq: [
             { 
                 q: "📌 Cách Đăng Ký / Đăng Nhập (Register/Login)", 
@@ -145,6 +135,7 @@ const config = {
                     </div>`
             }
         ],
+
         // --- VĂN BẢN PHÁP LÝ ---
         legal: {
             tos: `
@@ -178,7 +169,7 @@ const config = {
         }
     },
 
-    // 5. INTERFAZ (Giao diện hiển thị tiếng Việt phẳng)
+    // 5. INTERFAZ
     interface: {
         flag: "vn", 
         name: "Tiếng Việt",

@@ -11,7 +11,7 @@ const config = {
 
     // 1. INFO SERVIDOR
     serverName: "CloudyMeadow",
-    serverIp: "cloudymeadow.sytes.net",
+    serverIp: "cloudymeadow.sytes.net:55555",
     serverLogo: "logo.png",
 
     // 2. REDES SOCIALES

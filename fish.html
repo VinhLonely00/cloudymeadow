@@ -59,14 +59,13 @@
             transition: background 0.2s ease;
         }
 
-        /* Ô chứa ảnh dạng Drag & Drop / Nhấp Vào */
-        .image-upload-box {
+        /* Ô chứa ảnh hiển thị sẵn */
+        .image-preview-box {
             width: 100px;
             height: 75px;
-            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
@@ -78,63 +77,39 @@
             padding: 4px;
         }
 
-        /* Khi di chuột vào sẽ chuyển sang MÀU ĐỎ */
-        .image-upload-box:hover {
-            border-color: #ff4d4d;
-            background: rgba(255, 77, 77, 0.1);
+        .image-preview-box:hover {
+            border-color: #7ec2eb;
+            transform: scale(1.03);
         }
 
-        .image-upload-box i {
-            font-size: 1.1rem;
-            color: #e0e0e0;
-            margin-bottom: 3px;
-            transition: color 0.25s ease;
-        }
-
-        .image-upload-box .btn-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #e0e0e0;
-            transition: color 0.25s ease;
-            text-align: center;
-            line-height: 1.2;
-            user-select: none;
-        }
-
-        /* Đổi màu icon và chữ thành MÀU ĐỎ khi hover */
-        .image-upload-box:hover i,
-        .image-upload-box:hover .btn-label {
-            color: #ff4d4d;
-        }
-
-        /* Kích thước ảnh xem trước */
         .image-preview {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: none;
+            border-radius: 4px;
         }
 
-        .action-btns {
-            margin-top: 8px;
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .btn-action {
+        /* Nút Nhấp vào để xem */
+        .btn-view {
+            margin-top: 6px;
+            background: transparent;
+            color: #7ec2eb;
+            border: 1px solid rgba(126, 194, 235, 0.4);
             padding: 4px 8px;
             font-size: 0.7rem;
-            border: none;
             border-radius: 4px;
             cursor: pointer;
             font-weight: 600;
-            transition: opacity 0.2s;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
 
-        .btn-change { background: #e67e22; color: #fff; }
-        .btn-save { background: #2ecc71; color: #fff; }
-        .btn-action:hover { opacity: 0.85; }
+        .btn-view:hover {
+            background: #7ec2eb;
+            color: #141414;
+        }
 
         /* Modal Phóng To Ảnh Full */
         .full-img-modal {
@@ -245,7 +220,7 @@
     </footer>
 
     <script>
-        // Mảng dữ liệu chứa sẵn đường dẫn ảnh tĩnh (img)
+        // Danh sách vật phẩm cố định kèm đường dẫn ảnh
         const items = [
             { id: 1, name: "Pháo Chùm", desc: "Bắn ra chùm đạn gây sát thương diện rộng.", img: "images/Chum.png" },
             { id: 2, name: "Pháo Hạt Nhân", desc: "Tạo vụ nổ lớn công suất cao.", img: "images/Nuke.png" },
@@ -259,116 +234,25 @@
             { id: 10, name: "Các loại quặng (trừ netherit)", desc: "Khoáng sản dùng để chế tạo thiết bị, công cụ.", img: "images/ores.png" }
         ];
 
-        let isLocked = {};
-        let imageData = {};
-
         const tbody = document.querySelector('.fish-table tbody');
 
         items.forEach(item => {
             const tr = document.createElement('tr');
-            
-            // Kiểm tra xem item có sẵn đường dẫn ảnh không
-            const hasImg = Boolean(item.img);
-            const imgSrc = item.img || '';
-
             tr.innerHTML = `
                 <td style="text-align: center;">${item.id}</td>
                 <td><strong>${item.name}</strong></td>
                 <td>${item.desc}</td>
                 <td style="text-align: center;">
-                    <div class="image-upload-box" id="box-${item.id}" onclick="handleBoxClick(${item.id})" style="${hasImg ? 'border-style: solid;' : ''}">
-                        <i class="fas fa-cloud-upload-alt" id="icon-${item.id}" style="${hasImg ? 'display:none;' : ''}"></i>
-                        <span class="btn-label" id="label-${item.id}" style="${hasImg ? 'display:none;' : ''}">Kéo thả ảnh<br>hoặc Nhấp vào</span>
-                        <img id="preview-${item.id}" class="image-preview" src="${imgSrc}" style="${hasImg ? 'display:block;' : ''}">
+                    <div class="image-preview-box" onclick="openFullImg('${item.img}')">
+                        <img class="image-preview" src="${item.img}" alt="${item.name}">
                     </div>
-                    <input type="file" id="file-${item.id}" accept="image/*" style="display:none;" onchange="handleFileSelect(event, ${item.id})">
-                    <div class="action-btns" id="controls-${item.id}">
-                        <button class="btn-action btn-change" style="${hasImg ? 'display:inline-block;' : 'display:none;'}" onclick="triggerFileInput(${item.id})">Đổi ảnh</button>
-                        <button class="btn-action btn-save" style="${hasImg ? 'display:inline-block;' : 'display:none;'}" onclick="lockItem(${item.id})">Lưu khóa</button>
-                    </div>
+                    <button class="btn-view" onclick="openFullImg('${item.img}')">
+                        <i class="fas fa-search-plus"></i> Nhấp vào để xem
+                    </button>
                 </td>
             `;
             tbody.appendChild(tr);
-
-            // Lưu sẵn đường dẫn ảnh vào bộ nhớ tạm
-            if (hasImg) {
-                imageData[item.id] = item.img;
-            }
-
-            // Gắn sự kiện Kéo & Thả (Drag & Drop)
-            setTimeout(() => {
-                const box = document.getElementById(`box-${item.id}`);
-                box.addEventListener('dragover', (e) => { 
-                    e.preventDefault(); 
-                    box.style.borderColor = '#ff4d4d'; 
-                });
-                box.addEventListener('dragleave', () => { 
-                    box.style.borderColor = 'rgba(255, 255, 255, 0.3)'; 
-                });
-                box.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    box.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                    if (!isLocked[item.id] && e.dataTransfer.files && e.dataTransfer.files[0]) {
-                        processImage(e.dataTransfer.files[0], item.id);
-                    }
-                });
-            }, 0);
         });
-
-        // Xử lý khi bấm vào khung ảnh: Nếu đã có ảnh thì Phóng to Full, chưa có thì chọn tệp
-        function handleBoxClick(id) {
-            if (imageData[id]) {
-                openFullImg(imageData[id]);
-            } else if (!isLocked[id]) {
-                triggerFileInput(id);
-            }
-        }
-
-        function triggerFileInput(id) {
-            if (!isLocked[id]) {
-                document.getElementById(`file-${id}`).click();
-            }
-        }
-
-        function handleFileSelect(e, id) {
-            if (e.target.files && e.target.files[0]) {
-                processImage(e.target.files[0], id);
-            }
-        }
-
-        function processImage(file, id) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imageData[id] = e.target.result;
-                
-                const box = document.getElementById(`box-${id}`);
-                const img = document.getElementById(`preview-${id}`);
-                const label = document.getElementById(`label-${id}`);
-                const icon = document.getElementById(`icon-${id}`);
-                
-                img.src = imageData[id];
-                img.style.display = 'block';
-
-                label.style.display = 'none';
-                icon.style.display = 'none';
-                box.style.borderStyle = 'solid';
-
-                const controls = document.getElementById(`controls-${id}`);
-                controls.querySelectorAll('button').forEach(btn => btn.style.display = 'inline-block');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function lockItem(id) {
-            isLocked[id] = true;
-            document.getElementById(`file-${id}`).disabled = true;
-
-            const box = document.getElementById(`box-${id}`);
-            box.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-
-            const controls = document.getElementById(`controls-${id}`);
-            controls.innerHTML = '<span style="color:#2ecc71; font-size:0.75rem; font-weight:600;"><i class="fas fa-lock"></i> Đã khóa</span>';
-        }
 
         function openFullImg(src) {
             document.getElementById('fullImgTarget').src = src;

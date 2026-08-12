@@ -6,15 +6,13 @@
     <title>CloudyMeadow - EcoChill</title>
     
     <link rel="icon" href="favicon.png" type="image/png">
-
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 1. MÀN HÌNH KHÓA ĐĂNG NHẬP (Hiển thị khi chưa Auth) -->
+    <!-- 1. MÀN HÌNH KHÓA ĐĂNG NHẬP DISCORD -->
     <div id="login-overlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0b0e14; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;">
         <img src="logo.png" alt="Logo" style="width: 120px; height: auto;">
         <h2 style="color: #fff; font-family: 'Oswald', sans-serif; letter-spacing: 1px;">CLOUDYMEADOW ACCESS</h2>
@@ -25,7 +23,46 @@
         </button>
     </div>
 
-    <!-- 2. NỘI DUNG TRANG WEB CHÍNH (Tự động ẩn đến khi Auth xong) -->
+    <!-- 2. FORM BẮT BUỘC NHẬP THÔNG TIN (Mới) -->
+    <div id="info-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(11, 14, 20, 0.95); z-index: 100000; align-items: center; justify-content: center;">
+        <div style="background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 30px; width: 90%; max-width: 420px; color: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.5);">
+            <h3 style="font-family: 'Oswald', sans-serif; font-size: 1.5rem; text-align: center; margin-bottom: 5px; color: #f1c40f;">THÔNG TIN NGƯỜI CHƠI</h3>
+            <p style="color: #8b949e; font-size: 0.85rem; text-align: center; margin-bottom: 20px;">Vui lòng hoàn tất thông tin để vào website</p>
+
+            <form id="player-info-form" onsubmit="submitPlayerInfo(event)" style="display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #c9d1d9;">Tên Trong Game (IGN):</label>
+                    <input type="text" id="ign-input" required placeholder="Nhập tên nhân vật Minecraft..." style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #fff; outline: none; box-sizing: border-box;">
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #c9d1d9;">Giới Tính:</label>
+                    <select id="gender-select" required style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #fff; outline: none; box-sizing: border-box;">
+                        <option value="">-- Chọn giới tính --</option>
+                        <option value="Nam">Nam</option>
+                        <option value="Nữ">Nữ</option>
+                        <option value="Khác">Khác / Thích Giấu</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 5px; color: #c9d1d9;">Sở Trường / Chuyên Môn:</label>
+                    <select id="specialty-select" required style="width: 100%; padding: 10px; background: #0d1117; border: 1px solid #30363d; border-radius: 6px; color: #fff; outline: none; box-sizing: border-box;">
+                        <option value="">-- Chọn chuyên môn --</option>
+                        <option value="Build (Xây Dựng)">Build (Xây Dựng)</option>
+                        <option value="PvP (Đánh Nhau)">PvP (Đánh Nhau)</option>
+                        <option value="Nói Chuyện / Giao Lưu">Nói Chuyện / Giao Lưu</option>
+                    </select>
+                </div>
+
+                <button type="submit" style="margin-top: 10px; background: #238636; color: #fff; border: none; padding: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s;">
+                    HOÀN TẤT & TRUY CẬP
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 3. NỘI DUNG TRANG WEB CHÍNH -->
     <div id="main-content" style="display: none;">
 
         <div class="particles-container" id="particles"></div>
@@ -43,11 +80,17 @@
                 <li><a href="enchant.html" id="nav-enchant" style="color: #7ec2eb; font-weight: 700; text-transform: uppercase;">Phù Phép</a></li>
             </ul>
 
-            <!-- Khung Avatar + Tên + Nút Đăng Xuất trên Menu -->
+            <!-- Khung User Profile hiển thị đầy đủ thông tin -->
             <div id="user-profile-bar" style="display: flex; align-items: center; gap: 10px; margin-left: 15px;">
-                <img id="menu-user-avatar" src="" style="width: 35px; height: 35px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
-                <span id="menu-user-name" style="color: #fff; font-weight: 600; font-size: 0.9rem;"></span>
-                <button onclick="logoutDiscord()" style="background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 1px solid #ff4d4d; padding: 4px 10px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: bold;">Thoát</button>
+                <img id="menu-user-avatar" src="" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid #5865F2; object-fit: cover;">
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <span id="menu-user-name" style="color: #fff; font-weight: 600; font-size: 0.85rem;"></span>
+                        <span id="menu-user-ign" style="color: #f1c40f; font-size: 0.75rem; background: rgba(241, 196, 15, 0.15); padding: 1px 6px; border-radius: 4px;"></span>
+                    </div>
+                    <span id="menu-user-details" style="color: #8b949e; font-size: 0.7rem;"></span>
+                </div>
+                <button onclick="logoutDiscord()" style="background: rgba(255, 77, 77, 0.2); color: #ff4d4d; border: 1px solid #ff4d4d; padding: 4px 8px; border-radius: 5px; cursor: pointer; font-size: 0.75rem; font-weight: bold; margin-left: 5px;">Thoát</button>
             </div>
         </nav>
 
@@ -55,7 +98,6 @@
             <img src="logo.png" alt="Logo" class="hero-logo" id="hero-logo-img">
             <p class="hero-subtitle" id="hero-subtitle">Đang tải...</p>
 
-            <!-- KHU VỰC COPY IP SAU KHINH ĐÃ XÁC THỰC -->
             <div id="discord-auth-section">
                 <div id="auth-success-box" class="ip-wrapper" onclick="copyIp()" style="display: flex;">
                     <div class="ip-content">

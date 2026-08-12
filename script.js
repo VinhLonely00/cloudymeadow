@@ -1,16 +1,18 @@
 /* ================================================================
-   VANGUARD THEME - ENGINE (AUTHENTICATED VERSION)
+   VANGUARD THEME - ENGINE (AUTHENTICATED & PROFILE VERSION)
    ================================================================ */
+
+let tempDiscordUser = null; // Biến tạm lưu thông tin Discord
 
 document.addEventListener("DOMContentLoaded", () => {
     initParticles();
     initSocials();
     applyTexts();
     fetchStatus();
-    checkDiscordAuthSystem(); // Xử lý đăng nhập Discord
+    checkDiscordAuthSystem();
 });
 
-// --- TÍNH NĂNG ĐĂNG NHẬP DISCORD & WEBHOOK ---
+// --- DISCORD AUTH & PROFILE SYSTEM ---
 function loginWithDiscord() {
     if (!config.discordAuth?.clientId) {
         alert("Lỗi: Chưa cấu hình Client ID Discord trong config.js!");
@@ -25,9 +27,10 @@ function loginWithDiscord() {
 
 function checkDiscordAuthSystem() {
     const savedUser = localStorage.getItem("discord_user");
+    const savedProfile = localStorage.getItem("player_profile");
 
-    if (savedUser) {
-        unlockWebsite(JSON.parse(savedUser));
+    if (savedUser && savedProfile) {
+        unlockWebsite(JSON.parse(savedUser), JSON.parse(savedProfile));
     } else {
         const hashParams = new URLSearchParams(window.location.hash.substring(1));
         const accessToken = hashParams.get("access_token");
@@ -39,9 +42,9 @@ function checkDiscordAuthSystem() {
             .then(res => res.json())
             .then(userData => {
                 if (userData.id) {
-                    localStorage.setItem("discord_user", JSON.stringify(userData));
-                    sendLogToDiscordWebhook(userData);
-                    unlockWebsite(userData);
+                    tempDiscordUser = userData;
+                    document.getElementById("login-overlay").style.display = "none";
+                    document.getElementById("info-modal").style.display = "flex"; // Hiện Form nhập info
                     window.history.replaceState({}, document.title, window.location.pathname);
                 }
             })
@@ -50,7 +53,29 @@ function checkDiscordAuthSystem() {
     }
 }
 
-function sendLogToDiscordWebhook(user) {
+function submitPlayerInfo(event) {
+    event.preventDefault();
+    if (!tempDiscordUser) return;
+
+    const profileData = {
+        ign: document.getElementById("ign-input").value.trim(),
+        gender: document.getElementById("gender-select").value,
+        specialty: document.getElementById("specialty-select").value
+    };
+
+    // Lưu thông tin vào LocalStorage
+    localStorage.setItem("discord_user", JSON.stringify(tempDiscordUser));
+    localStorage.setItem("player_profile", JSON.stringify(profileData));
+
+    // Gửi log chứa đầy đủ thông tin về Webhook Discord
+    sendLogToDiscordWebhook(tempDiscordUser, profileData);
+
+    // Mở khóa giao diện
+    document.getElementById("info-modal").style.display = "none";
+    unlockWebsite(tempDiscordUser, profileData);
+}
+
+function sendLogToDiscordWebhook(user, profile) {
     if (!config.discordAuth?.webhookUrl) return;
 
     const displayName = user.global_name || user.username;
@@ -63,14 +88,16 @@ function sendLogToDiscordWebhook(user) {
         avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
         embeds: [
             {
-                title: "🌐 Người dùng truy cập Website!",
-                color: 5763719,
+                title: "🎮 Người dùng mới đăng nhập Website!",
+                color: 15844367, // Màu vàng nổi bật
                 thumbnail: { url: avatarUrl },
                 fields: [
-                    { name: "Tên hiển thị", value: `**${displayName}**`, inline: true },
-                    { name: "Username Discord", value: `@${user.username}`, inline: true },
-                    { name: "ID Discord", value: `\`${user.id}\``, inline: false },
-                    { name: "Thời gian", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
+                    { name: "Tên Trong Game (IGN)", value: `\`${profile.ign}\``, inline: true },
+                    { name: "Giới Tính", value: profile.gender, inline: true },
+                    { name: "Chuyên Môn", value: profile.specialty, inline: true },
+                    { name: "Discord", value: `**${displayName}** (@${user.username})`, inline: true },
+                    { name: "Discord ID", value: `\`${user.id}\``, inline: true },
+                    { name: "Thời Gian", value: `<t:${Math.floor(Date.now() / 1000)}:F>`, inline: false }
                 ],
                 footer: { text: "CloudyMeadow Access System" }
             }
@@ -84,11 +111,13 @@ function sendLogToDiscordWebhook(user) {
     }).catch(err => console.error("Lỗi gửi Webhook:", err));
 }
 
-function unlockWebsite(user) {
+function unlockWebsite(user, profile) {
     const loginOverlay = document.getElementById("login-overlay");
+    const infoModal = document.getElementById("info-modal");
     const mainContent = document.getElementById("main-content");
 
     if (loginOverlay) loginOverlay.style.display = "none";
+    if (infoModal) infoModal.style.display = "none";
     if (mainContent) mainContent.style.display = "block";
 
     const displayName = user.global_name || user.username;
@@ -96,11 +125,16 @@ function unlockWebsite(user) {
         ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png` 
         : "https://cdn.discordapp.com/embed/avatars/0.png";
 
+    // Cập nhật thông tin lên Menu Bar
     const menuAvatar = document.getElementById("menu-user-avatar");
     const menuName = document.getElementById("menu-user-name");
+    const menuIgn = document.getElementById("menu-user-ign");
+    const menuDetails = document.getElementById("menu-user-details");
 
     if (menuAvatar) menuAvatar.src = avatarUrl;
     if (menuName) menuName.innerText = displayName;
+    if (menuIgn) menuIgn.innerText = profile.ign;
+    if (menuDetails) menuDetails.innerText = `${profile.gender} • ${profile.specialty}`;
 
     const ipDisplay = document.getElementById('ip-display');
     if (ipDisplay) ipDisplay.innerText = config.serverIp;
@@ -108,10 +142,11 @@ function unlockWebsite(user) {
 
 function logoutDiscord() {
     localStorage.removeItem("discord_user");
+    localStorage.removeItem("player_profile");
     window.location.reload();
 }
 
-// --- LOGIC HỆ THỐNG GIAO DIỆN CŨ ---
+// --- LOGIC GIAO DIỆN CỦA SERVER ---
 function applyTexts() {
     const ui = config.interface;
 
@@ -301,7 +336,7 @@ function initParticles() {
 }
 
 /* ================================================================
-   CLOUDYMEADOW FLOATING SUPPORT WIDGET ENGINE (ES6)
+   FLOATING SUPPORT WIDGET ENGINE
    ================================================================ */
 (() => {
     document.addEventListener("DOMContentLoaded", () => {

@@ -11,7 +11,12 @@ const config = {
 
     // 1. INFO SERVIDOR
     serverName: "CloudyMeadow",
-    serverIp: "cloudymeadow.sytes.net:55555",
+    // Khai báo IP riêng cho từng nền tảng
+    serverIpPC: "cloudymeadow.sytes.net:55555",
+    serverIpPE: "cloudymeadow.sytes.net (Port: 19132)",
+    
+    // IP dùng để hiển thị sơ lược trên trang web
+    serverIp: "cloudymeadow.sytes.net",
     serverLogo: "logo.png",
 
     // 2. REDES SOCIALES

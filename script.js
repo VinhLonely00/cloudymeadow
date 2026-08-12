@@ -84,12 +84,11 @@ function sendLogToDiscordWebhook(user, profile) {
         : "https://cdn.discordapp.com/embed/avatars/0.png";
 
     const webhookData = {
-        username: "Website Access Log",
-        avatar_url: "https://cdn.discordapp.com/embed/avatars/0.png",
+        // Đã xóa 'username' và 'avatar_url' để Discord tự lấy Tên & Avatar gốc của Bot
         embeds: [
             {
                 title: "🎮 Người dùng mới đăng nhập Website!",
-                color: 15844367, // Màu vàng nổi bật
+                color: 15844367, // Màu vàng
                 thumbnail: { url: avatarUrl },
                 fields: [
                     { name: "Tên Trong Game (IGN)", value: `\`${profile.ign}\``, inline: true },

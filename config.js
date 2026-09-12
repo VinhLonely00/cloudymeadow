@@ -6,7 +6,7 @@ const config = {
     // 0. CẤU HÌNH DISCORD AUTH & WEBHOOK (Thêm mới)
     discordAuth: {
         clientId: "1520479106062614810", 
-        webhookUrl: "https://discord.com/api/webhooks/1537062368729632830/J14oN7ecUrpKug2wumloxb91IYShzivqFRGixZORg-lzyZIGjwIv3D8LlKSXW0q35FBn" 
+        webhookUrl: "https://discord.com/api/webhooks/1548351295675564032/U4E7sZqDAA4_ZANx_dnsRFTDtfzsffaSyvGps_9DPtHLOKKrsE-y6G3nAMv0yZWNYNFz" 
     },
 
     // 1. INFO SERVIDOR
